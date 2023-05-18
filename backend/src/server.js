@@ -1,11 +1,17 @@
+import CatRoute from './router/cat.route.js';
+import { ConnectDB } from './config/connect.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-import mongoose from 'mongoose';
 import morgan from 'morgan';
 import postRouter from './routes/posts.routes';
 import swaggerJsdoc from 'swagger-jsdoc';
+import { swaggerOptions } from './config/swagger.js';
 import swaggerUi from 'swagger-ui-express';
+
+/* port */
+dotenv.config();
+const port = process.env.PORT || 3000;
 
 /* config */
 const app = express();
@@ -15,36 +21,21 @@ dotenv.config();
 app.use(morgan('common'));
 
 /* swagger */
-const options = {
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'Angular Blog API with Express',
-      version: '1.0.0',
-    },
-    servers: [
-      {
-        url: `http://localhost:${process.env.PORT}/api/v1`,
-      },
-    ],
-  },
-  apis: ['./src/routes/*.js', './src/models/*.js', './src/controllers/*.js'],
-};
-
-const openapiSpecification = swaggerJsdoc(options);
+const openapiSpecification = swaggerJsdoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification));
 
 /* routes */
 app.use('/api/v1/', postRouter);
 
 /* db */
-mongoose
-  .connect('mongodb://127.0.0.1:27017/angular_blog', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log('DB connected'))
-  .catch(() => console.log('DB connection error'));
+ConnectDB();
+
+/* router */
+
+app.use('/api/Categories', CatRoute);
 
 /* server */
+app.listen(port, () => {
+  console.log('Port is running at: ' + port);
+});
 export const viteNodeApp = app;
