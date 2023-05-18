@@ -1,9 +1,13 @@
+import CatRoute from './router/cat.route.js';
+import { ConnectDB } from './config/connect.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-import { ConnectDB } from './config/connect.js';
 import morgan from 'morgan';
-import CatRoute from './router/cat.route.js';
+import postRouter from './routes/posts.routes';
+import swaggerJsdoc from 'swagger-jsdoc';
+import { swaggerOptions } from './config/swagger.js';
+import swaggerUi from 'swagger-ui-express';
 
 /* port */
 dotenv.config();
@@ -14,8 +18,14 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 dotenv.config();
-app.use(morgan('dev'));
+app.use(morgan('common'));
+
+/* swagger */
+const openapiSpecification = swaggerJsdoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification));
+
 /* routes */
+app.use('/api/v1/', postRouter);
 
 /* db */
 ConnectDB();
