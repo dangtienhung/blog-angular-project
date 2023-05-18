@@ -1,8 +1,13 @@
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-import mongoose from 'mongoose';
+import { ConnectDB } from './config/connect.js';
 import morgan from 'morgan';
+import CatRoute from './router/cat.route.js';
+
+/* port */
+dotenv.config();
+const port = process.env.PORT || 3000;
 
 /* config */
 const app = express();
@@ -13,13 +18,14 @@ app.use(morgan('dev'));
 /* routes */
 
 /* db */
-mongoose
-  .connect('mongodb://127.0.0.1:27017/angular_blog', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log('DB connected'))
-  .catch(() => console.log('DB connection error'));
+ConnectDB();
+
+/* router */
+
+app.use('/api/Categories', CatRoute);
 
 /* server */
+app.listen(port, () => {
+  console.log('Port is running at: ' + port);
+});
 export const viteNodeApp = app;
