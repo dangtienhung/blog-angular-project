@@ -37,6 +37,10 @@ const userSchema = new mongoose.Schema(
         ref: 'Post',
       },
     ],
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true, versionKey: false }
 );

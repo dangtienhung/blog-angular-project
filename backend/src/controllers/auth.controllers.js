@@ -3,6 +3,8 @@ import { authValidate, loginValidate } from '../validates/auth.validate.js';
 import User from '../models/users.models.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import nodemailer from 'nodemailer';
+import { sendVerificationEmail } from '../config/nodemailler.js';
 
 export const authController = {
   /* generate token */
@@ -40,7 +42,15 @@ export const authController = {
       if (!user) {
         return res.status(400).json({ message: 'Register failed' });
       }
-      return res.status(200).json({ message: 'Register successfully', user });
+      /* gennerate token */
+      const token = authController.generateToken(user);
+      /* mailer */
+      const linkToVerify = `http://localhost:8080/api/v1/auth/verify?token=${token}`;
+      const info = await sendVerificationEmail(user, linkToVerify);
+      if (!info) {
+        return res.status(400).json({ message: 'Send mail failed' });
+      }
+      return res.status(200).json({ message: 'Register successfully', accessToken: token, user });
     } catch (error) {
       return res.status(500).json({ message: 'Internal server error' });
     }
@@ -71,6 +81,37 @@ export const authController = {
         const { password, ...others } = useExits._doc;
         return res.status(200).json({ message: 'Login successfully', accessToken: token, user: others });
       }
+    } catch (error) {
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  },
+  /* verify */
+  verifyAccount: async (req, res) => {
+    try {
+      const token = req.query.token;
+      console.log('🚀 ~ file: auth.controllers.js:92 ~ verifyAccount: ~ token:', token);
+      if (!token) {
+        return res.status(400).json({ message: 'Token is required' });
+      }
+      /* verify token */
+      jwt.verify(token, process.env.TOKEN_SECRET, async (err, decoded) => {
+        if (err) {
+          return res.status(400).json({ message: 'Token is invalid' });
+        }
+        /* check user */
+        const userId = decoded._id;
+        const user = await User.findById({ _id: userId });
+        console.log('🚀 ~ file: auth.controllers.js:104 ~ jwt.verify ~ user:', user);
+        if (!user) {
+          return res.status(400).json({ message: 'User not found' });
+        }
+        /* update user */
+        const updateUser = await User.findByIdAndUpdate({ _id: userId }, { isVerified: true }, { new: true });
+        if (!updateUser) {
+          return res.status(400).json({ message: 'Update user failed' });
+        }
+        return res.status(200).json({ message: 'Verify account successfully' });
+      });
     } catch (error) {
       return res.status(500).json({ message: 'Internal server error' });
     }
