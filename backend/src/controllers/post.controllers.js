@@ -1,5 +1,5 @@
-import Post from '../models/posts.model';
-import { postValidate } from '../validates/posts.validate';
+import Post from '../models/posts.model.js';
+import { postValidate } from '../validates/posts.validate.js';
 
 export const postController = {
   /* create post */
@@ -22,22 +22,7 @@ export const postController = {
       return res.status(500).json({ message: 'Internal server error' });
     }
   },
-  /* get all post */
-  /**
-   *@swagger
-   * /posts:
-   *    get:
-   *      summary: Get all posts
-   *    responses:
-   *      200:
-   *        description: The list of posts
-   *       content:
-   *          application/json:
-   *           schema:
-   *              type: array
-   *              items:
-   *                $ref: '#/components/schemas/Post'
-   */
+  /* get all posts */
   getAllPosts: async (req, res) => {
     try {
       const { _page = 1, _limit = 10, q } = req.query;

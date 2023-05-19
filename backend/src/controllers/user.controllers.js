@@ -1,5 +1,5 @@
-import User from '../models/users.models';
-import { userValidate } from '../validates/users.validate';
+import User from '../models/users.models.js';
+import { userValidate } from '../validates/users.validate.js';
 
 export const userController = {
   /* get all user */
