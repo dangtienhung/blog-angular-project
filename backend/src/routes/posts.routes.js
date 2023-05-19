@@ -1,23 +1,8 @@
 import express from 'express';
-import { postController } from '../controllers/post.controllers';
+import { postController } from '../controllers/post.controllers.js';
 
 const router = express.Router();
 
-/**
- *@swagger
- * /posts:
- *    get:
- *      summary: Get all posts
- *    responses:
- *      200:
- *        description: The list of posts
- *       content:
- *          application/json:
- *           schema:
- *              type: array
- *              items:
- *                $ref: '#/components/schemas/Post'
- */
 router.post('/posts', postController.createPost);
 router.get('/posts', postController.getAllPosts);
 router.get('/posts/:id', postController.getPostById);
