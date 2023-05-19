@@ -1,4 +1,5 @@
 import Post from '../models/posts.model.js';
+import User from '../models/users.models.js';
 import { postValidate } from '../validates/posts.validate.js';
 
 export const postController = {
@@ -12,12 +13,22 @@ export const postController = {
         const errors = error.details.map((err) => err.message);
         return res.status(400).json({ message: errors });
       }
+      /* check users */
+      const authorId = body.author;
+      const user = await User.findById(authorId);
+      if (!user) {
+        return res.status(400).json({ message: 'User not found' });
+      }
       /* create post */
       const post = await Post.create(body);
       if (!post) {
         return res.status(400).json({ message: 'Create post failed' });
       }
-      return res.status(200).json({ message: 'Create post successfully' });
+      /* update user post */
+      await User.findByIdAndUpdate(authorId, {
+        $addToSet: { postList: post._id },
+      });
+      return res.status(200).json({ message: 'Create post successfully', post });
     } catch (error) {
       return res.status(500).json({ message: 'Internal server error' });
     }
@@ -30,15 +41,13 @@ export const postController = {
         page: _page,
         limit: _limit,
         sort: { createdAt: -1 },
+        populate: [{ path: 'author', select: '-postList -isVerified -role -password' }, { path: 'category' }],
       };
       const query = q
         ? {
             $and: [
               {
-                $or: [
-                  { title: { $regex: new RegExp(q), $options: 'i' } },
-                  { content: { $regex: new RegExp(q), $options: 'i' } },
-                ],
+                $or: [{ title: { $regex: q, $options: 'i' } }, { content: { $regex: q, $options: 'i' } }],
               },
               { deleted: false },
             ],
@@ -57,7 +66,10 @@ export const postController = {
   getPostById: async (req, res) => {
     try {
       const { id } = req.params;
-      const post = await Post.findById({ _id: id });
+      const post = await Post.findById({ _id: id }).populate([
+        { path: 'author', select: '-postList -isVerified -role -password' },
+        { path: 'category' },
+      ]);
       if (!post) {
         return res.status(400).json({ message: 'Get post by id failed' });
       }
@@ -77,11 +89,25 @@ export const postController = {
         const errors = error.details.map((err) => err.message);
         return res.status(400).json({ message: errors });
       }
+      /* check users */
+      const authorId = body.author;
+      const user = await User.findById(authorId);
+      if (!user) {
+        return res.status(400).json({ message: 'User not found' });
+      }
       /* update post */
       const post = await Post.findByIdAndUpdate({ _id: id }, body, { new: true });
       if (!post) {
         return res.status(400).json({ message: 'Update post failed' });
       }
+      /* delete user post */
+      await User.findByIdAndUpdate(authorId, {
+        $pull: { postList: post._id },
+      });
+      /* update user post */
+      await User.findByIdAndUpdate(authorId, {
+        $addToSet: { postList: post._id },
+      });
       return res.status(200).json({ message: 'Update post successfully', post });
     } catch (error) {
       return res.status(500).json({ message: 'Internal server error' });

@@ -15,10 +15,7 @@ export const userController = {
         ? {
             $and: [
               {
-                $or: [
-                  { username: { $regex: new RegExp(q), $options: 'i' } },
-                  { email: { $regex: new RegExp(q), $options: 'i' } },
-                ],
+                $or: [{ username: { $regex: q, $options: 'i' } }, { email: { $regex: q, $options: 'i' } }],
               },
               { deleted: false },
             ],

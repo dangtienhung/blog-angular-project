@@ -7,7 +7,7 @@ export const postValidate = joi.object({
     'string.min': 'Title should have a minimum length of {#limit}',
     'any.required': 'Title is required',
   }),
-  userId: joi.string().required().messages({
+  author: joi.string().required().messages({
     'string.base': 'User Id must be a string',
     'string.empty': 'User Id is not allowed to be empty',
     'any.required': 'User Id is required',
@@ -17,20 +17,11 @@ export const postValidate = joi.object({
     'string.empty': 'Content is not allowed to be empty',
     'any.required': 'Content is required',
   }),
-  images: joi
-    .array()
-    .items(
-      joi.string().required().messages({
-        'string.base': 'Images must be a string',
-        'string.empty': 'Images is not allowed to be empty',
-        'any.required': 'Images is required',
-      })
-    )
-    .messages({
-      'string.base': 'Images must be a string',
-      'string.empty': 'Images is not allowed to be empty',
-      'any.required': 'Images is required',
-    }),
+  images: joi.array().messages({
+    'string.base': 'Images must be a string',
+    'string.empty': 'Images is not allowed to be empty',
+    'any.required': 'Images is required',
+  }),
   likes: joi.number().default(0),
   category: joi.string().required().messages({
     'string.base': 'Category must be a string',
