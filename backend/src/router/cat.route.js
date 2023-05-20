@@ -5,10 +5,10 @@ import {
   getCategories,
   getItem,
   updateCategory,
-} from '../controller/Cat.controller.js';
+} from '../controllers/Cat.controller.js';
 
 const CatRoute = express.Router();
-CatRoute.route('/').get(getCategories).post(createCategory);
-CatRoute.route('/:id').get(getItem).delete(deleteCategory).put(updateCategory);
+CatRoute.route('/category').get(getCategories).post(createCategory);
+CatRoute.route('/category/:id').get(getItem).delete(deleteCategory).put(updateCategory);
 
 export default CatRoute;
