@@ -15,13 +15,14 @@ export const getCategories = async (req, res) => {
 
 export const getItem = async (req, res) => {
   try {
+    const { id } = req.params;
     const data = await Category.findById(id);
     if (!data) {
       return res.status(404).send({ message: 'fail', error: 'Ko tim thay Category' });
     }
     return res.status(200).send({ message: 'success', data: data });
   } catch (error) {
-    return res.status(500).send({ message: 'fail', error: 'Loi he thong' });
+    return res.status(500).send({ message: 'fail', error: error });
   }
 };
 
@@ -43,6 +44,7 @@ export const createCategory = async (req, res) => {
 
 export const updateCategory = async (req, res) => {
   try {
+    const { id } = req.params;
     const data = await Category.findByIdAndUpdate(id, req.body, { new: true });
     if (!data) {
       return res.status(404).send({ message: 'fail', error: 'Ko tim thay category de update' });
@@ -54,6 +56,7 @@ export const updateCategory = async (req, res) => {
 
 export const deleteCategory = async (req, res) => {
   try {
+    const { id } = req.params;
     const data = await Category.findByIdAndRemove(id);
     if (!data) {
       return res.status(404).send({ message: 'fail', error: 'Ko tim thay category de delete' });

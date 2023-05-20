@@ -1,0 +1,142 @@
+openapi: 3.0.3
+# swagger: '2.0'
+info:
+  title: This is my swagger UI Docs 123
+  description: this is my comapny documentation made by me
+  version: 1.0.0
+  contact:
+    email: giab8185@gmail.com
+  liscene:
+    name: Apache 2.0
+    url: 'http://apache.org'
+servers:
+  - url: '{protocol}://localhost:{port}/api/v1'
+    variables:
+      port:
+        enum:
+          - '8080'
+          - '3000'
+        default: '8080'
+      protocol:
+        enum:
+          - 'http'
+          - 'https'
+        default: 'http'
+tags:
+  - name: Category
+    description: All data of Category
+paths:
+  /category:
+    #get data:
+    get:
+      tags:
+        - Category
+      summary: get data of category
+      description: take data
+      responses:
+        200:
+          description: Success
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                _id:
+                  type: string
+                name:
+                  type: string
+    #post data:
+    post:
+      tags:
+        - Category
+      summary: post data to category
+      descripton: add data
+      operationId: Post data
+      requestBody:
+        description: add new an data to category
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+
+  /category/{id}:
+    get:
+      tags:
+        - Category
+      summary: get data by Id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+    put:
+      tags:
+        - Category
+      summary: Update item of category
+      parameters:
+        - in: path
+          name: id
+          desciption: Id of item from category need to be update
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Form add data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+      responses:
+        200:
+          description: Success
+          content:
+            application/jsonn:
+              schema:
+                $ref: '#/components/schemas/Category'
+    delete:
+      tags:
+        - Category
+      summary: delete item by id
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+
+components:
+  schemas:
+    Category:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+      xml:
+        name: Category
