@@ -1,5 +1,6 @@
 import Post from '../models/posts.model.js';
 import User from '../models/users.models.js';
+import commentsModel from '../models/comments.model.js';
 import { postValidate } from '../validates/posts.validate.js';
 
 export const postController = {
@@ -7,6 +8,7 @@ export const postController = {
   createPost: async (req, res) => {
     try {
       const body = req.body;
+      // console.log(req.user._id);
       /* validate */
       const { error } = postValidate.validate(body, { abortEarly: false });
       if (error) {
@@ -14,18 +16,18 @@ export const postController = {
         return res.status(400).json({ message: errors });
       }
       /* check users */
-      const authorId = body.author;
-      const user = await User.findById(authorId);
-      if (!user) {
-        return res.status(400).json({ message: 'User not found' });
-      }
+      // const authorId = body.author;
+      // const user = await User.findById(authorId);
+      // if (!user) {
+      //   return res.status(400).json({ message: 'User not found' });
+      // }
       /* create post */
       const post = await Post.create(body);
       if (!post) {
         return res.status(400).json({ message: 'Create post failed' });
       }
       /* update user post */
-      await User.findByIdAndUpdate(authorId, {
+      await User.findByIdAndUpdate(req.user._id, {
         $addToSet: { postList: post._id },
       });
       return res.status(200).json({ message: 'Create post successfully', post });
@@ -143,7 +145,11 @@ export const postController = {
   deletePost: async (req, res) => {
     try {
       const { id } = req.params;
-      const post = await Post.findByIdAndDelete({ _id: id });
+      const post = await Post.findByIdAndRemove(id);
+      await commentsModel.findOneAndRemove({ postId: post._id });
+      await User.findByIdAndUpdate(req.user._id, {
+        $pull: { postList: id },
+      });
       if (!post) {
         return res.status(400).json({ message: 'Delete post failed' });
       }

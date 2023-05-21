@@ -1,14 +1,15 @@
 import mongoose from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 const { Schema } = mongoose;
 const CommenentSchema = new Schema(
   {
-    userId: { type: Number },
-    postId: { type: Number },
+    userId: { type: Schema.Types.ObjectId, ref: 'User' },
+    postId: { type: Schema.Types.ObjectId, ref: 'Post' },
     content: { type: String },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true, versionKey: false }
 );
 
-export default mongoose.model('Comment', CommenentSchema);
+CommenentSchema.plugin(mongoosePaginate);
+
+export default mongoose.model('Comment', CommenentSchema, 'Comment');

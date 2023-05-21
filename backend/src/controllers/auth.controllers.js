@@ -9,7 +9,7 @@ import { sendVerificationEmail } from '../config/nodemailler.js';
 export const authController = {
   /* generate token */
   generateToken: (user) => {
-    return jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn: '1d' });
+    return jwt.sign({ _id: user._id, role: user.role }, process.env.TOKEN_SECRET, { expiresIn: '1d' });
   },
   /* refresh token */
   refreshToken: (user) => {
@@ -45,11 +45,11 @@ export const authController = {
       /* gennerate token */
       const token = authController.generateToken(user);
       /* mailer */
-      const linkToVerify = `http://localhost:8080/api/v1/auth/verify?token=${token}`;
-      const info = await sendVerificationEmail(user, linkToVerify);
-      if (!info) {
-        return res.status(400).json({ message: 'Send mail failed' });
-      }
+      // const linkToVerify = `http://localhost:8080/api/v1/auth/verify?token=${token}`;
+      // const info = await sendVerificationEmail(user, linkToVerify);
+      // if (!info) {
+      //   return res.status(400).json({ message: 'Send mail failed' });
+      // }
       return res.status(200).json({ message: 'Register successfully', accessToken: token, user });
     } catch (error) {
       return res.status(500).json({ message: 'Internal server error' });
