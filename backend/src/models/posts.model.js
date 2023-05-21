@@ -66,7 +66,7 @@ const postSchema = new mongoose.Schema(
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Category',
+      ref: 'Categories',
     },
     comments: [
       {
@@ -93,5 +93,5 @@ const postSchema = new mongoose.Schema(
 
 postSchema.plugin(mongoosePaginate);
 
-const Post = mongoose.model('Post', postSchema);
+const Post = mongoose.model('Post', postSchema, 'Post');
 export default Post;

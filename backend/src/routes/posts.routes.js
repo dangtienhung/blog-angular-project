@@ -1,15 +1,25 @@
 import express from 'express';
 import { postController } from '../controllers/post.controllers.js';
+import { authorUser } from '../middleware/author.js';
 
 const router = express.Router();
 
-router.post('/posts', postController.createPost);
-router.get('/posts', postController.getAllPosts);
-router.get('/posts/:id', postController.getPostById);
-router.put('/posts/:id', postController.updatePost);
-router.put('/posts/delete-fake/:id', postController.fakeDeletPost);
-router.put('/posts/restore/:id', postController.undoDeletePost);
-router.delete('/posts/:id', postController.deletePost);
+// Toi sua lai router cua ong 1 chut nhe
+// router.post('/posts', authorUser, postController.createPost);
+// router.get('/posts', postController.getAllPosts);
+// router.get('/posts/:id', postController.getPostById);
+// router.put('/posts/:id', postController.updatePost);
+// router.put('/posts/delete-fake/:id', postController.fakeDeletPost);
+// router.put('/posts/restore/:id', postController.undoDeletePost);
+// router.delete('/posts/:id', postController.deletePost);
+
+router.post('/', authorUser, postController.createPost);
+router.get('/', authorUser, postController.getAllPosts);
+router.get('/:id', authorUser, postController.getPostById);
+router.put('/:id', authorUser, postController.updatePost);
+router.put('/delete-fake/:id', authorUser, postController.fakeDeletPost);
+router.put('/restore/:id', authorUser, postController.undoDeletePost);
+router.delete('/:id', authorUser, postController.deletePost);
 
 export default router;
 
@@ -21,7 +31,8 @@ export default router;
  * /posts:
  *  get:
  *    summary: Returns the list of all the posts
- *    tags: [Posts]
+ *    tags:
+ *      - Posts
  *    responses:
  *      200:
  *        description: The list of the posts

@@ -28,20 +28,7 @@ export const postValidate = joi.object({
     'string.empty': 'Category is not allowed to be empty',
     'any.required': 'Category is required',
   }),
-  comments: joi
-    .array()
-    .items(
-      joi.string().required().messages({
-        'string.base': 'Comments must be a string',
-        'string.empty': 'Comments is not allowed to be empty',
-        'any.required': 'Comments is required',
-      })
-    )
-    .messages({
-      'string.base': 'Comments must be a string',
-      'string.empty': 'Comments is not allowed to be empty',
-      'any.required': 'Comments is required',
-    }),
+  comments: joi.array().items(joi.string()),
   is_active: joi.boolean().default(true),
   status: joi.string().valid('public', 'private').default('public'),
   deleted: joi.boolean().default(false),

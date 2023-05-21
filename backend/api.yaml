@@ -25,10 +25,18 @@ servers:
 tags:
   - name: Category
     description: All data of Category
+  - name: author
+    description: SignUp - SignIn
+  - name: Post_blog
+    description: create blog
+  - name: Comment_blog
+    description: Comment blog
 paths:
   /category:
     #get data:
     get:
+      # security:
+      #   - bearerAuth: [123]
       tags:
         - Category
       summary: get data of category
@@ -127,12 +135,202 @@ paths:
               schema:
                 $ref: '#/components/schemas/Category'
 
+  /sign-up:
+    post:
+      tags:
+        - author
+      summary: SignUp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignUp'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignUp'
+  /sign-in:
+    post:
+      tags:
+        - author
+      summary: SignIn
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignIn'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignIn'
+  /posts:
+    get:
+      tags:
+        - Post_blog
+      summary: get all blogs
+      responses:
+        200:
+          description: 'Success'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+    post:
+      tags:
+        - Post_blog
+      summary: Post blog
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+  /posts/{id}:
+    get:
+      tags:
+        - Post_blog
+      summary: get blog by id
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+    delete:
+      tags:
+        - Post_blog
+      summary: delete blog by id
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+  /comments:
+    get:
+      tags:
+        - Comment_blog
+      summary: get all comments
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Comments'
+    post:
+      tags:
+        - Comment_blog
+      summary: Send Comment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comments'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Comments'
+  /comments/{id}:
+    get:
+      tags:
+        - Comment_blog
+      summary: get Comment by Id
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Comments'
+    put:
+      tags:
+        - Comment_blog
+      summary: update comment by id in blog
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: string
+    delete:
+      tags:
+        - Comment_blog
+      summary: delete comment by id
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Comments'
+
 components:
   schemas:
     Category:
       type: object
       required:
         - name
+        - slug
       properties:
         name:
           type: string
@@ -140,3 +338,91 @@ components:
           type: string
       xml:
         name: Category
+    SignUp:
+      type: object
+      required:
+        - username
+        - email
+        - password
+        - confirmPassword
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        confirmPassword:
+          type: string
+    SignIn:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          default: giab@gmail.com
+        password:
+          type: string
+          default: 12345
+    Post:
+      type: object
+      required:
+        - title
+        - author
+        - content
+        - images
+        - category
+      properties:
+        title:
+          type: string
+        author:
+          type: string
+        content:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+            default: 'url'
+        likes:
+          type: integer
+          default: 0
+        category:
+          type: string
+        comments:
+          type: array
+          items:
+            type: string
+          default: []
+        is_active:
+          type: boolean
+          default: true
+        status:
+          type: string
+          default: 'public'
+        deleted:
+          type: boolean
+          default: false
+    Comments:
+      type: object
+      required:
+        - content
+      properties:
+        userId:
+          type: string
+        postId:
+          type: string
+        content:
+          type: string
+
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []
