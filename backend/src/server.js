@@ -1,6 +1,7 @@
 import CatRoute from './routes/cat.route.js';
 import { ConnectDB } from './config/connect.js';
 import authRouter from './routes/auth.routes.js';
+import commentRouter from './routes/comments.routes.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
@@ -35,6 +36,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerdocUI));
 app.use('/api/v1/posts', authors, postRouter);
 app.use('/api/v1', userRouter);
 app.use('/api/v1', authRouter);
+app.use('/api/v1', commentRouter);
 
 /* db */
 ConnectDB();
