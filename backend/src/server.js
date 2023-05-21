@@ -11,6 +11,7 @@ import swaggerJsdoc from 'swagger-jsdoc';
 import { swaggerOptions } from './config/swagger.js';
 import swaggerUi from 'swagger-ui-express';
 import userRouter from './routes/users.routes.js';
+import YAML from 'yamljs';
 
 /* port */
 dotenv.config();
@@ -24,8 +25,9 @@ dotenv.config();
 app.use(morgan('common'));
 
 /* swagger */
-const openapiSpecification = swaggerJsdoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification));
+// const openapiSpecification = swaggerJsdoc(swaggerOptions);
+const swaggerdocUI = YAML.load('./api.yaml'); //ong chay swagger ui cua ong thi comment dong nay nhe! (npm i yamljs)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerdocUI));
 
 /* routes */
 app.use('/api/v1/', postRouter);
@@ -36,9 +38,8 @@ app.use('/api/v1', commentRouter);
 /* db */
 ConnectDB();
 
-/* router */
-
-app.use('/api/Categories', CatRoute);
+/* router category*/
+app.use('/api/v1', CatRoute);
 
 /* server */
 app.listen(port, () => {
