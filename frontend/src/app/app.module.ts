@@ -11,6 +11,10 @@ import { FooterComponent } from './components/footer/footer.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
+import { SliderComponent } from './components/slider/slider.component';
+import { FeatureComponent } from './components/feature/feature.component';
+import { NewPostComponent } from './components/new-post/new-post.component';
+import { PostsComponent } from './components/posts/posts.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,10 @@ import { SignupPageComponent } from './pages/signup-page/signup-page.component';
     DashboardComponent,
     LoginPageComponent,
     SignupPageComponent,
+    SliderComponent,
+    FeatureComponent,
+    NewPostComponent,
+    PostsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],

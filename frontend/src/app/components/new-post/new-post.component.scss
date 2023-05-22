@@ -1,0 +1,23 @@
+.new-post-title::before {
+  content: "";
+  display: block;
+  width: 35px;
+  max-width: 35px;
+  height: 3px;
+  border-radius: 1px;
+  margin-bottom: 5px;
+  background: #00d1ed;
+}
+
+.row {
+  .left {
+    // padding-right: 20px !important;
+    margin-right: 20px !important;
+  }
+  .right {
+    background-color: #f3edff;
+    border-radius: 15px;
+    // padding-left: 20px !important;
+    margin-left: 20px !important;
+  }
+}
