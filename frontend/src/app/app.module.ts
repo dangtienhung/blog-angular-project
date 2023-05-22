@@ -22,6 +22,8 @@ import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { PostsDetailPageComponent } from './pages/posts-detail-page/posts-detail-page.component';
+import { RelatedPostsComponent } from './components/related-posts/related-posts.component';
+import { ContentDetailPostsComponent } from './components/content-detail-posts/content-detail-posts.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { PostsDetailPageComponent } from './pages/posts-detail-page/posts-detail
     NewPostComponent,
     PostsComponent,
     PostsDetailPageComponent,
+    RelatedPostsComponent,
+    ContentDetailPostsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
