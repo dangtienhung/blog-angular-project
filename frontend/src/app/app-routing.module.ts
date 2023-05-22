@@ -13,6 +13,7 @@ import { NgModule } from '@angular/core';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { PostsDetailPageComponent } from './pages/posts-detail-page/posts-detail-page.component';
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
 const routes: Routes = [
   {
@@ -39,6 +40,7 @@ const routes: Routes = [
       { path: 'manager-comments', component: ManagerCommentsComponent },
     ],
   },
+  { path: '**', component: NotFoundPageComponent },
 ];
 
 @NgModule({

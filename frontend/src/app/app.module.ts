@@ -24,6 +24,7 @@ import { PostsComponent } from './components/posts/posts.component';
 import { PostsDetailPageComponent } from './pages/posts-detail-page/posts-detail-page.component';
 import { RelatedPostsComponent } from './components/related-posts/related-posts.component';
 import { ContentDetailPostsComponent } from './components/content-detail-posts/content-detail-posts.component';
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { ContentDetailPostsComponent } from './components/content-detail-posts/c
     PostsDetailPageComponent,
     RelatedPostsComponent,
     ContentDetailPostsComponent,
+    NotFoundPageComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
