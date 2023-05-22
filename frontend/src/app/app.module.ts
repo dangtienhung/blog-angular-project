@@ -15,6 +15,7 @@ import { SliderComponent } from './components/slider/slider.component';
 import { FeatureComponent } from './components/feature/feature.component';
 import { NewPostComponent } from './components/new-post/new-post.component';
 import { PostsComponent } from './components/posts/posts.component';
+import { PostsDetailPageComponent } from './pages/posts-detail-page/posts-detail-page.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { PostsComponent } from './components/posts/posts.component';
     FeatureComponent,
     NewPostComponent,
     PostsComponent,
+    PostsDetailPageComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],

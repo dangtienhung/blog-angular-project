@@ -7,6 +7,7 @@ import { LayoutClientComponent } from './layouts/layout-client/layout-client.com
 import { NgModule } from '@angular/core';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
+import { PostsDetailPageComponent } from './pages/posts-detail-page/posts-detail-page.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: '', pathMatch: 'full' },
       { path: '', component: HomepageComponent },
+      { path: 'posts/:id', component: PostsDetailPageComponent },
     ],
   },
   { path: 'login', component: LoginPageComponent },
