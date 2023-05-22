@@ -16,6 +16,7 @@ import { ManagerTagsComponent } from './components/manager-tags/manager-tags.com
 import { NgModule } from '@angular/core';
 import { SidebarAdminComponent } from './components/sidebar-admin/sidebar-admin.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
+import { LayoutManagerComponent } from './layouts/layout-manager/layout-manager.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { SignupPageComponent } from './pages/signup-page/signup-page.component';
     ManagerCommentsComponent,
     LoginPageComponent,
     SignupPageComponent,
+    LayoutManagerComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
