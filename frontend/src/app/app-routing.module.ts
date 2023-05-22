@@ -10,6 +10,8 @@ import { ManageUserComponent } from './components/manage-user/manage-user.compon
 import { ManagerCommentsComponent } from './components/manager-comments/manager-comments.component';
 import { ManagerTagsComponent } from './components/manager-tags/manager-tags.component';
 import { NgModule } from '@angular/core';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 
 const routes: Routes = [
   {
@@ -20,6 +22,8 @@ const routes: Routes = [
       { path: '', component: HomepageComponent },
     ],
   },
+  { path: 'login', component: LoginPageComponent },
+  { path: 'signup', component: SignupPageComponent },
   {
     path: 'admin',
     component: LayoutAdminComponent,

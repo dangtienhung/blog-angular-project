@@ -1,19 +1,15 @@
 import mongoose from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
-
 const { Schema } = mongoose;
 const CommenentSchema = new Schema(
   {
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    postId: { type: mongoose.Schema.Types.ObjectId, ref: 'Post', required: true },
-    content: { type: String, required: true },
-    likes: { type: Number, default: 0 },
-    deleted: { type: Boolean, default: false },
+    userId: { type: Schema.Types.ObjectId, ref: 'User' },
+    postId: { type: Schema.Types.ObjectId, ref: 'Post' },
+    content: { type: String },
   },
-  { timestamps: true }
+  { timestamps: true, versionKey: false }
 );
 
 CommenentSchema.plugin(mongoosePaginate);
 
-const Comment = mongoose.model('Comment', CommenentSchema);
-export default Comment;
+export default mongoose.model('Comment', CommenentSchema, 'Comment');

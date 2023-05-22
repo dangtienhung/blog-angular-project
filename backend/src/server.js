@@ -1,7 +1,7 @@
-import CatRoute from './router/cat.route.js';
+import CatRoute from './routes/cat.route.js';
 import { ConnectDB } from './config/connect.js';
 import authRouter from './routes/auth.routes.js';
-import commentRouter from './routes/comments.routes.js';
+// import commentRouter from './routes/comments.routes.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
@@ -12,6 +12,8 @@ import { swaggerOptions } from './config/swagger.js';
 import swaggerUi from 'swagger-ui-express';
 import userRouter from './routes/users.routes.js';
 import YAML from 'yamljs';
+import { authors } from './middleware/author.js';
+import commentRouter from './routes/comment.route.js';
 
 /* port */
 dotenv.config();
@@ -26,20 +28,23 @@ app.use(morgan('common'));
 
 /* swagger */
 // const openapiSpecification = swaggerJsdoc(swaggerOptions);
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification));
 const swaggerdocUI = YAML.load('./api.yaml'); //ong chay swagger ui cua ong thi comment dong nay nhe! (npm i yamljs)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerdocUI));
 
 /* routes */
-app.use('/api/v1/', postRouter);
+app.use('/api/v1/posts', authors, postRouter);
 app.use('/api/v1', userRouter);
 app.use('/api/v1', authRouter);
-app.use('/api/v1', commentRouter);
 
 /* db */
 ConnectDB();
 
 /* router category*/
-app.use('/api/v1', CatRoute);
+app.use('/api/v1', authors, CatRoute);
+
+/* router category*/
+app.use('/api/v1/comments', authors, commentRouter);
 
 /* server */
 app.listen(port, () => {
