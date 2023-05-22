@@ -2,25 +2,19 @@ import Post from '../models/posts.model.js';
 import User from '../models/users.models.js';
 import commentsModel from '../models/comments.model.js';
 import { postValidate } from '../validates/posts.validate.js';
+import Category from '../models/categories.model.js';
 
 export const postController = {
   /* create post */
   createPost: async (req, res) => {
     try {
       const body = req.body;
-      // console.log(req.user._id);
       /* validate */
       const { error } = postValidate.validate(body, { abortEarly: false });
       if (error) {
         const errors = error.details.map((err) => err.message);
         return res.status(400).json({ message: errors });
       }
-      /* check users */
-      // const authorId = body.author;
-      // const user = await User.findById(authorId);
-      // if (!user) {
-      //   return res.status(400).json({ message: 'User not found' });
-      // }
       /* create post */
       const post = await Post.create(body);
       if (!post) {
@@ -38,25 +32,33 @@ export const postController = {
   /* get all posts */
   getAllPosts: async (req, res) => {
     try {
-      const { _page = 1, _limit = 10, q } = req.query;
+      const { _page = 1, _limit = 10, category, q } = req.query;
+      let query = {};
+      let cateId;
       const options = {
         page: _page,
         limit: _limit,
         sort: { createdAt: -1 },
         populate: [{ path: 'author', select: '-postList -isVerified -role -password' }, { path: 'category' }],
       };
-      const query = q
+      if (category) {
+        cateId = await Category.findOne({ slug: { $regex: category, $options: 'i' } });
+      }
+      query = q
         ? {
             $and: [
               {
                 $or: [{ title: { $regex: q, $options: 'i' } }, { content: { $regex: q, $options: 'i' } }],
               },
-              { deleted: false },
+              { deleted: false, status: 'public' },
             ],
           }
-        : { deleted: false };
+        : { deleted: false, status: 'public' };
+      if (category) {
+        query['category'] = { _id: cateId._id };
+      }
       const posts = await Post.paginate(query, options);
-      if (!posts) {
+      if (!posts.docs) {
         return res.status(400).json({ message: 'Get all posts failed' });
       }
       return res.status(200).json({ message: 'Get all posts successfully', posts });
