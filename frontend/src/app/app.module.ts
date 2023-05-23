@@ -17,6 +17,7 @@ import { ManagerCommentsComponent } from './components/manager-comments/manager-
 import { ManagerTagsComponent } from './components/manager-tags/manager-tags.component';
 import { NewPostComponent } from './components/new-post/new-post.component';
 import { NgModule } from '@angular/core';
+
 import { SidebarAdminComponent } from './components/sidebar-admin/sidebar-admin.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { SliderComponent } from './components/slider/slider.component';

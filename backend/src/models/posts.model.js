@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
 /**
@@ -83,6 +83,12 @@ const postSchema = new mongoose.Schema(
       enum: ['public', 'private'],
       default: 'public',
     },
+    tags: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Tag',
+      },
+    ],
     deleted: {
       type: Boolean,
       default: false,

@@ -31,6 +31,10 @@ tags:
     description: create blog
   - name: Comment_blog
     description: Comment blog
+  - name: Tag_blog
+    description: Tag blog
+  - name: HashTag_blog
+    description: HashTag Blog
 paths:
   /category:
     #get data:
@@ -174,6 +178,15 @@ paths:
       tags:
         - Post_blog
       summary: get all blogs
+      parameters:
+        - in: query
+          name: q
+          schema:
+            type: string
+        - in: query
+          name: category
+          schema:
+            type: string
       responses:
         200:
           description: 'Success'
@@ -218,48 +231,26 @@ paths:
     put:
       tags:
         - Post_blog
-      summary: Delete fake a post by id
-      description: Deletes a post with the given id and sets the deleted flag to true
+
+      summary: update blog by id
       parameters:
         - in: path
           name: id
-          description: ID of the post to delete
-          required: true
           schema:
             type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
       responses:
-        "200":
-          description: A JSON object containing a success message and the deleted post
+        200:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Delete post successfully
-                  post:
-                    $ref: '#/components/schemas/Post'
-        "400":
-          description: A JSON object containing an error message if the post could not be deleted
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Delete post failed
-        "500":
-          description: A JSON object containing an error message if there was a server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Internal server error
+                $ref: '#/components/schemas/Post'
+
     delete:
       tags:
         - Post_blog
@@ -277,6 +268,54 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Post'
+
+  /delete-fake/{id}:
+    put:
+      tags:
+        - Post_blog
+      summary: Delete fake a post by id
+      description: Deletes a post with the given id and sets the deleted flag to true
+      parameters:
+        - in: path
+          name: id
+          description: ID of the post to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A JSON object containing a success message and the deleted post
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Delete post successfully
+                  post:
+                    $ref: '#/components/schemas/Post'
+        '400':
+          description: A JSON object containing an error message if the post could not be deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Delete post failed
+        '500':
+          description: A JSON object containing an error message if there was a server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Internal server error
+
   /restore/{id}:
     put:
       tags:
@@ -291,7 +330,9 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+
+        '200':
+
           description: A JSON object containing a success message and the post that was undone
           content:
             application/json:
@@ -303,7 +344,9 @@ paths:
                     example: Undo delete post successfully
                   post:
                     $ref: '#/components/schemas/Post'
-        "400":
+
+        '400':
+
           description: A JSON object containing an error message if the post could not be undone
           content:
             application/json:
@@ -313,7 +356,9 @@ paths:
                   message:
                     type: string
                     example: Undo delete post failed
-        "500":
+
+        '500':
+
           description: A JSON object containing an error message if there was a server error
           content:
             application/json:
@@ -414,6 +459,114 @@ paths:
             application/json:
               schema:
                 $ref: '#components/schemas/Comments'
+  /tag:
+    get:
+      tags:
+        - Tag_blog
+      summary: get all tags
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tags'
+    post:
+      tags:
+        - Tag_blog
+      summary: add Tag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tags'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tags'
+  /tag/{id}:
+    get:
+      tags:
+        - Tag_blog
+      summary: get tag by id
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: slug
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Tags'
+    delete:
+      tags:
+        - Tag_blog
+      summary: delete tag by id
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Tags'
+    put:
+      tags:
+        - Tag_blog
+      summary: update tag
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tags'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Tags'
+  /hashtag/{slug}:
+    get:
+      tags:
+        - HashTag_blog
+      summary: get all blog by tag
+      parameters:
+        - in: path
+          name: slug
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
 
 components:
   schemas:
@@ -493,6 +646,11 @@ components:
         status:
           type: string
           default: 'public'
+        tags:
+          type: array
+          items:
+            type: string
+          default: []
         deleted:
           type: boolean
           default: false
@@ -506,6 +664,16 @@ components:
         postId:
           type: string
         content:
+          type: string
+    Tags:
+      type: object
+      required:
+        - title
+        - slug
+      properties:
+        title:
+          type: string
+        slug:
           type: string
 
   securitySchemes:
