@@ -7,10 +7,10 @@
             <h2>{{title}}</h2>
           </div>
           <div class="col-sm-7">
-            <a routerLink="#" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
               <i class="fa-solid fa-plus"></i>
               <span>Add New</span>
-            </a>
+            </button>
             <a routerLink="#" class="btn btn-secondary">
               <i class="fa-solid fa-download"></i>
               <span>Export to Excel</span>
@@ -26,17 +26,24 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
+            <tr *ngFor="let user of dataTbody;let i = index">
+              <td>{{i + 1}}</td>
               <td>
-                <a routerLink="#">
-                  <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(31).jpg" class="avatar" alt="Avatar">
-                  <span class="text-truncate">Michael Holz</span>
+                <a routerLink="/">
+                  <img [src]="user.avatar|| 'https://api.multiavatar.com/' + user.username + '.png'" class="avatar"
+                    alt="Avatar">
+                  <span class="text-truncate">{{user.username}}</span>
                 </a>
               </td>
-              <td>04/10/2013</td>
-              <td>Admin</td>
-              <td><span class="status text-success">&bull;</span> Active</td>
+              <td>{{user.email}}</td>
+              <td>
+                <span class="status text-success">{{user.role === 'user' ? 'người dùng' : 'admin'}}</span>
+              </td>
+              <td>
+                <span [class]="user.is_active ? 'status text-success' : 'status text-white bg-danger'">{{user.is_active
+                  ? 'Active' : 'InActive'}}
+                </span>
+              </td>
               <td>
                 <button class="settings text-primary" (click)="handleEdit({name: 'dang tien hung', age: 20})">
                   <i class="fa-solid fa-pen-to-square"></i>
@@ -65,21 +72,6 @@
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm mới người dùng</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- modal -->
+<app-layout-modal-admin data-bs-toggle="modal" data-bs-target="#exampleModal"
+  [titleModal]="titleModal"></app-layout-modal-admin>

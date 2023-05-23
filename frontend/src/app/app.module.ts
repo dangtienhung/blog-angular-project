@@ -7,6 +7,7 @@ import { FeatureComponent } from './components/feature/feature.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
+import { HttpClientModule } from '@angular/common/http';
 import { LayoutAdminComponent } from './layouts/layout-admin/layout-admin.component';
 import { LayoutClientComponent } from './layouts/layout-client/layout-client.component';
 import { LayoutManagerComponent } from './layouts/layout-manager/layout-manager.component';
@@ -21,6 +22,7 @@ import { PostsComponent } from './components/posts/posts.component';
 import { SidebarAdminComponent } from './components/sidebar-admin/sidebar-admin.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { SliderComponent } from './components/slider/slider.component';
+import { LayoutModalAdminComponent } from './layouts/layout-modal-admin/layout-modal-admin.component';
 
 @NgModule({
   declarations: [
@@ -44,8 +46,9 @@ import { SliderComponent } from './components/slider/slider.component';
     FeatureComponent,
     NewPostComponent,
     PostsComponent,
+    LayoutModalAdminComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })
