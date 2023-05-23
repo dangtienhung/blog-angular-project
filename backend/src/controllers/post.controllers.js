@@ -39,7 +39,11 @@ export const postController = {
         page: _page,
         limit: _limit,
         sort: { createdAt: -1 },
-        populate: [{ path: 'author', select: '-postList -isVerified -role -password' }, { path: 'category' }],
+        populate: [
+          { path: 'author', select: '-postList -isVerified -role -password' },
+          { path: 'category' },
+          { path: 'tags' },
+        ],
       };
       if (category) {
         cateId = await Category.findOne({ slug: { $regex: category, $options: 'i' } });
@@ -87,32 +91,13 @@ export const postController = {
     try {
       const { id } = req.params;
       const body = req.body;
-      /* validate */
-      const { error } = postValidate.validate(body, { abortEarly: false });
-      if (error) {
-        const errors = error.details.map((err) => err.message);
-        return res.status(400).json({ message: errors });
-      }
-      /* check users */
-      const authorId = body.author;
-      const user = await User.findById(authorId);
-      if (!user) {
-        return res.status(400).json({ message: 'User not found' });
-      }
       /* update post */
-      const post = await Post.findByIdAndUpdate({ _id: id }, body, { new: true });
+      const post = await Post.findByIdAndUpdate(id, body, { new: true, runValidators: true });
+      console.log(post);
       if (!post) {
         return res.status(400).json({ message: 'Update post failed' });
       }
-      /* delete user post */
-      await User.findByIdAndUpdate(authorId, {
-        $pull: { postList: post._id },
-      });
-      /* update user post */
-      await User.findByIdAndUpdate(authorId, {
-        $addToSet: { postList: post._id },
-      });
-      return res.status(200).json({ message: 'Update post successfully', post });
+      return res.status(200).json({ message: 'Update post successfully' });
     } catch (error) {
       return res.status(500).json({ message: 'Internal server error' });
     }

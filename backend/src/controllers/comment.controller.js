@@ -5,7 +5,7 @@ import CommentValidate from '../validates/comment.validate.js';
 export const getComments = async (req, res) => {
   try {
     //get all comments
-    const { page, limit = 2 } = req.query;
+    const { page, limit = 10 } = req.query;
     const options = {
       page: page,
       limit: limit,
@@ -96,10 +96,9 @@ export const deleteComment = async (req, res) => {
 
 export const updateComment = async (req, res) => {
   try {
-    const { id } = req.params; //Fake author
-
+    const { id } = req.params;
     //update Comment
-    const comment = await commentsModel.findByIdAndUpdate(id, req.body, { new: true });
+    const comment = await commentsModel.findByIdAndUpdate(id, req.body, { new: true, runValidators: true });
     if (!comment) {
       return res.status(400).send({ message: 'Fail', err: "Can't to update comment!" });
     }

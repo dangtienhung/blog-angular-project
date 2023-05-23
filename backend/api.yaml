@@ -31,6 +31,10 @@ tags:
     description: create blog
   - name: Comment_blog
     description: Comment blog
+  - name: Tag_blog
+    description: Tag blog
+  - name: HashTag_blog
+    description: HashTag Blog
 paths:
   /category:
     #get data:
@@ -174,6 +178,15 @@ paths:
       tags:
         - Post_blog
       summary: get all blogs
+      parameters:
+        - in: query
+          name: q
+          schema:
+            type: string
+        - in: query
+          name: category
+          schema:
+            type: string
       responses:
         200:
           description: 'Success'
@@ -211,6 +224,27 @@ paths:
       responses:
         200:
           description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+    put:
+      tags:
+        - Post_blog
+      summary: update blog by id
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+      responses:
+        200:
           content:
             application/json:
               schema:
@@ -323,6 +357,114 @@ paths:
             application/json:
               schema:
                 $ref: '#components/schemas/Comments'
+  /tag:
+    get:
+      tags:
+        - Tag_blog
+      summary: get all tags
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tags'
+    post:
+      tags:
+        - Tag_blog
+      summary: add Tag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tags'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tags'
+  /tag/{id}:
+    get:
+      tags:
+        - Tag_blog
+      summary: get tag by id
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: slug
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Tags'
+    delete:
+      tags:
+        - Tag_blog
+      summary: delete tag by id
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Tags'
+    put:
+      tags:
+        - Tag_blog
+      summary: update tag
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tags'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Tags'
+  /hashtag/{slug}:
+    get:
+      tags:
+        - HashTag_blog
+      summary: get all blog by tag
+      parameters:
+        - in: path
+          name: slug
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
 
 components:
   schemas:
@@ -402,6 +544,11 @@ components:
         status:
           type: string
           default: 'public'
+        tags:
+          type: array
+          items:
+            type: string
+          default: []
         deleted:
           type: boolean
           default: false
@@ -415,6 +562,16 @@ components:
         postId:
           type: string
         content:
+          type: string
+    Tags:
+      type: object
+      required:
+        - title
+        - slug
+      properties:
+        title:
+          type: string
+        slug:
           type: string
 
   securitySchemes:

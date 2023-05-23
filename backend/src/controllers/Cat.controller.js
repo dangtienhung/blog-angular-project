@@ -45,7 +45,7 @@ export const createCategory = async (req, res) => {
 export const updateCategory = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = await Category.findByIdAndUpdate(id, req.body, { new: true });
+    const data = await Category.findByIdAndUpdate(id, req.body, { new: true, runValidators: true });
     if (!data) {
       return res.status(404).send({ message: 'fail', error: 'Ko tim thay category de update' });
     }

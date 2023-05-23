@@ -9,10 +9,10 @@ import {
 import { authorAdmin, authorUser, authors } from '../middleware/author.js';
 
 const CatRoute = express.Router();
-CatRoute.route('/category').get(authorUser, getCategories).post(authorAdmin, createCategory);
+CatRoute.route('/category').get(getCategories).post(authors, authorUser, createCategory);
 CatRoute.route('/category/:id')
-  .get(authorUser, getItem)
-  .delete(authorAdmin, deleteCategory)
-  .put(authorAdmin, updateCategory);
+  .get(getItem)
+  .delete(authors, authorUser, deleteCategory)
+  .put(authors, authorUser, updateCategory);
 
 export default CatRoute;
