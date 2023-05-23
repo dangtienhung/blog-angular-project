@@ -17,10 +17,15 @@ import { ManagerCommentsComponent } from './components/manager-comments/manager-
 import { ManagerTagsComponent } from './components/manager-tags/manager-tags.component';
 import { NewPostComponent } from './components/new-post/new-post.component';
 import { NgModule } from '@angular/core';
-import { PostsComponent } from './components/posts/posts.component';
+
 import { SidebarAdminComponent } from './components/sidebar-admin/sidebar-admin.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { SliderComponent } from './components/slider/slider.component';
+import { PostsComponent } from './components/posts/posts.component';
+import { PostsDetailPageComponent } from './pages/posts-detail-page/posts-detail-page.component';
+import { RelatedPostsComponent } from './components/related-posts/related-posts.component';
+import { ContentDetailPostsComponent } from './components/content-detail-posts/content-detail-posts.component';
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +49,10 @@ import { SliderComponent } from './components/slider/slider.component';
     FeatureComponent,
     NewPostComponent,
     PostsComponent,
+    PostsDetailPageComponent,
+    RelatedPostsComponent,
+    ContentDetailPostsComponent,
+    NotFoundPageComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],

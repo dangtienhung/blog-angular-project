@@ -16,3 +16,14 @@
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
+
+@media (min-width: 576px) and (max-width: 1200px) {
+  .item {
+    width: 50%;
+  }
+}
+@media (max-width: 575px) {
+  .item {
+    width: 100%;
+  }
+}
