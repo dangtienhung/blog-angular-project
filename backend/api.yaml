@@ -266,6 +266,98 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Post'
+  /delete-fake/{id}:
+    put:
+      tags:
+        - Post_blog
+      summary: Delete fake a post by id
+      description: Deletes a post with the given id and sets the deleted flag to true
+      parameters:
+        - in: path
+          name: id
+          description: ID of the post to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A JSON object containing a success message and the deleted post
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Delete post successfully
+                  post:
+                    $ref: '#/components/schemas/Post'
+        '400':
+          description: A JSON object containing an error message if the post could not be deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Delete post failed
+        '500':
+          description: A JSON object containing an error message if there was a server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Internal server error
+  /restore/{id}:
+    put:
+      tags:
+        - Post_blog
+      summary: Undo delete of a post by id
+      description: Undoes the delete operation of a post with the given id by setting the deleted flag to false
+      parameters:
+        - in: path
+          name: id
+          description: ID of the post to undo delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A JSON object containing a success message and the post that was undone
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Undo delete post successfully
+                  post:
+                    $ref: '#/components/schemas/Post'
+        '400':
+          description: A JSON object containing an error message if the post could not be undone
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Undo delete post failed
+        '500':
+          description: A JSON object containing an error message if there was a server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Internal server error
   /comments:
     get:
       tags:
