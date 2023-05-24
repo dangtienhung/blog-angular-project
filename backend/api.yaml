@@ -422,7 +422,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Post'
-  /posts/{id}:
+  /posts/delete-fake/{id}:
     get:
       tags:
         - Post_blog
@@ -548,6 +548,98 @@ paths:
                   message:
                     type: string
                     example: Internal server error
+  /posts/related/{id}:
+    get:
+      tags:
+        - Post_blog
+      summary: Get related posts
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID of the post
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  posts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Post'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /posts/{id}:
+    put:
+      tags:
+        - Post_blog
+      summary: Update post
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID of the post
+          schema:
+            type: string
+        - in: body
+          name: body
+          required: true
+          description: Updated post data
+          schema:
+            $ref: '#/components/schemas/UpdatePostData'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  post:
+                    $ref: '#/components/schemas/Post'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
   /comments:
     get:
       tags:

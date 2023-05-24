@@ -1,6 +1,6 @@
+import { authorUser } from '../middleware/author.js';
 import express from 'express';
 import { postController } from '../controllers/post.controllers.js';
-import { authorUser } from '../middleware/author.js';
 
 const router = express.Router();
 
@@ -20,6 +20,7 @@ router.put('/:id', authorUser, postController.updatePost);
 router.put('/delete-fake/:id', authorUser, postController.fakeDeletPost);
 router.put('/restore/:id', authorUser, postController.undoDeletePost);
 router.delete('/:id', authorUser, postController.deletePost);
+router.get('/related/:id', authorUser, postController.getRelatedPosts);
 
 export default router;
 
