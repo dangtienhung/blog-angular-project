@@ -1,6 +1,7 @@
 import { authorUser } from '../middleware/author.js';
 import express from 'express';
 import { postController } from '../controllers/post.controllers.js';
+import { authorUser, authors } from '../middleware/author.js';
 
 const router = express.Router();
 
@@ -13,14 +14,14 @@ const router = express.Router();
 // router.put('/posts/restore/:id', postController.undoDeletePost);
 // router.delete('/posts/:id', postController.deletePost);
 
-router.post('/', authorUser, postController.createPost);
-router.get('/', authorUser, postController.getAllPosts);
-router.get('/:id', authorUser, postController.getPostById);
-router.put('/:id', authorUser, postController.updatePost);
-router.put('/delete-fake/:id', authorUser, postController.fakeDeletPost);
-router.put('/restore/:id', authorUser, postController.undoDeletePost);
-router.delete('/:id', authorUser, postController.deletePost);
 router.get('/related/:id', authorUser, postController.getRelatedPosts);
+router.post('/', authors, authorUser, postController.createPost);
+router.get('/', postController.getAllPosts);
+router.get('/:id', postController.getPostById);
+router.put('/:id', authors, authorUser, postController.updatePost);
+router.put('/delete-fake/:id', authors, authorUser, postController.fakeDeletPost);
+router.put('/restore/:id', authors, authorUser, postController.undoDeletePost);
+router.delete('/:id', authors, authorUser, postController.deletePost);
 
 export default router;
 

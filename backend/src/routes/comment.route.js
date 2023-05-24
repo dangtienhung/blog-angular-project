@@ -1,5 +1,5 @@
 import express from 'express';
-import { authorUser } from '../middleware/author.js';
+import { authorUser, authors } from '../middleware/author.js';
 import {
   deleteComment,
   getCommentById,
@@ -9,11 +9,11 @@ import {
 } from '../controllers/comment.controller.js';
 const commentRouter = express.Router();
 
-commentRouter.route('/').get(authorUser, getComments).post(authorUser, sendComment);
+commentRouter.route('/').get(getComments).post(authorUser, sendComment);
 commentRouter
   .route('/:id')
-  .get(authorUser, getCommentById)
-  .delete(authorUser, deleteComment)
-  .put(authorUser, updateComment);
+  .get(authors, authorUser, getCommentById)
+  .delete(authors, authorUser, deleteComment)
+  .put(authors, authorUser, updateComment);
 
 export default commentRouter;

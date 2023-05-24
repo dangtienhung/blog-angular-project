@@ -14,6 +14,8 @@ import userRouter from './routes/users.routes.js';
 import YAML from 'yamljs';
 import { authors } from './middleware/author.js';
 import commentRouter from './routes/comment.route.js';
+import tagRouter from './routes/tag.route.js';
+import hashTagRouter from './routes/hashtag.route.js';
 
 /* port */
 dotenv.config();
@@ -33,7 +35,7 @@ const swaggerdocUI = YAML.load('./api.yaml'); //ong chay swagger ui cua ong thi 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerdocUI));
 
 /* routes */
-app.use('/api/v1/posts', authors, postRouter);
+app.use('/api/v1/posts', postRouter);
 app.use('/api/v1', userRouter);
 app.use('/api/v1', authRouter);
 
@@ -41,10 +43,16 @@ app.use('/api/v1', authRouter);
 ConnectDB();
 
 /* router category*/
-app.use('/api/v1', authors, CatRoute);
+app.use('/api/v1', CatRoute);
 
 /* router category*/
-app.use('/api/v1/comments', authors, commentRouter);
+app.use('/api/v1/comments', commentRouter);
+
+/* router tag*/
+app.use('/api/v1/tag', tagRouter);
+
+/* router hashtag*/
+app.use('/api/v1/hashtag', hashTagRouter);
 
 /* server */
 app.listen(port, () => {
