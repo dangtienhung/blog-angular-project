@@ -21,11 +21,13 @@ import { NgModule } from '@angular/core';
 import { SidebarAdminComponent } from './components/sidebar-admin/sidebar-admin.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { SliderComponent } from './components/slider/slider.component';
-import { PostsComponent } from './components/posts/posts.component';
+import { UserInfoComponent } from './pages/user-info/user-info.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { PostsDetailPageComponent } from './pages/posts-detail-page/posts-detail-page.component';
 import { RelatedPostsComponent } from './components/related-posts/related-posts.component';
 import { ContentDetailPostsComponent } from './components/content-detail-posts/content-detail-posts.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
+import { PostsComponent } from './components/posts/posts.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
     FeatureComponent,
     NewPostComponent,
     PostsComponent,
+    UserInfoComponent,
+    PageNotFoundComponent,
     PostsDetailPageComponent,
     RelatedPostsComponent,
     ContentDetailPostsComponent,

@@ -12,6 +12,8 @@ import { ManagerTagsComponent } from './components/manager-tags/manager-tags.com
 import { NgModule } from '@angular/core';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
+import { UserInfoComponent } from './pages/user-info/user-info.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { PostsDetailPageComponent } from './pages/posts-detail-page/posts-detail-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
@@ -22,11 +24,14 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: '', pathMatch: 'full' },
       { path: '', component: HomepageComponent },
+      {path: 'user-info', component: UserInfoComponent },
       { path: 'posts/:id', component: PostsDetailPageComponent },
     ],
   },
   { path: 'login', component: LoginPageComponent },
   { path: 'signup', component: SignupPageComponent },
+  { path: '**', component: PageNotFoundComponent },
+
   {
     path: 'admin',
     component: LayoutAdminComponent,
