@@ -1,3 +1,4 @@
+import { authorUser } from '../middleware/author.js';
 import express from 'express';
 import { postController } from '../controllers/post.controllers.js';
 import { authorUser, authors } from '../middleware/author.js';
@@ -13,6 +14,7 @@ const router = express.Router();
 // router.put('/posts/restore/:id', postController.undoDeletePost);
 // router.delete('/posts/:id', postController.deletePost);
 
+router.get('/related/:id', authorUser, postController.getRelatedPosts);
 router.post('/', authors, authorUser, postController.createPost);
 router.get('/', postController.getAllPosts);
 router.get('/:id', postController.getPostById);

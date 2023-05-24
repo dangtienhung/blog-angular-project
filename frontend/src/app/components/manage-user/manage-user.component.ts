@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { IUser } from 'src/app/interfaces/User';
+import { UserService } from 'src/app/services/users/user.service';
 
 @Component({
   selector: 'app-manage-user',
@@ -7,6 +9,7 @@ import { Component } from '@angular/core';
 })
 export class ManageUserComponent {
   title: string = 'Quản lý người dùng';
+  titleModal: string = 'Thêm người dùng';
   theadTable: string[] = [
     'STT',
     'Tên',
@@ -15,8 +18,18 @@ export class ManageUserComponent {
     'Trạng thái',
     'Action',
   ];
+  usersList: IUser[] = [];
+  constructor(private userService: UserService) {
+    this.getAllUsers();
+  }
   /* handle delete user */
   handleDeleteUser(id: string) {
     console.log(id);
+  }
+  /* get All users */
+  getAllUsers() {
+    this.userService.getAllUsers().subscribe((users) => {
+      this.usersList = users.docs;
+    });
   }
 }

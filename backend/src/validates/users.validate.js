@@ -9,4 +9,7 @@ export const userValidate = joi.object({
   is_active: joi.boolean(),
   deleted: joi.boolean(),
   postList: joi.array().items(joi.string()),
+  isVerified: joi.boolean().default(false),
+  address: joi.string(),
+  phone: joi.string(),
 });

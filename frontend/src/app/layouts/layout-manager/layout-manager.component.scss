@@ -110,14 +110,15 @@ table.table .avatar {
   object-fit: cover;
 }
 .status {
-  font-size: 30px;
-  margin: 2px 2px 0 0;
+  font-size: 16px;
+  padding: 4px;
+  border-radius: 4px;
+  text-align: center;
   display: inline-block;
-  vertical-align: middle;
-  line-height: 10px;
 }
 .text-success {
-  color: #10c469;
+  color: #fff !important;
+  background-color: #0397d6;
 }
 .text-info {
   color: #62c9e8;

@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
+import { IUser } from 'src/app/interfaces/User';
+
 @Component({
   selector: 'app-layout-manager',
   templateUrl: './layout-manager.component.html',
@@ -7,7 +9,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class LayoutManagerComponent {
   @Input() title: string = '';
+  @Input() titleModal: string = '';
   @Input() theadTable: string[] = [];
+  @Input() dataTbody: IUser[] = [];
   @Output() delete = new EventEmitter<string>();
   @Output() edit = new EventEmitter<any>();
   /* handle edit */
