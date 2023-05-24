@@ -231,6 +231,7 @@ paths:
     put:
       tags:
         - Post_blog
+
       summary: update blog by id
       parameters:
         - in: path
@@ -249,6 +250,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Post'
+
     delete:
       tags:
         - Post_blog
@@ -266,6 +268,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Post'
+
   /delete-fake/{id}:
     put:
       tags:
@@ -312,6 +315,7 @@ paths:
                   message:
                     type: string
                     example: Internal server error
+
   /restore/{id}:
     put:
       tags:
@@ -326,7 +330,9 @@ paths:
           schema:
             type: string
       responses:
+
         '200':
+
           description: A JSON object containing a success message and the post that was undone
           content:
             application/json:
@@ -338,7 +344,9 @@ paths:
                     example: Undo delete post successfully
                   post:
                     $ref: '#/components/schemas/Post'
+
         '400':
+
           description: A JSON object containing an error message if the post could not be undone
           content:
             application/json:
@@ -348,7 +356,9 @@ paths:
                   message:
                     type: string
                     example: Undo delete post failed
+
         '500':
+
           description: A JSON object containing an error message if there was a server error
           content:
             application/json:
