@@ -21,6 +21,8 @@ import { PostsComponent } from './components/posts/posts.component';
 import { SidebarAdminComponent } from './components/sidebar-admin/sidebar-admin.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { SliderComponent } from './components/slider/slider.component';
+import { UserInfoComponent } from './pages/user-info/user-info.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { SliderComponent } from './components/slider/slider.component';
     FeatureComponent,
     NewPostComponent,
     PostsComponent,
+    UserInfoComponent,
+    PageNotFoundComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],

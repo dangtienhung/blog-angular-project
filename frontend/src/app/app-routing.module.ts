@@ -12,6 +12,8 @@ import { ManagerTagsComponent } from './components/manager-tags/manager-tags.com
 import { NgModule } from '@angular/core';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
+import { UserInfoComponent } from './pages/user-info/user-info.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -20,10 +22,13 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: '', pathMatch: 'full' },
       { path: '', component: HomepageComponent },
+      {path: 'user-info', component: UserInfoComponent }
     ],
   },
   { path: 'login', component: LoginPageComponent },
   { path: 'signup', component: SignupPageComponent },
+  { path: '**', component: PageNotFoundComponent },
+
   {
     path: 'admin',
     component: LayoutAdminComponent,
