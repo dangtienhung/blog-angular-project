@@ -1,4 +1,5 @@
 import User from '../models/users.models.js';
+import bcrypt from 'bcrypt';
 import { userValidate } from '../validates/users.validate.js';
 
 export const userController = {
@@ -22,6 +23,14 @@ export const userController = {
           }
         : { deleted: false };
       const users = await User.paginate(query, options);
+      if (!users) {
+        return res.status(400).json({ msg: 'Get all users failed' });
+      }
+      /* loại bỏ password */
+      users.docs = users.docs.map((user) => {
+        const { password, ...other } = user._doc;
+        return other;
+      });
       return res.status(200).json(users);
     } catch (error) {
       return res.status(500).json({ msg: error.message });
@@ -35,7 +44,8 @@ export const userController = {
       if (!user) {
         return res.status(404).json({ msg: 'User not found' });
       }
-      return res.status(200).json(user);
+      const { password, ...other } = user._doc;
+      return res.status(200).json({ user: other });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
@@ -92,7 +102,43 @@ export const userController = {
       if (!user) {
         return res.status(404).json({ msg: 'User not found' });
       }
-      return res.status(200).json({ msg: 'Update user successfully', user });
+      const { password, ...other } = user._doc;
+      return res.status(200).json({ msg: 'Update user successfully', user: other });
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
+  /* create user */
+  createUser: async (req, res) => {
+    try {
+      const body = req.body;
+      /* validate */
+      const { error } = userValidate.validate(body);
+      if (error) {
+        const errors = error.details.map((err) => err.message);
+        return res.status(400).json({ msg: errors });
+      }
+      /* check user */
+      const user = await User.findOne({ email: body.email });
+      if (user) {
+        return res.status(400).json({ msg: 'Email already exists' });
+      }
+      /* hash password */
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(body.password, salt);
+      /* check avatar */
+      const avatar = body.avatar ? body.avatar : `https://api.multiavatar.com/${body.username}.png`;
+      /* create user */
+      const data = {
+        ...body,
+        avatar,
+        password: hashedPassword,
+      };
+      const newUser = await User.create(data);
+      if (!newUser) {
+        return res.status(400).json({ msg: 'Create user failed' });
+      }
+      return res.status(200).json({ msg: 'Create user successfully', user: newUser });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
