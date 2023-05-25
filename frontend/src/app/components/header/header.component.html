@@ -1,9 +1,17 @@
 <header>
   <!-- Navbar -->
   <div class="row align-items-center py-3">
-    <div class="col-6 d-flex align-items-center">
-      <img [width]="43" [height]="56" src="./assets/images/logo.png" alt="" />
-      <ul class="d-flex m-0 gap-5">
+    <div class="col-sm-3 col-md-6 d-flex align-items-center">
+      <a routerLink="/">
+        <img [width]="43" [height]="56" src="./assets/images/logo.png" alt=""
+      /></a>
+      <input type="checkbox" name="" id="nav-input" />
+      <label for="nav-input" class="nav-action">
+        <i class="fa-solid fa-bars"></i>
+        <i class="fa-solid fa-xmark"></i>
+      </label>
+
+      <ul class="menu d-flex m-0 gap-5">
         <li>
           <a
             class="text-decoration-none font-500 text-black text-xl"
@@ -27,7 +35,7 @@
         </li>
       </ul>
     </div>
-    <div class="col-4">
+    <div class="col-sm-6 col-md-4">
       <div class="position-relative">
         <input
           type="text"
@@ -41,9 +49,9 @@
         ></i>
       </div>
     </div>
-    <div class="col-2 d-flex justify-content-end">
+    <div class="col-sm-3 col-md-2 d-flex justify-content-end">
       <a
-        routerLink="#"
+        routerLink="/signup"
         class="d-block text-center btn-signup text-decoration-none text-white rounded text-xl font-600"
         >Sign Up</a
       >
