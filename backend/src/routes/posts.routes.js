@@ -1,7 +1,7 @@
-import { authorUser } from '../middleware/author.js';
+import { authorUser, authors } from '../middleware/author.js';
+
 import express from 'express';
 import { postController } from '../controllers/post.controllers.js';
-import { authorUser, authors } from '../middleware/author.js';
 
 const router = express.Router();
 
