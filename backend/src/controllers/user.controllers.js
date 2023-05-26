@@ -19,9 +19,10 @@ export const userController = {
                 $or: [{ username: { $regex: q, $options: 'i' } }, { email: { $regex: q, $options: 'i' } }],
               },
               { deleted: false },
+              { _id: { $ne: id } },
             ],
           }
-        : { deleted: false };
+        : { deleted: false, _id: { $ne: id } };
       const users = await User.paginate(query, options);
       if (!users) {
         return res.status(400).json({ msg: 'Get all users failed' });
@@ -66,7 +67,12 @@ export const userController = {
   },
   /* delete fake */
   deleteFake: async (req, res) => {
-    await userController.updateStatus(req, res, true);
+    try {
+      const body = req.body;
+      await userController.updateStatus(req, res, body.deleted);
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
   },
   /* undo delete */
   undoDelete: async (req, res) => {
