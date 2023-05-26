@@ -9,7 +9,9 @@ export interface IUser {
   updated_at: Date;
   isVerified: boolean;
   postList: any[];
+  address?: string;
   avatar?: string;
+  phone?: string;
 }
 
 export interface IUserDocs {

@@ -24,11 +24,13 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { PostsDetailPageComponent } from './pages/posts-detail-page/posts-detail-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RelatedPostsComponent } from './components/related-posts/related-posts.component';
 import { SidebarAdminComponent } from './components/sidebar-admin/sidebar-admin.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { UserInfoComponent } from './pages/user-info/user-info.component';
+import { AddUserComponent } from './modules/user/add-user/add-user.component';
 
 @NgModule({
   declarations: [
@@ -59,8 +61,14 @@ import { UserInfoComponent } from './pages/user-info/user-info.component';
     RelatedPostsComponent,
     ContentDetailPostsComponent,
     NotFoundPageComponent,
+    AddUserComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

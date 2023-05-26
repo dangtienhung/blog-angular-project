@@ -7,10 +7,12 @@
             <h2>{{title}}</h2>
           </div>
           <div class="col-sm-7">
-            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              <i class="fa-solid fa-plus"></i>
-              <span>Add New</span>
-            </button>
+            <a routerLink="/admin/add-user">
+              <button class="btn btn-secondary">
+                <i class="fa-solid fa-plus"></i>
+                <span>Add New</span>
+              </button>
+            </a>
             <a routerLink="#" class="btn btn-secondary">
               <i class="fa-solid fa-download"></i>
               <span>Export to Excel</span>
@@ -37,7 +39,9 @@
               </td>
               <td>{{user.email}}</td>
               <td>
-                <span class="status text-success">{{user.role === 'user' ? 'người dùng' : 'admin'}}</span>
+                <span class="status {{user.role === 'user' ? 'text-success' : 'bg-danger text-white'}}">{{user.role ===
+                  'user' ?
+                  'người dùng' : 'admin'}}</span>
               </td>
               <td>
                 <span [class]="user.is_active ? 'status text-success' : 'status text-white bg-danger'">{{user.is_active
@@ -45,10 +49,13 @@
                 </span>
               </td>
               <td>
+                <button class="text-primary">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
                 <button class="settings text-primary" (click)="handleEdit({name: 'dang tien hung', age: 20})">
                   <i class="fa-solid fa-pen-to-square"></i>
                 </button>
-                <button class="delete text-danger" (click)="handleDelete('dangtienhung')">
+                <button class="delete text-danger" (click)="handleDelete(user._id)">
                   <i class="fa-sharp fa-solid fa-trash"></i>
                 </button>
               </td>
@@ -56,7 +63,7 @@
           </tbody>
         </table>
       </div>
-      <div class="clearfix">
+      <div class="clearfix mt-4">
         <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
         <ul class="pagination">
           <li class="page-item disabled"><a routerLink="#">Previous</a></li>
@@ -72,6 +79,6 @@
   </div>
 </div>
 
-<!-- modal -->
-<app-layout-modal-admin data-bs-toggle="modal" data-bs-target="#exampleModal"
-  [titleModal]="titleModal"></app-layout-modal-admin>
+<!-- modal add -->
+<!-- <app-layout-modal-admin data-bs-toggle="modal" data-bs-target="#exampleModal" [titleModal]="titleModal"
+  [userForm]="userForm"></app-layout-modal-admin> -->
