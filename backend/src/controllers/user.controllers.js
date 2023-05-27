@@ -66,7 +66,12 @@ export const userController = {
   },
   /* delete fake */
   deleteFake: async (req, res) => {
-    await userController.updateStatus(req, res, true);
+    try {
+      const body = req.body;
+      await userController.updateStatus(req, res, body.deleted);
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
   },
   /* undo delete */
   undoDelete: async (req, res) => {

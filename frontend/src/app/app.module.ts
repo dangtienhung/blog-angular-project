@@ -1,3 +1,6 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { AddUserComponent } from './modules/user/add-user/add-user.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,6 +16,7 @@ import { LayoutAdminComponent } from './layouts/layout-admin/layout-admin.compon
 import { LayoutClientComponent } from './layouts/layout-client/layout-client.component';
 import { LayoutManagerComponent } from './layouts/layout-manager/layout-manager.component';
 import { LayoutModalAdminComponent } from './layouts/layout-modal-admin/layout-modal-admin.component';
+import { LoginPageAdminComponent } from './pages/login-page-admin/login-page-admin.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { ManagePostsComponent } from './components/manage-posts/manage-posts.component';
 import { ManageUserComponent } from './components/manage-user/manage-user.component';
@@ -59,8 +63,16 @@ import { UserInfoComponent } from './pages/user-info/user-info.component';
     RelatedPostsComponent,
     ContentDetailPostsComponent,
     NotFoundPageComponent,
+    AddUserComponent,
+    LoginPageAdminComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -9,7 +9,9 @@ export interface IUser {
   updated_at: Date;
   isVerified: boolean;
   postList: any[];
+  address?: string;
   avatar?: string;
+  phone?: string;
 }
 
 export interface IUserDocs {
@@ -23,4 +25,10 @@ export interface IUserDocs {
   hasNextPage: boolean;
   prevPage?: null | number;
   nextPage?: null | number;
+}
+
+export interface IUserResponse {
+  user: IUser;
+  accessToken: string;
+  message?: string;
 }

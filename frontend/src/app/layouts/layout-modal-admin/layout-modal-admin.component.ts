@@ -7,4 +7,10 @@ import { Component, Input } from '@angular/core';
 })
 export class LayoutModalAdminComponent {
   @Input() titleModal: string = '';
+  @Input() userForm: any;
+  @Input() handleAdd: any;
+  /* handle add new user */
+  handleAddNewUser() {
+    this.handleAdd.emit(this.userForm);
+  }
 }

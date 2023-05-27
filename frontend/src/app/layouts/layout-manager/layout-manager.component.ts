@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { IUser } from 'src/app/interfaces/User';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-layout-manager',
@@ -12,6 +13,8 @@ export class LayoutManagerComponent {
   @Input() titleModal: string = '';
   @Input() theadTable: string[] = [];
   @Input() dataTbody: IUser[] = [];
+  @Input() handleAddNewUser: any;
+  @Input() userForm: any;
   @Output() delete = new EventEmitter<string>();
   @Output() edit = new EventEmitter<any>();
   /* handle edit */
@@ -20,6 +23,28 @@ export class LayoutManagerComponent {
   }
   /* handle delete */
   handleDelete(id: string) {
-    this.delete.emit(id);
+    Swal.fire({
+      title: 'Are you sure want to remove?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it',
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Deleted!',
+          'Your imaginary file has been deleted.',
+          'success'
+        ).then(() => {
+          this.delete.emit(id);
+        });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire('Cancelled', 'Your imaginary file is safe :)', 'error');
+      }
+    });
+  }
+  /* handle add new user */
+  handleAdd(info: any) {
+    this.handleAddNewUser.emit(info);
   }
 }
