@@ -6,6 +6,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { LayoutAdminComponent } from './layouts/layout-admin/layout-admin.component';
 import { LayoutClientComponent } from './layouts/layout-client/layout-client.component';
+import { LoginPageAdminComponent } from './pages/login-page-admin/login-page-admin.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { ManagePostsComponent } from './components/manage-posts/manage-posts.component';
 import { ManageUserComponent } from './components/manage-user/manage-user.component';
@@ -31,6 +32,7 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginPageComponent },
   { path: 'signup', component: SignupPageComponent },
+  { path: 'login-admin', component: LoginPageAdminComponent },
   {
     path: 'admin',
     component: LayoutAdminComponent,

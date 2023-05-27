@@ -19,10 +19,9 @@ export const userController = {
                 $or: [{ username: { $regex: q, $options: 'i' } }, { email: { $regex: q, $options: 'i' } }],
               },
               { deleted: false },
-              { _id: { $ne: id } },
             ],
           }
-        : { deleted: false, _id: { $ne: id } };
+        : { deleted: false };
       const users = await User.paginate(query, options);
       if (!users) {
         return res.status(400).json({ msg: 'Get all users failed' });

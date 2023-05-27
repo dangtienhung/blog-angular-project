@@ -26,3 +26,9 @@ export interface IUserDocs {
   prevPage?: null | number;
   nextPage?: null | number;
 }
+
+export interface IUserResponse {
+  user: IUser;
+  accessToken: string;
+  message?: string;
+}
