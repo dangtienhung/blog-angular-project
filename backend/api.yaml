@@ -26,7 +26,7 @@ tags:
   - name: Category
     description: All data of Category
   - name: author
-    description: SignUp - SignIn
+    description: sing-in/sign-up
   - name: Post_blog
     description: create blog
   - name: Comment_blog
@@ -173,6 +173,231 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SignIn'
+
+  /users:
+    get:
+      tags:
+        - Users
+      summary: Get all users
+      description: Retrieves a list of all users.
+      parameters:
+        - name: _page
+          in: query
+          description: Page number
+          required: false
+          type: integer
+        - name: _limit
+          in: query
+          description: Number of items per page
+          required: false
+          type: integer
+        - name: q
+          in: query
+          description: Search query
+          required: false
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              docs:
+                type: array
+                items:
+                  $ref: '#/definitions/User'
+              totalDocs:
+                type: integer
+              limit:
+                type: integer
+              totalPages:
+                type: integer
+              page:
+                type: integer
+              pagingCounter:
+                type: integer
+              hasPrevPage:
+                type: boolean
+              hasNextPage:
+                type: boolean
+              prevPage:
+                type: integer
+              nextPage:
+                type: integer
+        '500':
+          description: Internal Server Error
+          schema:
+            type: object
+            properties:
+              msg:
+                type: string
+  /users/create:
+    post:
+      summary: Create a new user
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        200:
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users/{id}:
+    put:
+      summary: Update a user by ID
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the user to update
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        200:
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users/delete-fake/{id}:
+    put:
+      summary: Set delete status for a user by ID
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the user to update delete status
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Delete status updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+        404:
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users/restore/{id}:
+    put:
+      summary: Restore a deleted user by ID
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the user to restore
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: User restored successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+        404:
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users/delete/{id}:
+    delete:
+      summary: Delete a user by ID
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the user to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: User deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+        404:
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
   /posts:
     get:
       tags:
@@ -210,7 +435,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Post'
-  /posts/{id}:
+  /posts/delete-fake/{id}:
     get:
       tags:
         - Post_blog
@@ -368,6 +593,98 @@ paths:
                   message:
                     type: string
                     example: Internal server error
+  /posts/related/{id}:
+    get:
+      tags:
+        - Post_blog
+      summary: Get related posts
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID of the post
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  posts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Post'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /posts/{id}:
+    put:
+      tags:
+        - Post_blog
+      summary: Update post
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID of the post
+          schema:
+            type: string
+        - in: body
+          name: body
+          required: true
+          description: Updated post data
+          schema:
+            $ref: '#/components/schemas/UpdatePostData'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  post:
+                    $ref: '#/components/schemas/Post'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
   /comments:
     get:
       tags:
@@ -665,6 +982,45 @@ components:
           type: string
         content:
           type: string
+    User:
+      type: object
+      required:
+        - username
+        - email
+        - password
+      properties:
+        _id:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        avatar:
+          type: string
+        role:
+          type: string
+          enum:
+            - user
+            - admin
+            - superadmin
+        is_active:
+          type: boolean
+        deleted:
+          type: boolean
+        postList:
+          type: array
+          items:
+            $ref: '#/definitions/Post'
+        isVerified:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
     Tags:
       type: object
       required:

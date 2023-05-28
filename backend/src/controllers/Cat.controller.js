@@ -1,5 +1,6 @@
-import Category from '../models/categories.model.js';
 import CatValidate from '../validates/categories.validate.js';
+import Category from '../models/categories.model.js';
+import slugify from 'slugify';
 
 export const getCategories = async (req, res) => {
   try {
@@ -32,7 +33,9 @@ export const createCategory = async (req, res) => {
     if (error) {
       return res.status(400).send({ message: 'fail', error: error.details.map((err) => err) });
     }
-    const data = await Category.create(req.body);
+    const slug = slugify(req.body.name, { lower: true });
+    const cate = { ...req.body, slug };
+    const data = await Category.create(cate);
     if (!data) {
       return res.status(400).send({ message: 'fail', error: 'Ko the them category' });
     }
@@ -57,7 +60,7 @@ export const updateCategory = async (req, res) => {
 export const deleteCategory = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = await Category.findByIdAndRemove(id);
+    const data = await Category.findByIdAndDelete(id);
     if (!data) {
       return res.status(404).send({ message: 'fail', error: 'Ko tim thay category de delete' });
     }
