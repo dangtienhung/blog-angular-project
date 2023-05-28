@@ -60,7 +60,7 @@ export const updateCategory = async (req, res) => {
 export const deleteCategory = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = await Category.findByIdAndRemove(id);
+    const data = await Category.findByIdAndDelete(id);
     if (!data) {
       return res.status(404).send({ message: 'fail', error: 'Ko tim thay category de delete' });
     }

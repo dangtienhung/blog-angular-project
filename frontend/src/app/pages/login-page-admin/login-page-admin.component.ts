@@ -24,13 +24,13 @@ export class LoginPageAdminComponent {
     if (localStorage.getItem('accessToken')) {
       const accessToken = JSON.parse(localStorage.getItem('accessToken') || '');
       if (accessToken === '') {
-        this.router.navigate(['/']);
+        this.router.navigate(['/login-admin']);
       }
       const date = new Date();
       const time = date.getTime() / 1000;
       const decodeToken: any = jwt_decode(accessToken);
       if (decodeToken.exp < time) {
-        this.router.navigate(['/']);
+        this.router.navigate(['/login-admin']);
       }
     }
   }

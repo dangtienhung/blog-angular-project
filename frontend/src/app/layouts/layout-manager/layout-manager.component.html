@@ -7,16 +7,16 @@
             <h2>{{title}}</h2>
           </div>
           <div class="col-sm-7">
-            <a routerLink="/admin/add-user">
+            <a [routerLink]="linkActive">
               <button class="btn btn-secondary">
                 <i class="fa-solid fa-plus"></i>
                 <span>Add New</span>
               </button>
             </a>
-            <a routerLink="#" class="btn btn-secondary">
+            <button class="btn btn-secondary" (click)="handleExportToExcel()">
               <i class="fa-solid fa-download"></i>
               <span>Export to Excel</span>
-            </a>
+            </button>
           </div>
         </div>
       </div>
@@ -27,7 +27,8 @@
               <th *ngFor="let theadItem of theadTable">{{theadItem}}</th>
             </tr>
           </thead>
-          <tbody>
+          <!-- users -->
+          <tbody *ngIf="dataTbody">
             <tr *ngFor="let user of dataTbody;let i = index">
               <td>{{i + 1}}</td>
               <td>
@@ -39,7 +40,8 @@
               </td>
               <td>{{user.email}}</td>
               <td>
-                <span class="status {{user.role === 'user' ? 'text-success' : 'bg-danger text-white'}}">{{user.role ===
+                <span class="status {{user.role === 'user' ? 'text-success' : 'bg-danger text-white'}}">{{user.role
+                  ===
                   'user' ?
                   'người dùng' : 'admin'}}</span>
               </td>
@@ -56,6 +58,24 @@
                   <i class="fa-solid fa-pen-to-square"></i>
                 </button>
                 <button class="delete text-danger" (click)="handleDelete(user._id)">
+                  <i class="fa-sharp fa-solid fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          <!-- categories -->
+          <tbody *ngIf="categories.length > 0">
+            <tr *ngFor="let category of categories;let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{category.name}}</td>
+              <td>{{category.slug}}</td>
+              <td>
+                <a routerLink="/admin/edit-category/{{category._id}}">
+                  <button class="settings text-primary">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+                </a>
+                <button class="delete text-danger" (click)="handleDelete(category._id)">
                   <i class="fa-sharp fa-solid fa-trash"></i>
                 </button>
               </td>

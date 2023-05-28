@@ -1,4 +1,7 @@
+import { CategoryService } from './../../services/category/category.service';
 import { Component } from '@angular/core';
+import { ExcelServiceService } from './../../services/excelService/excel-service.service';
+import { ICategory } from 'src/app/interfaces/Category';
 
 @Component({
   selector: 'app-categories',
@@ -7,7 +10,21 @@ import { Component } from '@angular/core';
 })
 export class CategoriesComponent {
   title: string = 'Quản lý các danh mục';
+  routerLink: string = '/admin/add-category';
   theadTable: string[] = ['STT', 'Tên danh mục', 'Slug', 'Action'];
+  categories: ICategory[] = [];
+  constructor(
+    private categoryService: CategoryService,
+    private excelServiceService: ExcelServiceService
+  ) {
+    this.getAllCategories();
+  }
+  /* get all categories */
+  getAllCategories() {
+    this.categoryService.getAllCategories().subscribe((categoriesData) => {
+      this.categories = categoriesData.data;
+    });
+  }
   /* handle edit category */
   handleEditCategory(items: any) {
     console.log(
@@ -17,6 +34,12 @@ export class CategoriesComponent {
   }
   /* handle delete user */
   handleDeleteCategory(id: string) {
-    console.log(id);
+    this.categoryService
+      .deleteCategory(id)
+      .subscribe(() => this.getAllCategories());
+  }
+  /* export to excel */
+  exportToExcel() {
+    this.excelServiceService.exportToExcel(this.categories, 'categories');
   }
 }

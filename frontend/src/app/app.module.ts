@@ -1,12 +1,16 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { AddCategoryComponent } from './modules/category/add-category/add-category.component';
 import { AddUserComponent } from './modules/user/add-user/add-user.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CategoriesComponent } from './components/categories/categories.component';
+import { CommonModule } from '@angular/common';
 import { ContentDetailPostsComponent } from './components/content-detail-posts/content-detail-posts.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { EditCategoryComponent } from './modules/category/edit-category/edit-category.component';
 import { FeatureComponent } from './components/feature/feature.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -32,6 +36,7 @@ import { RelatedPostsComponent } from './components/related-posts/related-posts.
 import { SidebarAdminComponent } from './components/sidebar-admin/sidebar-admin.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { SliderComponent } from './components/slider/slider.component';
+import { ToastrModule } from 'ngx-toastr';
 import { UserInfoComponent } from './pages/user-info/user-info.component';
 
 @NgModule({
@@ -65,6 +70,8 @@ import { UserInfoComponent } from './pages/user-info/user-info.component';
     NotFoundPageComponent,
     AddUserComponent,
     LoginPageAdminComponent,
+    AddCategoryComponent,
+    EditCategoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,6 +79,13 @@ import { UserInfoComponent } from './pages/user-info/user-info.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    CommonModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }), // ToastrModule added
   ],
   providers: [],
   bootstrap: [AppComponent],

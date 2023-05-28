@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
+import { ICategory } from 'src/app/interfaces/Category';
 import { IUser } from 'src/app/interfaces/User';
 import Swal from 'sweetalert2';
 
@@ -10,11 +11,14 @@ import Swal from 'sweetalert2';
 })
 export class LayoutManagerComponent {
   @Input() title: string = '';
+  @Input() linkActive: string = '';
   @Input() titleModal: string = '';
   @Input() theadTable: string[] = [];
   @Input() dataTbody: IUser[] = [];
+  @Input() categories: ICategory[] = [];
   @Input() handleAddNewUser: any;
   @Input() userForm: any;
+  @Output() exportToExcel = new EventEmitter<void>();
   @Output() delete = new EventEmitter<string>();
   @Output() edit = new EventEmitter<any>();
   /* handle edit */
@@ -46,5 +50,9 @@ export class LayoutManagerComponent {
   /* handle add new user */
   handleAdd(info: any) {
     this.handleAddNewUser.emit(info);
+  }
+  /* handle export excel */
+  handleExportToExcel() {
+    this.exportToExcel.emit();
   }
 }
