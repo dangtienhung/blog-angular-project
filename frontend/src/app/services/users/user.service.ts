@@ -1,4 +1,4 @@
-import { IUser, IUserDocs } from 'src/app/interfaces/User';
+import { IUser, IUserDocs, IUserRegister } from 'src/app/interfaces/User';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';

@@ -2,55 +2,70 @@
   <div class="row">
     <div class="head">
       <div class="logo mb-4 d-flex justify-content-center">
-        <img
-          src="./assets/images/monkey.png"
-          [width]="121"
-          [height]="156"
-          alt="Logo"
-        />
+        <img src="./assets/images/monkey.png" [width]="121" [height]="156" alt="Logo" />
       </div>
       <div class="title">
         <h1 class="text-center">Monkey Blogging</h1>
       </div>
     </div>
 
-    <form action="" class="d-flex flex-column align-items-center">
-      <div class="form-group mb-5">
-        <label class="mb-3" for="fullname">Fullname</label>
-        <input
-          class="form-control"
-          style="border: 1px solid #00b4aa"
-          id="fullname"
-          type="text"
-          placeholder="Please enter your fullname"
-        />
-      </div>
-      <div class="form-group mb-5">
-        <label class="mb-3" for="email">Email address</label>
-        <input
-          class="form-control"
-          id="email"
-          type="email"
-          placeholder="Please enter your email address"
-        />
-      </div>
-      <div class="form-group">
-        <label class="mb-3" for="password">Password</label>
-        <div class="position-relative">
-          <input
-            class="form-control"
-            id="password"
-            type="password"
-            placeholder="Please enter your password"
-          />
-          <i
-            class="fa-solid fa-eye position-absolute translate-middle-y top-50"
-            style="right: 20px"
-          ></i>
+    <form [formGroup]='signUpForm' (ngSubmit)='onHandleSubmit()' class="d-flex flex-column align-items-center">
+      <div class="form-group mb-3">
+        <label class="mb-3" for="username">UserName</label>
+        <input formControlName="username" class="form-control" style="border: 1px solid #00b4aa" id="fullname"
+          type="text" placeholder="Please enter your username" />
+        <div *ngIf="f.username.invalid && (f.username.dirty || f.username.touched)">
+          <div *ngIf="f.username.errors?.['required']" class="message-error text-danger pt-2 ">
+            username cannot be empty
+          </div>
         </div>
       </div>
-      <div class="form-group" style="margin-top: 90px">
-        <button class="rounded">Sign Up</button>
+      <div class="form-group mb-3">
+        <label class="mb-3" for="email">Email address</label>
+        <input formControlName="email" class="form-control" style="border: 1px solid #00b4aa" id="email" type="email"
+          placeholder="Please enter your email address" />
+        <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)">
+          <div *ngIf="f.email.errors?.['required']" class="message-error text-danger pt-2 ">
+            Email cannot be empty
+          </div>
+          <div *ngIf="f.email.errors?.['email']" class="message-error text-danger pt-2 ">
+            Email address is invalid
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <label class="mb-3" for="password">Password</label>
+        <div class="position-relative">
+          <input formControlName="password" class="form-control" style="border: 1px solid #00b4aa" type="password"
+            placeholder="Please enter your password" />
+          <i class="fa-solid fa-eye position-absolute translate-middle-y top-50" style="right: 20px"></i>
+        </div>
+        <div *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)">
+          <div *ngIf="f.password.errors?.['required']" class="message-error text-danger pt-2 ">
+            Password cannot be empty
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="mb-3" for="password">Confirm Password</label>
+        <div class="position-relative">
+          <input formControlName="confirmPassword" class="form-control" style="border: 1px solid #00b4aa"
+            type="password" placeholder="Please enter your confirm password" />
+          <i class="fa-solid fa-eye position-absolute translate-middle-y top-50" style="right: 20px"></i>
+        </div>
+        <div *ngIf="f.confirmPassword.invalid && (f.confirmPassword.dirty || f.confirmPassword.touched)">
+          <div *ngIf="f.confirmPassword.errors?.['required']" class="message-error text-danger pt-2 ">
+            ConfirmPassword cannot be empty
+          </div>
+          <div *ngIf="f.confirmPassword.errors?.['beMatch']" class="message-error text-danger pt-2 ">
+            ConfirmPassword didn't match
+          </div>
+        </div>
+      </div>
+      <div class="form-group" style="margin-top: 60px">
+        <button class="rounded" [disabled]="!signUpForm.valid">Sign Up</button>
       </div>
     </form>
   </div>

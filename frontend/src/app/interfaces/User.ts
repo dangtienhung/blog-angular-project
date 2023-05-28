@@ -32,3 +32,11 @@ export interface IUserResponse {
   accessToken: string;
   message?: string;
 }
+
+export interface IUserRegister {
+  _id?: string;
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
