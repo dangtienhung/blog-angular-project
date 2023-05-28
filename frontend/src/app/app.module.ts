@@ -37,6 +37,8 @@ import { SidebarAdminComponent } from './components/sidebar-admin/sidebar-admin.
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { ToastrModule } from 'ngx-toastr';
+// import } from 'ngx-toastr'
+
 import { UserInfoComponent } from './pages/user-info/user-info.component';
 
 @NgModule({
