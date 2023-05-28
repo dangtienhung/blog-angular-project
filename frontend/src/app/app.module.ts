@@ -1,5 +1,3 @@
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { AddCategoryComponent } from './modules/category/add-category/add-category.component';
 import { AddUserComponent } from './modules/user/add-user/add-user.component';
 import { AppComponent } from './app.component';
@@ -38,6 +36,8 @@ import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { ToastrModule } from 'ngx-toastr';
 import { UserInfoComponent } from './pages/user-info/user-info.component';
+import { AvatarDirective } from './Directive/avatar.directive';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -72,20 +72,20 @@ import { UserInfoComponent } from './pages/user-info/user-info.component';
     LoginPageAdminComponent,
     AddCategoryComponent,
     EditCategoryComponent,
+    AvatarDirective,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule,
     CommonModule,
-    BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot({
-      timeOut: 10000,
-      positionClass: 'toast-top-right',
-      preventDuplicates: true,
-    }), // ToastrModule added
+    // BrowserAnimationsModule, // required animations module
+    // ToastrModule.forRoot({
+    //   timeOut: 10000,
+    //   positionClass: 'toast-top-right',
+    //   preventDuplicates: true,
+    // }), // ToastrModule added
   ],
   providers: [],
   bootstrap: [AppComponent],

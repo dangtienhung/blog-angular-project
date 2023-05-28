@@ -4,7 +4,7 @@ import { CategoryService } from './../../../services/category/category.service';
 import { Component } from '@angular/core';
 import { ICategory } from 'src/app/interfaces/Category';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+// import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-category',
@@ -19,8 +19,7 @@ export class AddCategoryComponent {
   constructor(
     private builder: FormBuilder,
     private categoryService: CategoryService,
-    private router: Router,
-    private toastr: ToastrService
+    private router: Router // private toastr: ToastrService
   ) {
     this.categoryService.getAllCategories().subscribe((categoriesData) => {
       this.categories = categoriesData.data;
@@ -37,7 +36,7 @@ export class AddCategoryComponent {
       return categoryItem.name === category.name.trim();
     });
     if (isExist) {
-      this.toastr.warning('Tên danh mục đã tồn tại');
+      // this.toastr.warning('Tên danh mục đã tồn tại');
       this.addForm.reset();
       return;
     }
