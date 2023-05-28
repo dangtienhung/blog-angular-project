@@ -7,3 +7,9 @@
     height: 59px;
   }
 }
+
+@media (max-width: 768px) {
+  .img-slider {
+    display: none !important;
+  }
+}
