@@ -1,8 +1,10 @@
 import { RouterModule, Routes } from '@angular/router';
 
+import { AddCategoryComponent } from './modules/category/add-category/add-category.component';
 import { AddUserComponent } from './modules/user/add-user/add-user.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { EditCategoryComponent } from './modules/category/edit-category/edit-category.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { LayoutAdminComponent } from './layouts/layout-admin/layout-admin.component';
 import { LayoutClientComponent } from './layouts/layout-client/layout-client.component';
@@ -43,6 +45,8 @@ const routes: Routes = [
       { path: 'manager-users', component: ManageUserComponent },
       { path: 'manager-posts', component: ManagePostsComponent },
       { path: 'manager-categories', component: CategoriesComponent },
+      { path: 'add-category', component: AddCategoryComponent },
+      { path: 'edit-category/:id', component: EditCategoryComponent },
       { path: 'manager-tags', component: ManagerTagsComponent },
       { path: 'manager-comments', component: ManagerCommentsComponent },
     ],
