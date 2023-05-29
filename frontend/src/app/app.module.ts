@@ -35,9 +35,11 @@ import { PostsDetailPageComponent } from './pages/posts-detail-page/posts-detail
 import { RelatedPostsComponent } from './components/related-posts/related-posts.component';
 import { SidebarAdminComponent } from './components/sidebar-admin/sidebar-admin.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { SliderComponent } from './components/slider/slider.component';
 import { ToastrModule } from 'ngx-toastr';
 import { UserInfoComponent } from './pages/user-info/user-info.component';
+import { PostListsComponent } from './pages/post-lists/post-lists.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +74,7 @@ import { UserInfoComponent } from './pages/user-info/user-info.component';
     LoginPageAdminComponent,
     AddCategoryComponent,
     EditCategoryComponent,
+    PostListsComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,8 +89,12 @@ import { UserInfoComponent } from './pages/user-info/user-info.component';
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     }), // ToastrModule added
+    SlickCarouselModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
+  schemas: [
+    // CUSTOM_ELEMENTS_SCHEMA,
+  ],
 })
 export class AppModule {}
