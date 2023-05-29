@@ -9,7 +9,8 @@ import { baseURL } from 'src/app/utils/instance';
   providedIn: 'root',
 })
 export class UserService {
-  baseURL: string = '';
+  // proxy config file proxy.conf.json
+  baseURL: string = '/api/v1/users';
   constructor(private http: HttpClient) {
     this.baseURL = `${baseURL}/users`;
   }
@@ -19,7 +20,7 @@ export class UserService {
   }
   /* create */
   createUser(user: IUser) {
-    return this.http.post(`${this.baseURL}`, user);
+    return this.http.post(`${this.baseURL}/create`, user);
   }
   /* update */
   updateUser(user: IUser) {

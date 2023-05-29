@@ -1,19 +1,18 @@
 export interface IUser {
-  _id: string;
+  _id?: string;
   username: string;
   password: string;
   email: string;
   role: string;
   is_active: boolean;
-  created_at: Date;
-  updated_at: Date;
+  // created_at: Date;
+  // updated_at: Date;
   isVerified: boolean;
   postList: any[];
   address?: string;
   avatar?: string;
   phone?: string;
 }
-
 export interface IUserDocs {
   docs: IUser[];
   totalDocs: number;

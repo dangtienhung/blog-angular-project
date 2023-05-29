@@ -555,9 +555,7 @@ paths:
           schema:
             type: string
       responses:
-
         '200':
-
           description: A JSON object containing a success message and the post that was undone
           content:
             application/json:
@@ -571,7 +569,6 @@ paths:
                     $ref: '#/components/schemas/Post'
 
         '400':
-
           description: A JSON object containing an error message if the post could not be undone
           content:
             application/json:
@@ -583,7 +580,6 @@ paths:
                     example: Undo delete post failed
 
         '500':
-
           description: A JSON object containing an error message if there was a server error
           content:
             application/json:
@@ -884,6 +880,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Post'
+  /uploadfiles:
+    post:
+      summary: upload files
+      description: upload image
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        200:
+          description: Ok
 
 components:
   schemas:

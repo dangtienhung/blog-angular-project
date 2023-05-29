@@ -16,6 +16,7 @@ import { authors } from './middleware/author.js';
 import commentRouter from './routes/comment.route.js';
 import tagRouter from './routes/tag.route.js';
 import hashTagRouter from './routes/hashtag.route.js';
+import UploadFileRouter from './routes/uploadfile.routes.js';
 
 /* port */
 dotenv.config();
@@ -53,6 +54,9 @@ app.use('/api/v1/tag', tagRouter);
 
 /* router hashtag*/
 app.use('/api/v1/hashtag', hashTagRouter);
+
+/* router uploadfile*/
+app.use('/api/v1/', UploadFileRouter);
 
 /* server */
 app.listen(port, () => {
