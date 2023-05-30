@@ -14,11 +14,10 @@
           >
         </li>
         <li>
-          <a
-            class="text-decoration-none font-500 text-black text-xl"
-            routerLink="/posts"
-            >Blog</a
-          >
+          <a class="text-decoration-none font-500 text-black text-xl" routerLink="blog">Blog</a>
+        </li>
+        <li>
+          <a class="text-decoration-none font-500 text-black text-xl" routerLink="#">Contact</a>
         </li>
         <!-- <li>
           <a
@@ -29,7 +28,8 @@
         </li> -->
       </ul>
     </div>
-    <div class="col-sm-6 col-md-4">
+
+    <div class="col-4"> 
       <div class="position-relative">
         <input
           type="text"
@@ -42,12 +42,14 @@
         ></i>
       </div>
     </div>
-    <div class="col-2 d-flex justify-content-end">
-      <a
-        routerLink="/signup"
-        class="d-block text-center btn-signup text-decoration-none text-white rounded text-xl font-600"
-        >Sign Up</a
-      >
+    
+    <div class="col-1 d-flex justify-content-end">
+      <a routerLink="signup"
+        class="d-block text-center btn-signup text-decoration-none text-white rounded text-xl font-600">Sign Up</a>
+    </div>
+    <div class="col-1 d-flex justify-content-end">
+      <a routerLink="login"
+        class="d-block text-center btn-signup text-decoration-none text-white rounded text-xl font-600">Log in</a>
     </div>
   </div>
 </header>

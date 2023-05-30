@@ -4,6 +4,7 @@ import { LayoutClientComponent } from '../../layouts/layout-client/layout-client
 import { HomepageComponent } from '../../pages/homepage/homepage.component';
 import { UserInfoComponent } from '../../pages/user-info/user-info.component';
 import { PostsComponent } from '../../components/posts/posts.component';
+import { BlogPageComponent } from 'src/app/pages/blog-page/blog-page.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
         path: 'post/:id',
         component: PostsComponent,
       },
+      {
+        path: 'blog',
+        component: BlogPageComponent
+      }
     ],
   },
 ];

@@ -5,6 +5,7 @@ import { AddUserComponent } from './modules/user/add-user/add-user.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AvatarDirective } from './Directive/avatar.directive';
+import { BlogPageComponent } from './pages/blog-page/blog-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CategoriesComponent } from './components/categories/categories.component';
@@ -14,6 +15,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { EditCategoryComponent } from './modules/category/edit-category/edit-category.component';
 import { FeatureComponent } from './components/feature/feature.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { HashTagAddComponent } from './modules/hashTag/hash-tag-add/hash-tag-add.component';
+import { HashTagEditComponent } from './modules/hashTag/hash-tag-edit/hash-tag-edit.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { LayoutAdminComponent } from './layouts/layout-admin/layout-admin.component';
@@ -43,10 +46,10 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { SliderComponent } from './components/slider/slider.component';
 import { ToastrModule } from 'ngx-toastr';
 import { UserInfoComponent } from './pages/user-info/user-info.component';
-import { HashTagAddComponent } from './modules/hashTag/hash-tag-add/hash-tag-add.component';
-import { HashTagEditComponent } from './modules/hashTag/hash-tag-edit/hash-tag-edit.component';
 
 // import } from 'ngx-toastr'
+
+// import { RequestInterceptor } from './request/request.interceptor';
 
 @NgModule({
   declarations: [
@@ -86,6 +89,7 @@ import { HashTagEditComponent } from './modules/hashTag/hash-tag-edit/hash-tag-e
     PostAddComponent,
     HashTagAddComponent,
     HashTagEditComponent,
+    BlogPageComponent,
   ],
   imports: [
     BrowserModule,

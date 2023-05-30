@@ -1,4 +1,4 @@
-import { IUser, IUserDocs } from 'src/app/interfaces/User';
+import { IUser, IUserDocs, IUserResponse } from 'src/app/interfaces/User';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -9,14 +9,18 @@ import { baseURL } from 'src/app/utils/instance';
   providedIn: 'root',
 })
 export class UserService {
-  // proxy config file proxy.conf.json
-  baseURL: string = '/api/v1/users';
+  baseURL: string = '';
   constructor(private http: HttpClient) {
     this.baseURL = `${baseURL}/users`;
   }
+
   /* getAllUsers */
   getAllUsers(): Observable<IUserDocs> {
     return this.http.get<IUserDocs>(`${this.baseURL}?_page=1&&_limit=10`);
+  }
+
+  getUser(id: string): Observable<IUserResponse> {
+    return this.http.get<IUserResponse>(`${this.baseURL}/${id}`);
   }
   /* create */
   createUser(user: IUser) {

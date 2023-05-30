@@ -1,6 +1,8 @@
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { MenuItems } from 'src/app/interfaces/ISidebarAdmin';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar-admin',
@@ -9,6 +11,7 @@ import { MenuItems } from 'src/app/interfaces/ISidebarAdmin';
 })
 export class SidebarAdminComponent {
   urlPath: string = 'dashboard';
+  // constructor(private service: AuthService, private direct: Router) {}
   /* router link */
   menuItems: MenuItems[] = [
     {
@@ -48,7 +51,11 @@ export class SidebarAdminComponent {
       isActive: false,
     },
   ];
-  constructor(private location: Location) {
+  constructor(
+    private location: Location,
+    private service: AuthService,
+    private direct: Router
+  ) {
     this.urlPath = this.location.path();
     console.log(this.urlPath);
     this.setActiveItemByUrl(this.urlPath);
@@ -67,5 +74,9 @@ export class SidebarAdminComponent {
         item.isActive = true;
       }
     });
+  }
+  onLogout() {
+    this.service.logOut();
+    this.direct.navigateByUrl('login-admin');
   }
 }

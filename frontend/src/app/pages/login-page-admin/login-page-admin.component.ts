@@ -25,6 +25,7 @@ export class LoginPageAdminComponent {
   ) {
     if (localStorage.getItem('accessToken')) {
       const accessToken = JSON.parse(localStorage.getItem('accessToken') || '');
+      console.log(accessToken);
       if (accessToken === '') {
         this.router.navigate(['/login-admin']);
       }
@@ -65,5 +66,20 @@ export class LoginPageAdminComponent {
         this.toastr.warning('Tài khoản hoặc mật khẩu không đúng');
       }
     );
+
+    //   if (user.user.role === 'admin') {
+    //     this.isAdminUser = true;
+    //     localStorage.setItem('accessToken', JSON.stringify(user.accessToken));
+    //     localStorage.setItem('user', JSON.stringify(user.user));
+    //     this.router.navigate(['/admin']);
+    //   }
+
+    //   if (user.user.role === 'user') {
+    //     this.isAdminUser = true;
+    //     localStorage.setItem('accessToken', JSON.stringify(user.accessToken));
+    //     localStorage.setItem('user', JSON.stringify(user.user));
+    //     this.router.navigate(['/']);
+    //   }
+    // });
   }
 }
