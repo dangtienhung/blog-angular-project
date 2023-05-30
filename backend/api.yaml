@@ -35,6 +35,8 @@ tags:
     description: Tag blog
   - name: HashTag_blog
     description: HashTag Blog
+  - name: Upload_Files
+    description: Upload Files
 paths:
   /category:
     #get data:
@@ -898,7 +900,90 @@ paths:
       responses:
         200:
           description: Ok
-
+  /images/upload:
+    post:
+      tags:
+        - Upload_Files
+      summary: Upload an image
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: formData
+          name: file
+          type: file
+          description: The image file to upload
+          required: true
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            type: object
+            properties:
+              urls:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    url:
+                      type: string
+                      format: uri
+                      description: The URL of the uploaded image
+                    public_id:
+                      type: string
+                      description: The public ID of the uploaded image in Cloudinary
+        400:
+          description: Invalid file
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error message
+        500:
+          description: Internal server error
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error message
+                /images/{public_id}:
+  /images/{public_id}:
+    delete:
+      tags:
+          - Upload_Files
+      summary: Delete an image by public ID
+      parameters:
+        - in: path
+          name: public_id
+          type: string
+          description: The public ID of the image to delete
+          required: true
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Success message
+        400:
+          description: Invalid public ID or failed to delete image
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error message
+        500:
+          description: Internal server error
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error message
 components:
   schemas:
     Category:
