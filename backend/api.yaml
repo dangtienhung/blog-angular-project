@@ -25,7 +25,7 @@ servers:
 tags:
   - name: Category
     description: All data of Category
-  - name: author
+  - name: authen
     description: sing-in/sign-up
   - name: Post_blog
     description: create blog

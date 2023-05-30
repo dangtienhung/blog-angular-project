@@ -124,6 +124,25 @@
               </td>
             </tr>
           </tbody>
+
+          <!-- hashtags -->
+          <tbody *ngIf="hashTags.length > 0">
+            <tr *ngFor="let hashTag of hashTags; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ hashTag.title }}</td>
+              <td>{{ hashTag.slug }}</td>
+              <td>
+                <a routerLink="/admin/hash-tags-edit/{{hashTag._id!}}">
+                  <button class="settings text-primary">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+                </a>
+                <button class="delete text-danger" (click)="handleDelete(hashTag._id!)">
+                  <i class="fa-sharp fa-solid fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
       <div class="clearfix mt-4">
