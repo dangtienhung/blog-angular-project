@@ -93,13 +93,13 @@ export class SignupPageComponent {
             showLoaderOnDeny: true,
             timerProgressBar: true,
             didOpen: () => {
-              setInterval(() => {
+              const sendingUser = setInterval(() => {
                 this.user.getUser(data.user._id!).subscribe((data) => {
-                  console.log(data.user.isVerified);
-
                   if (data.user.isVerified) {
-                    this.direct.navigateByUrl('/login');
+                    console.log(data);
                     Swal.close();
+                    this.direct.navigateByUrl('/login');
+                    clearInterval(sendingUser);
                     return;
                   }
                 });
