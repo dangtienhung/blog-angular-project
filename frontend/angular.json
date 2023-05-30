@@ -28,9 +28,15 @@
               "src/styles.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/sweetalert2/src/sweetalert2.scss",
-              "./node_modules/ngx-toastr/toastr.css"
+              "./node_modules/ngx-toastr/toastr.css",
+              "./node_modules/slick-carousel/slick/slick.scss",
+              "./node_modules/slick-carousel/slick/slick-theme.scss"
             ],
-            "scripts": ["./node_modules/bootstrap/dist/js/bootstrap.min.js"]
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/slick-carousel/slick/slick.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {

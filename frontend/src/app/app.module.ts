@@ -2,6 +2,7 @@ import { AddCategoryComponent } from './modules/category/add-category/add-catego
 import { AddUserComponent } from './modules/user/add-user/add-user.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AvatarDirective } from './Directive/avatar.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CategoriesComponent } from './components/categories/categories.component';
@@ -28,16 +29,17 @@ import { NewPostComponent } from './components/new-post/new-post.component';
 import { NgModule } from '@angular/core';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { PostListsComponent } from './pages/post-lists/post-lists.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { PostsDetailPageComponent } from './pages/posts-detail-page/posts-detail-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RelatedPostsComponent } from './components/related-posts/related-posts.component';
 import { SidebarAdminComponent } from './components/sidebar-admin/sidebar-admin.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { SliderComponent } from './components/slider/slider.component';
 import { ToastrModule } from 'ngx-toastr';
 import { UserInfoComponent } from './pages/user-info/user-info.component';
-import { AvatarDirective } from './Directive/avatar.directive';
-import { ReactiveFormsModule } from '@angular/forms';
 import { RequestInterceptor } from './request/request.interceptor';
 
 @NgModule({
@@ -73,6 +75,7 @@ import { RequestInterceptor } from './request/request.interceptor';
     LoginPageAdminComponent,
     AddCategoryComponent,
     EditCategoryComponent,
+    PostListsComponent,
     AvatarDirective,
   ],
   imports: [
@@ -81,12 +84,16 @@ import { RequestInterceptor } from './request/request.interceptor';
     HttpClientModule,
     ReactiveFormsModule,
     CommonModule,
-    // BrowserAnimationsModule, // required animations module
-    // ToastrModule.forRoot({
-    //   timeOut: 10000,
-    //   positionClass: 'toast-top-right',
-    //   preventDuplicates: true,
-    // }), // ToastrModule added
+    BrowserAnimationsModule, // required animations module
+
+    // Toi bi loi ToastrModule nay ko down dc ngx-toastr len phai comment lai!!
+
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }), // ToastrModule added
+    SlickCarouselModule,
   ],
   providers: [
     {
@@ -96,5 +103,8 @@ import { RequestInterceptor } from './request/request.interceptor';
     },
   ],
   bootstrap: [AppComponent],
+  schemas: [
+    // CUSTOM_ELEMENTS_SCHEMA,
+  ],
 })
 export class AppModule {}

@@ -18,7 +18,13 @@ export class LoginPageComponent {
     private direct: Router
   ) {}
   FormLogin = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    email: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/),
+      ],
+    ],
     password: ['', [Validators.required]],
   });
 
