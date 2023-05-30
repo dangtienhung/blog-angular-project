@@ -29,7 +29,7 @@ const routes: Routes = [
       { path: '', redirectTo: '', pathMatch: 'full' },
       { path: '', component: HomepageComponent },
       { path: 'user-info', component: UserInfoComponent },
-      { path: 'posts/:id', component: PostsDetailPageComponent },
+      { path: 'posts/:slug', component: PostsDetailPageComponent },
     ],
   },
   { path: 'login', component: LoginPageComponent },
