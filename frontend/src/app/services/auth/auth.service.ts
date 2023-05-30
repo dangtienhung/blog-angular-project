@@ -1,4 +1,4 @@
-import { ILogin, IUserResponse } from 'src/app/interfaces/User';
+import { ILogin, IUser, IUserResponse } from 'src/app/interfaces/User';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -11,11 +11,14 @@ import { baseURL } from './../../utils/instance';
 export class AuthService {
   TOKEN_KEY = 'authToken';
   TOKEN_USER = 'user';
-  baseURL: string = '/api/v1/sign-in';
   constructor(private http: HttpClient) {}
   /* login */
   loginUser(userInfo: ILogin): Observable<IUserResponse> {
-    return this.http.post<IUserResponse>(`${this.baseURL}`, userInfo);
+    return this.http.post<IUserResponse>(`${baseURL}/sign-in`, userInfo);
+  }
+
+  registerUser(user: IUser): Observable<IUserResponse> {
+    return this.http.post<IUserResponse>(`${baseURL}/sign-up`, user);
   }
 
   logOut() {

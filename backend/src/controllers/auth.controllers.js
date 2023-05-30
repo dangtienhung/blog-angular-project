@@ -19,6 +19,7 @@ export const authController = {
   register: async (req, res) => {
     try {
       const body = req.body;
+      console.log(body);
       /* validate */
       const { error } = authValidate.validate(body, { abortEarly: false });
       if (error) {
@@ -27,6 +28,7 @@ export const authController = {
       }
       /* check user */
       const exists = await User.findOne({ email: body.email });
+      // console.log(exists);
       if (exists) {
         return res.status(400).json({ message: 'Email already exists' });
       }
@@ -45,11 +47,11 @@ export const authController = {
       /* gennerate token */
       const token = authController.generateToken(user);
       /* mailer */
-      // const linkToVerify = `http://localhost:8080/api/v1/auth/verify?token=${token}`;
-      // const info = await sendVerificationEmail(user, linkToVerify);
-      // if (!info) {
-      //   return res.status(400).json({ message: 'Send mail failed' });
-      // }
+      const linkToVerify = `http://localhost:8080/api/v1/verify?token=${token}`;
+      const info = await sendVerificationEmail(user, linkToVerify);
+      if (!info) {
+        return res.status(400).json({ message: 'Send mail failed' });
+      }
       return res.status(200).json({ message: 'Register successfully', accessToken: token, user });
     } catch (error) {
       return res.status(500).json({ message: 'Internal server error' });

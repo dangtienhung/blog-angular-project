@@ -6,19 +6,20 @@ import {
   Validators,
   AbstractControl,
 } from '@angular/forms';
-import { UserService } from 'src/app/services/users/user.service';
 import { HttpClient } from '@angular/common/http';
 import { IUser } from 'src/app/interfaces/User';
 import Swal from 'sweetalert2';
 import { catchError, throwError } from 'rxjs';
-import { Router } from '@angular/router';
+import { BaseRouteReuseStrategy, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { UserService } from 'src/app/services/users/user.service';
 
 @Component({
   selector: 'app-signup-page',
   templateUrl: './signup-page.component.html',
   styleUrls: ['./signup-page.component.scss'],
 })
-export class SignupPageComponent implements OnInit {
+export class SignupPageComponent {
   selectedFile!: File;
 
   onFileSlected(e: any) {
@@ -27,7 +28,8 @@ export class SignupPageComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private service: UserService,
+    private signup: AuthService,
+    private user: UserService,
     private http: HttpClient,
     private direct: Router
   ) {}
@@ -57,48 +59,65 @@ export class SignupPageComponent implements OnInit {
     }
     return null;
   }
-  ngOnInit(): void {
-    this.service.getAllUsers().subscribe((data) => {
-      console.log(data);
-    });
-  }
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
   }
 
   onSubmit() {
-    if (this.selectedFile) {
-      const formdata = new FormData();
-      formdata.append('files', this.selectedFile);
-      this.http.post<any>('/api/v1/uploadfiles', formdata).subscribe((res) => {
-        const pressSignUp: IUser = {
-          username: this.SignUp.value.fullname || '',
-          password: this.SignUp.value.password || '',
-          email: this.SignUp.value.email || '',
-          role: 'user',
-          is_active: true,
-          postList: [],
-          isVerified: true,
-          avatar: res.data[0],
-        };
-        this.service
-          .createUser(pressSignUp)
-          .pipe(
-            catchError((err) => {
+    const pressSignUp: IUser = {
+      username: this.SignUp.value.fullname || '',
+      password: this.SignUp.value.password || '',
+      email: this.SignUp.value.email || '',
+      confirmPassword: this.SignUp.value.confirmpassword || '',
+    };
+
+    this.signup
+      .registerUser(pressSignUp)
+      .pipe(
+        catchError((err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.error.message,
+          });
+          return throwError('Đã xảy ra lỗi');
+        })
+      )
+      .subscribe((data) => {
+        if (data.user.isVerified == false) {
+          Swal.fire({
+            title: 'Verify your email!',
+            html: 'I will close in <b></b> milliseconds.',
+            timer: 60000,
+            showLoaderOnDeny: true,
+            timerProgressBar: true,
+            didOpen: () => {
+              setInterval(() => {
+                this.user.getUser(data.user._id!).subscribe((data) => {
+                  console.log(data.user.isVerified);
+
+                  if (data.user.isVerified) {
+                    this.direct.navigateByUrl('/login');
+                    Swal.close();
+                    return;
+                  }
+                });
+              }, 2000);
+              Swal.showLoading();
+            },
+          }).then((result) => {
+            if (result.dismiss === Swal.DismissReason.timer) {
               Swal.fire({
                 icon: 'error',
-                title: 'Oops...',
-                text: err.error.msg,
+                title: 'Vetify failed...',
+                text: 'Something went wrong!',
+                footer: '<a href="">Why do I have this issue?</a>',
               });
-              return throwError('Đã xảy ra lỗi');
-            })
-          )
-          .subscribe(() => {
-            this.direct.navigateByUrl('/login');
+            }
           });
+        }
       });
-    }
   }
 
   get checkName() {
