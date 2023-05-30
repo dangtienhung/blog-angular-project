@@ -14,7 +14,7 @@ import { FeatureComponent } from './components/feature/feature.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LayoutAdminComponent } from './layouts/layout-admin/layout-admin.component';
 import { LayoutClientComponent } from './layouts/layout-client/layout-client.component';
 import { LayoutManagerComponent } from './layouts/layout-manager/layout-manager.component';
@@ -42,6 +42,7 @@ import { ToastrModule } from 'ngx-toastr';
 // import } from 'ngx-toastr'
 
 import { UserInfoComponent } from './pages/user-info/user-info.component';
+import { RequestInterceptor } from './request/request.interceptor';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,9 @@ import { UserInfoComponent } from './pages/user-info/user-info.component';
     ReactiveFormsModule,
     CommonModule,
     BrowserAnimationsModule, // required animations module
+
+    // Toi bi loi ToastrModule nay ko down dc ngx-toastr len phai comment lai!!
+
     ToastrModule.forRoot({
       timeOut: 10000,
       positionClass: 'toast-top-right',
@@ -93,7 +97,13 @@ import { UserInfoComponent } from './pages/user-info/user-info.component';
     }), // ToastrModule added
     SlickCarouselModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
   schemas: [
     // CUSTOM_ELEMENTS_SCHEMA,
