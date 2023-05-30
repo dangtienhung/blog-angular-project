@@ -4,7 +4,7 @@
       <div class="table-title">
         <div class="row">
           <div class="col-sm-5">
-            <h2>{{title}}</h2>
+            <h2>{{ title }}</h2>
           </div>
           <div class="col-sm-7">
             <a [routerLink]="linkActive">
@@ -24,40 +24,61 @@
         <table class="table table-striped table-hover">
           <thead>
             <tr>
-              <th *ngFor="let theadItem of theadTable">{{theadItem}}</th>
+              <th *ngFor="let theadItem of theadTable">{{ theadItem }}</th>
             </tr>
           </thead>
           <!-- users -->
           <tbody *ngIf="dataTbody">
-            <tr *ngFor="let user of dataTbody;let i = index">
-              <td>{{i + 1}}</td>
+            <tr *ngFor="let user of dataTbody; let i = index">
+              <td>{{ i + 1 }}</td>
               <td>
                 <a routerLink="/">
-                  <img [src]="user.avatar|| 'https://api.multiavatar.com/' + user.username + '.png'" class="avatar"
-                    alt="Avatar">
-                  <span class="text-truncate">{{user.username}}</span>
+                  <img
+                    [src]="
+                      user.avatar ||
+                      'https://api.multiavatar.com/' + user.username + '.png'
+                    "
+                    class="avatar"
+                    alt="Avatar"
+                  />
+                  <span class="text-truncate">{{ user.username }}</span>
                 </a>
               </td>
-              <td>{{user.email}}</td>
+              <td>{{ user.email }}</td>
               <td>
-                <span class="status {{user.role === 'user' ? 'text-success' : 'bg-danger text-white'}}">{{user.role
-                  ===
-                  'user' ?
-                  'người dùng' : 'admin'}}</span>
+                <span
+                  class="status {{
+                    user.role === 'user'
+                      ? 'text-success'
+                      : 'bg-danger text-white'
+                  }}"
+                  >{{ user.role === "user" ? "người dùng" : "admin" }}</span
+                >
               </td>
               <td>
-                <span [class]="user.is_active ? 'status text-success' : 'status text-white bg-danger'">{{user.is_active
-                  ? 'Active' : 'InActive'}}
+                <span
+                  [class]="
+                    user.is_active
+                      ? 'status text-success'
+                      : 'status text-white bg-danger'
+                  "
+                  >{{ user.is_active ? "Active" : "InActive" }}
                 </span>
               </td>
               <td>
                 <button class="text-primary">
                   <i class="fa-solid fa-eye"></i>
                 </button>
-                <button class="settings text-primary" (click)="handleEdit({name: 'dang tien hung', age: 20})">
+                <button
+                  class="settings text-primary"
+                  (click)="handleEdit({ name: 'dang tien hung', age: 20 })"
+                >
                   <i class="fa-solid fa-pen-to-square"></i>
                 </button>
-                <button class="delete text-danger" (click)="handleDelete(user._id!)">
+                <button
+                  class="delete text-danger"
+                  (click)="handleDelete(user._id!)"
+                >
                   <i class="fa-sharp fa-solid fa-trash"></i>
                 </button>
               </td>
@@ -65,17 +86,67 @@
           </tbody>
           <!-- categories -->
           <tbody *ngIf="categories.length > 0">
-            <tr *ngFor="let category of categories;let i = index">
-              <td>{{i + 1}}</td>
-              <td>{{category.name}}</td>
-              <td>{{category.slug}}</td>
+            <tr *ngFor="let category of categories; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ category.name }}</td>
+              <td>{{ category.slug }}</td>
               <td>
-                <a routerLink="/admin/edit-category/{{category._id}}">
+                <a routerLink="/admin/edit-category/{{ category._id }}">
                   <button class="settings text-primary">
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
                 </a>
-                <button class="delete text-danger" (click)="handleDelete(category._id)">
+                <button
+                  class="delete text-danger"
+                  (click)="handleDelete(category._id!)"
+                >
+                  <i class="fa-sharp fa-solid fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          <!-- Posts -->
+
+          <tbody *ngIf="posts.length > 0">
+            <tr *ngFor="let post of posts; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ post.title }}</td>
+              <td>{{ post.author.username }}</td>
+              <td>{{ post.category.name }}</td>
+              <td>
+                <img
+                  *ngFor="let img of post.images"
+                  [src]="img"
+                  alt=""
+                  class="mb-1"
+                />
+              </td>
+              <td class="text-truncate">{{ post.content }}</td>
+
+              <td>
+                <span
+                  class="text-light p-1 rounded {{
+                    post.status === 'public' ? 'bg-success' : 'bg-danger'
+                  }}"
+                >
+                  {{ post.status }}
+                </span>
+              </td>
+              <td>
+                <span *ngFor="let tag of post.tags">{{ tag }}</span>
+              </td>
+
+              <td>{{ post.likes.toLocaleString() }}</td>
+              <td>
+                <a routerLink="/admin/edit-category/">
+                  <button class="settings text-primary">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+                </a>
+                <button
+                  class="delete text-danger"
+                  (click)="handleDelete(post._id!)"
+                >
                   <i class="fa-sharp fa-solid fa-trash"></i>
                 </button>
               </td>
@@ -89,10 +160,14 @@
           <li class="page-item disabled"><a routerLink="#">Previous</a></li>
           <li class="page-item"><a routerLink="#" class="page-link">1</a></li>
           <li class="page-item"><a routerLink="#" class="page-link">2</a></li>
-          <li class="page-item active"><a routerLink="#" class="page-link">3</a></li>
+          <li class="page-item active">
+            <a routerLink="#" class="page-link">3</a>
+          </li>
           <li class="page-item"><a routerLink="#" class="page-link">4</a></li>
           <li class="page-item"><a routerLink="#" class="page-link">5</a></li>
-          <li class="page-item"><a routerLink="#" class="page-link">Next</a></li>
+          <li class="page-item">
+            <a routerLink="#" class="page-link">Next</a>
+          </li>
         </ul>
       </div>
     </div>

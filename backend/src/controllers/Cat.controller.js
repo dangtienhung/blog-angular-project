@@ -1,5 +1,6 @@
 import CatValidate from '../validates/categories.validate.js';
 import Category from '../models/categories.model.js';
+// import slugify from 'slugify';
 import slugify from 'slugify';
 
 export const getCategories = async (req, res) => {

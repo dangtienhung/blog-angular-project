@@ -9,23 +9,29 @@
       </div>
     </div>
 
-    <form action="" class="d-flex flex-column align-items-center">
+    <form [formGroup]="FormLogin" (ngSubmit)="onLogin()" action="" class="d-flex flex-column align-items-center">
       <div class="form-group mb-5">
         <label class="mb-3" for="email">Email address</label>
-        <input class="form-control" id="email" type="email" placeholder="Please enter your email address" />
+        <input class="form-control" id="email" type="email" formControlName="email"
+          placeholder="Please enter your email address" />
+        <div *ngIf="checkEmail.invalid && (checkEmail.touched || checkEmail.dirty)">
+          <span class="text-danger" *ngIf="checkEmail.errors?.['required']">Email is required</span>
+          <span class="text-danger" *ngIf="checkEmail.errors?.['pattern']">Email is not correct</span>
+        </div>
       </div>
       <div class="form-group">
         <label class="mb-3" for="password">Password</label>
         <div class="position-relative">
-          <input class="form-control" id="password" type="password" placeholder="Please enter your password" />
+          <input class="form-control" id="password" type="password" formControlName="password"
+            placeholder="Please enter your password" />
           <i class="fa-solid fa-eye position-absolute translate-middle-y top-50" style="right: 20px"></i>
         </div>
+        <div *ngIf="checkPassword.invalid && (checkPassword.touched || checkPassword.dirty)">
+          <span class="text-danger" *ngIf="checkPassword.errors?.['required']">Password is required</span>
+        </div>
       </div>
-      <div class="d-flex justify-content-start align-items-center" style="margin-top: 20px">
-        <p class="text-left">Not a member? <a routerLink="/signup" class="text-decoration-none">SignUp</a></p>
-      </div>
-      <div class="form-group" style="margin-top: 20px">
-        <button class="rounded">Login</button>
+      <div class="form-group" style="margin-top: 90px">
+        <button class="rounded" [disabled]="!FormLogin.valid">Login</button>
       </div>
     </form>
   </div>
