@@ -13,7 +13,7 @@ import { FeatureComponent } from './components/feature/feature.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LayoutAdminComponent } from './layouts/layout-admin/layout-admin.component';
 import { LayoutClientComponent } from './layouts/layout-client/layout-client.component';
 import { LayoutManagerComponent } from './layouts/layout-manager/layout-manager.component';
@@ -38,6 +38,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { UserInfoComponent } from './pages/user-info/user-info.component';
 import { AvatarDirective } from './Directive/avatar.directive';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RequestInterceptor } from './request/request.interceptor';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     //   preventDuplicates: true,
     // }), // ToastrModule added
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

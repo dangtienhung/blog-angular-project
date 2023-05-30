@@ -17,7 +17,7 @@ export class AddCategoryComponent {
   addForm = this.builder.group({
     name: ['', [Validators.required]],
   });
-  categories: ICategory[] = [];
+  categories!: ICategory[];
   constructor(
     private builder: FormBuilder,
     private categoryService: CategoryService,
@@ -25,12 +25,13 @@ export class AddCategoryComponent {
   ) {
     this.categoryService.getAllCategories().subscribe((categoriesData) => {
       this.categories = categoriesData.data;
+      console.log(this.categories);
     });
   }
   /* handle add new category */
   handleAddNewCategory() {
     if (this.addForm.invalid) return;
-    const category = {
+    const category: ICategory = {
       name: this.addForm.value.name || '',
     };
     /* compare name */
@@ -42,6 +43,7 @@ export class AddCategoryComponent {
       this.addForm.reset();
       return;
     }
+
     this.categoryService.addNewCategory(category).subscribe(() => {
       this.router.navigate(['/admin/manager-categories']);
     });
