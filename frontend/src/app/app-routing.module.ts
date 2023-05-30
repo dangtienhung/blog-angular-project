@@ -20,6 +20,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { PostsDetailPageComponent } from './pages/posts-detail-page/posts-detail-page.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { UserInfoComponent } from './pages/user-info/user-info.component';
+import { BlogPageComponent } from './pages/blog-page/blog-page.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,7 @@ const routes: Routes = [
       { path: '', component: HomepageComponent },
       { path: 'user-info', component: UserInfoComponent },
       { path: 'posts/:id', component: PostsDetailPageComponent },
+      { path: 'blog', component: BlogPageComponent },
     ],
   },
   { path: 'login', component: LoginPageComponent },

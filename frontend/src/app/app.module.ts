@@ -38,6 +38,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { UserInfoComponent } from './pages/user-info/user-info.component';
 import { AvatarDirective } from './Directive/avatar.directive';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BlogPageComponent } from './pages/blog-page/blog-page.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AddCategoryComponent,
     EditCategoryComponent,
     AvatarDirective,
+    BlogPageComponent,
   ],
   imports: [
     BrowserModule,

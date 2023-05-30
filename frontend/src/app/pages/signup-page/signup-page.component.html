@@ -45,6 +45,11 @@
           <div *ngIf="f.password.errors?.['required']" class="message-error text-danger pt-2 ">
             Password cannot be empty
           </div>
+          <div *ngIf="f.password.errors?.['pattern']" class="message-error text-danger pt-2 ">
+            Password must contain at least one number, one uppercase and a
+            lowercase letter and at least 8 characters <br/>Password cannot
+            contain whitespace
+          </div>
         </div>
       </div>
 
@@ -59,11 +64,12 @@
           <div *ngIf="f.confirmPassword.errors?.['required']" class="message-error text-danger pt-2 ">
             ConfirmPassword cannot be empty
           </div>
-          <div *ngIf="f.confirmPassword.errors?.['beMatch']" class="message-error text-danger pt-2 ">
+          <!-- <div *ngIf="f.confirmPassword.errors?.['beMatch']" class="message-error text-danger pt-2 ">
             ConfirmPassword didn't match
-          </div>
+          </div> -->
         </div>
       </div>
+      <!-- <p>Have already an account? <a routerLink="login-admin">Login</a> </p> -->
       <div class="form-group" style="margin-top: 60px">
         <button class="rounded" [disabled]="!signUpForm.valid">Sign Up</button>
       </div>

@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { IUserRegister } from 'src/app/interfaces/User';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -14,18 +20,27 @@ export class SignupPageComponent {
     private authService: AuthService,
     private formSignup: FormBuilder,
     private router: Router
-  ) {}
+  ) {
+    this.formSignup.group({});
+  }
 
   signUpForm = this.formSignup.group(
     {
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{8,}/
+          ),
+        ],
+      ],
       confirmPassword: ['', [Validators.required]],
     }
-    // ,
-    // {
-    //   validators: this.beMatch('password', 'confirmPassword'),
+    // , {
+    //   validator: this.ConfirmedValidator('password','confirmPassword' )
     // }
   );
 
@@ -33,20 +48,18 @@ export class SignupPageComponent {
     return this.signUpForm.controls;
   }
 
-  beMatch(controlName: string, matchingControlName: string) {
-    return (formGroup: FormGroup) => {
-      const control = formGroup.controls[controlName];
-      const matchingControl = formGroup.controls[matchingControlName];
-      if (matchingControl.errors && matchingControl.errors['beMatch']) {
-        return;
-      }
-      if (control.value !== matchingControl.value) {
-        matchingControl.setErrors({ beMatch: true });
-      } else {
-        matchingControl.setErrors({ beMatch: null });
-      }
-    };
-  }
+  //   ConfirmedValidator(controlName: string, matchingControlName: string){
+  //     return (formGroup: FormGroup) => {
+  //         const control = formGroup.controls[controlName];
+  //         const matchingControl = formGroup.controls[matchingControlName];
+
+  //         if (control.value !== matchingControl.value) {
+  //             matchingControl.setErrors({ confirmedValidator: true });
+  //         } else {
+  //             matchingControl.setErrors(null);
+  //         }
+  //     }
+  // }
 
   onHandleSubmit() {
     const user: IUserRegister = {
@@ -58,9 +71,9 @@ export class SignupPageComponent {
 
     this.authService.signUpUser(user).subscribe(
       (user) => {
-        alert("Successful account registration")
+        alert('Successful account registration');
+        console.log(user);
         this.router.navigate(['/login']);
-        // console.log(user);
       },
       (error) => console.log(error.message)
     );
