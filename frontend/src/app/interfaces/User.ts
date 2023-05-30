@@ -2,13 +2,14 @@ export interface IUser {
   _id?: string;
   username: string;
   password: string;
+  confirmPassword: string;
   email: string;
-  role: string;
-  is_active: boolean;
-  // created_at: Date;
-  // updated_at: Date;
-  isVerified: boolean;
-  postList: any[];
+  role?: string;
+  is_active?: boolean;
+  created_at?: Date;
+  updated_at?: Date;
+  isVerified?: boolean;
+  postList?: any[];
   address?: string;
   avatar?: string;
   phone?: string;
@@ -24,6 +25,11 @@ export interface IUserDocs {
   hasNextPage: boolean;
   prevPage?: null | number;
   nextPage?: null | number;
+}
+
+export interface ILogin {
+  email: string;
+  password: string;
 }
 
 export interface IUserResponse {

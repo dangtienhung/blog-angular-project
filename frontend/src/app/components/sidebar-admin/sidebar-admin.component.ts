@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuItems } from 'src/app/interfaces/ISidebarAdmin';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-sidebar-admin',
@@ -7,6 +9,7 @@ import { MenuItems } from 'src/app/interfaces/ISidebarAdmin';
   styleUrls: ['./sidebar-admin.component.scss'],
 })
 export class SidebarAdminComponent {
+  constructor(private service: AuthService, private direct: Router) {}
   /* router link */
   menuItems: MenuItems[] = [
     {
@@ -24,7 +27,7 @@ export class SidebarAdminComponent {
     {
       routerLink: 'manager-posts',
       label: 'Posts',
-      icon: 'fas fa-users',
+      icon: 'fa-solid fa-file',
       isActive: false,
     },
     {
@@ -46,5 +49,10 @@ export class SidebarAdminComponent {
       item.isActive = false;
     });
     item.isActive = true;
+  }
+
+  onLogout() {
+    this.service.logOut();
+    this.direct.navigateByUrl('login-admin');
   }
 }

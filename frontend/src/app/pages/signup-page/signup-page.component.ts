@@ -78,4 +78,8 @@ export class SignupPageComponent {
       (error) => console.log(error.message)
     );
   }
+
+  // get checkConfirmPassword() {
+  //   return this.SignUp.get('confirmpassword') as FormControl;
+  // }
 }

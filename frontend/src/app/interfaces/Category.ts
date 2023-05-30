@@ -1,9 +1,9 @@
 export interface ICategory {
-  _id: string;
+  _id?: string;
   name: string;
-  slug: string;
-  created_at: Date;
-  updated_at: Date;
+  slug?: string;
+  created_at?: Date;
+  updated_at?: Date;
 }
 
 export interface IDocCategories {

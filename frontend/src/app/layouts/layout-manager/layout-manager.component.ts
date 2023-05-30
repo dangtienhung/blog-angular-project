@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { ICategory } from 'src/app/interfaces/Category';
+import { IPosts } from 'src/app/interfaces/Posts';
 import { IUser } from 'src/app/interfaces/User';
 import Swal from 'sweetalert2';
 
@@ -16,6 +17,7 @@ export class LayoutManagerComponent {
   @Input() theadTable: string[] = [];
   @Input() dataTbody: IUser[] = [];
   @Input() categories: ICategory[] = [];
+  @Input() posts: IPosts[] = [];
   @Input() handleAddNewUser: any;
   @Input() userForm: any;
   @Output() exportToExcel = new EventEmitter<void>();

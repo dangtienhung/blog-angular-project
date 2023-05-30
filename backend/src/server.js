@@ -1,22 +1,24 @@
 import CatRoute from './routes/cat.route.js';
 import { ConnectDB } from './config/connect.js';
+import UploadFileRouter from './routes/uploadfile.routes.js';
+import YAML from 'yamljs';
 import authRouter from './routes/auth.routes.js';
-// import commentRouter from './routes/comments.routes.js';
+import { authors } from './middleware/author.js';
+import commentRouter from './routes/comment.route.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
+import hashTagRouter from './routes/hashtag.route.js';
 import morgan from 'morgan';
 import postRouter from './routes/posts.routes.js';
 import swaggerJsdoc from 'swagger-jsdoc';
 import { swaggerOptions } from './config/swagger.js';
 import swaggerUi from 'swagger-ui-express';
-import userRouter from './routes/users.routes.js';
-import YAML from 'yamljs';
-import { authors } from './middleware/author.js';
-import commentRouter from './routes/comment.route.js';
 import tagRouter from './routes/tag.route.js';
-import hashTagRouter from './routes/hashtag.route.js';
-import UploadFileRouter from './routes/uploadfile.routes.js';
+import uploadRouter from './routes/upload.routes.js';
+import userRouter from './routes/users.routes.js';
+
+// import commentRouter from './routes/comments.routes.js';
 
 /* port */
 dotenv.config();
@@ -39,6 +41,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerdocUI));
 app.use('/api/v1/posts', postRouter);
 app.use('/api/v1', userRouter);
 app.use('/api/v1', authRouter);
+app.use('/api/v1', uploadRouter);
 
 /* db */
 ConnectDB();

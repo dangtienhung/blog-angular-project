@@ -19,6 +19,7 @@ export const authController = {
   register: async (req, res) => {
     try {
       const body = req.body;
+      console.log(body);
       /* validate */
       const { error } = authValidate.validate(body, { abortEarly: false });
       if (error) {
@@ -27,6 +28,7 @@ export const authController = {
       }
       /* check user */
       const exists = await User.findOne({ email: body.email });
+      // console.log(exists);
       if (exists) {
         return res.status(400).json({ message: 'Email already exists' });
       }
