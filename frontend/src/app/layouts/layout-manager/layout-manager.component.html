@@ -33,52 +33,37 @@
               <td>{{ i + 1 }}</td>
               <td>
                 <a routerLink="/">
-                  <img
-                    [src]="
+                  <img [src]="
                       user.avatar ||
                       'https://api.multiavatar.com/' + user.username + '.png'
-                    "
-                    class="avatar"
-                    alt="Avatar"
-                  />
+                    " class="avatar" alt="Avatar" />
                   <span class="text-truncate">{{ user.username }}</span>
                 </a>
               </td>
               <td>{{ user.email }}</td>
               <td>
-                <span
-                  class="status {{
+                <span class="status {{
                     user.role === 'user'
                       ? 'text-success'
                       : 'bg-danger text-white'
-                  }}"
-                  >{{ user.role === "user" ? "người dùng" : "admin" }}</span
-                >
+                  }}">{{ user.role === "user" ? "người dùng" : "admin" }}</span>
               </td>
               <td>
-                <span
-                  [class]="
+                <span [class]="
                     user.is_active
                       ? 'status text-success'
                       : 'status text-white bg-danger'
-                  "
-                  >{{ user.is_active ? "Active" : "InActive" }}
+                  ">{{ user.is_active ? "Active" : "InActive" }}
                 </span>
               </td>
               <td>
                 <button class="text-primary">
                   <i class="fa-solid fa-eye"></i>
                 </button>
-                <button
-                  class="settings text-primary"
-                  (click)="handleEdit({ name: 'dang tien hung', age: 20 })"
-                >
+                <button class="settings text-primary" (click)="handleEdit({ name: 'dang tien hung', age: 20 })">
                   <i class="fa-solid fa-pen-to-square"></i>
                 </button>
-                <button
-                  class="delete text-danger"
-                  (click)="handleDelete(user._id!)"
-                >
+                <button class="delete text-danger" (click)="handleDelete(user._id!)">
                   <i class="fa-sharp fa-solid fa-trash"></i>
                 </button>
               </td>
@@ -96,10 +81,7 @@
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
                 </a>
-                <button
-                  class="delete text-danger"
-                  (click)="handleDelete(category._id!)"
-                >
+                <button class="delete text-danger" (click)="handleDelete(category._id!)">
                   <i class="fa-sharp fa-solid fa-trash"></i>
                 </button>
               </td>
@@ -114,21 +96,14 @@
               <td>{{ post.author.username }}</td>
               <td>{{ post.category.name }}</td>
               <td>
-                <img
-                  *ngFor="let img of post.images"
-                  [src]="img"
-                  alt=""
-                  class="mb-1"
-                />
+                <img *ngFor="let img of post.images" [src]="img" alt="" class="mb-1" />
               </td>
               <td class="text-truncate">{{ post.content }}</td>
 
               <td>
-                <span
-                  class="text-light p-1 rounded {{
+                <span class="text-light p-1 rounded {{
                     post.status === 'public' ? 'bg-success' : 'bg-danger'
-                  }}"
-                >
+                  }}">
                   {{ post.status }}
                 </span>
               </td>
@@ -143,10 +118,26 @@
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
                 </a>
-                <button
-                  class="delete text-danger"
-                  (click)="handleDelete(post._id!)"
-                >
+                <button class="delete text-danger" (click)="handleDelete(post._id!)">
+                  <i class="fa-sharp fa-solid fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+
+          <!-- hashtags -->
+          <tbody *ngIf="hashTags.length > 0">
+            <tr *ngFor="let hashTag of hashTags; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ hashTag.title }}</td>
+              <td>{{ hashTag.slug }}</td>
+              <td>
+                <a routerLink="/admin/hash-tags-edit/{{hashTag._id!}}">
+                  <button class="settings text-primary">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+                </a>
+                <button class="delete text-danger" (click)="handleDelete(hashTag._id!)">
                   <i class="fa-sharp fa-solid fa-trash"></i>
                 </button>
               </td>

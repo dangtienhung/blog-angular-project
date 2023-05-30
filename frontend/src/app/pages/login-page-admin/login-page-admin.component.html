@@ -13,15 +13,35 @@
             <label class="form-label" for="form3Example3">Email address</label>
             <input type="email" id="form3Example3" class="form-control form-control-lg"
               placeholder="Enter email address" formControlName="email" />
+            <div
+              *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)"
+              class="">
+              <p *ngIf="loginForm.get('email')?.errors?.['required']" class="text-danger">
+                Email is required.
+              </p>
+              <p class="text-danger" *ngIf="loginForm.get('email')?.errors?.['email']">
+                Email is invalid.
+              </p>
+            </div>
           </div>
           <!-- Password input -->
           <div class="form-outline mb-3">
             <label class="form-label" for="form3Example4">Password</label>
             <input type="password" id="form3Example4" class="form-control form-control-lg" placeholder="Enter password"
               formControlName="password" />
+            <div
+              *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)"
+              class="text-danger">
+              <p *ngIf="loginForm.get('password')?.errors?.['required']" class="text-danger">
+                Password is required.
+              </p>
+              <p class="text-danger" *ngIf="loginForm.get('password')?.errors?.['minlength']">
+                Password must be at least 6 characters.
+              </p>
+            </div>
           </div>
           <div class="text-center text-lg-start mt-4 pt-2">
-            <button type="submit" class="btn btn-primary btn-lg w-100"
+            <button type="submit" class="btn btn-primary btn-lg w-100" [disabled]="loginForm.invalid"
               style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
           </div>
         </form>

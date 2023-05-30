@@ -1,6 +1,8 @@
+import Post from '../models/posts.model.js';
+import slugify from 'slugify';
 import tagModel from '../models/tag.model.js';
 import tagValidate from '../validates/tag.validate.js';
-import Post from '../models/posts.model.js';
+
 export const getTags = async (req, res) => {
   try {
     const data = await tagModel.find({});
@@ -50,7 +52,11 @@ export const addTag = async (req, res) => {
     if (error) {
       return res.status(400).send({ message: 'Fail', err: error.details.map((err) => err.message) });
     }
-    const data = await tagModel.create(req.body);
+    /* create slug */
+    const slug = slugify(req.body.title, { lower: true });
+    /* create tag */
+    const tag = { ...req.body, slug };
+    const data = await tagModel.create(tag);
     if (!data) {
       return res.status(400).send({ message: 'Fail', err: "Can't add Tags" });
     }
