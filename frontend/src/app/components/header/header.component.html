@@ -1,17 +1,11 @@
 <header>
   <!-- Navbar -->
   <div class="row align-items-center py-3">
-    <div class="col-sm-3 col-md-6 d-flex align-items-center">
-      <a routerLink="/">
-        <img [width]="43" [height]="56" src="./assets/images/logo.png" alt=""
+    <div class="col-6 d-flex align-items-center">
+      <a routerLink="/"
+        ><img [width]="43" [height]="56" src="./assets/images/logo.png" alt=""
       /></a>
-      <input type="checkbox" name="" id="nav-input" />
-      <label for="nav-input" class="nav-action">
-        <i class="fa-solid fa-bars"></i>
-        <i class="fa-solid fa-xmark"></i>
-      </label>
-
-      <ul class="menu d-flex m-0 gap-5">
+      <ul class="d-flex m-0 gap-5">
         <li>
           <a
             class="text-decoration-none font-500 text-black text-xl"
@@ -22,17 +16,17 @@
         <li>
           <a
             class="text-decoration-none font-500 text-black text-xl"
-            routerLink="#"
+            routerLink="/posts"
             >Blog</a
           >
         </li>
-        <li>
+        <!-- <li>
           <a
             class="text-decoration-none font-500 text-black text-xl"
             routerLink="#"
             >Contact</a
           >
-        </li>
+        </li> -->
       </ul>
     </div>
     <div class="col-sm-6 col-md-4">
@@ -42,16 +36,15 @@
           class="search-input ps-4 py-3 border border-2 rounded text-medium text-gray"
           placeholder="Search posts..."
         />
-
         <i
           class="fa-solid fa-magnifying-glass position-absolute top-50 translate-middle-y text-gray text-medium"
           style="right: 16px"
         ></i>
       </div>
     </div>
-    <div class="col-sm-3 col-md-2 d-flex justify-content-end">
+    <div class="col-2 d-flex justify-content-end">
       <a
-        routerLink="/signup"
+        routerLink="/login"
         class="d-block text-center btn-signup text-decoration-none text-white rounded text-xl font-600"
         >Sign Up</a
       >

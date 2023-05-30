@@ -2,47 +2,25 @@
   <div class="fet-title mb-4">
     <h4 class="text-3A1097 font-600 text-2xl">Feature</h4>
   </div>
-  <div class="row justify-content-between">
-    <div class="item text-light p-4 col-sm-12">
-      <div class="d-flex justify-content-between align-items-center">
-        <h5 class="bg-light text-6B6B6B rounded-3 text-sm px-2">Kiến thức</h5>
-        <div class="d-flex align-items-center gap-2">
-          <span class="text-sm text-light">Mar 23</span>
-          <img [width]="6" [height]="6" src="./assets/images/dot.png" alt="" />
-          <span class="text-sm text-light">Andiez Le</span>
-        </div>
+  <div class="row">
+    <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+      <div ngxSlickItem class="slide col-sm-12 col-lg-4" *ngFor="let featureItem of featureLists">
+        <a routerLink="posts/{{featureItem.id}}" class="d-inline-block text-decoration-none">
+          <div class="item text-light p-4">
+            <div class="d-flex justify-content-between align-items-center w-100">
+              <h5 class="bg-light text-6B6B6B rounded-3 text-sm px-2">{{featureItem.category}}</h5>
+              <div class="d-flex align-items-center gap-2">
+                <span class="text-sm text-light">{{featureItem.date}}</span>
+                <img [width]="6" [height]="6" src="./assets/images/dot.png" alt="" />
+                <span class="text-sm text-light">{{featureItem.author}}</span>
+              </div>
+            </div>
+            <h3 class="text-2xl">
+              {{featureItem.title}}
+            </h3>
+          </div>
+        </a>
       </div>
-      <h3 class="text-2xl">
-        Hướng dẫn setup phòng cực chill dành cho người mới toàn tập
-      </h3>
-    </div>
-
-    <div class="item text-light p-4 col-sm-12">
-      <div class="d-flex justify-content-between align-items-center">
-        <h5 class="bg-light text-6B6B6B rounded-3 text-sm px-2">Kiến thức</h5>
-        <div class="d-flex align-items-center gap-2">
-          <span class="text-sm text-light">Mar 23</span>
-          <img [width]="6" [height]="6" src="./assets/images/dot.png" alt="" />
-          <span class="text-sm text-light">Andiez Le</span>
-        </div>
-      </div>
-      <h3 class="text-2xl">
-        Hướng dẫn setup phòng cực chill dành cho người mới toàn tập
-      </h3>
-    </div>
-
-    <div class="item text-light p-4 col-sm-12">
-      <div class="d-flex justify-content-between align-items-center">
-        <h5 class="bg-light text-6B6B6B rounded-3 text-sm px-2">Kiến thức</h5>
-        <div class="d-flex align-items-center gap-2">
-          <span class="text-sm text-light">Mar 23</span>
-          <img [width]="6" [height]="6" src="./assets/images/dot.png" alt="" />
-          <span class="text-sm text-light">Andiez Le</span>
-        </div>
-      </div>
-      <h3 class="text-2xl">
-        Hướng dẫn setup phòng cực chill dành cho người mới toàn tập
-      </h3>
-    </div>
+    </ngx-slick-carousel>
   </div>
 </section>
