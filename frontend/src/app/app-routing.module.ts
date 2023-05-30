@@ -5,7 +5,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { NgModule } from '@angular/core';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
-import { authAdmin } from './guard/canActivate/auth.guard';
+import { authGuard } from './guard/canActivate/auth.guard';
 
 const routes: Routes = [
   {
@@ -17,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    canActivate: [authAdmin],
+    canActivate: [authGuard],
     loadChildren: () =>
       import('./featureModule/layout-admin/layout-admin.module').then(
         (m) => m.LayoutAdminModule
