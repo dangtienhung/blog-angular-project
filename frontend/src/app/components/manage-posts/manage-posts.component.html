@@ -1,1 +1,7 @@
-<app-layout-manager [title]="title" [theadTable]="theadTable" (delete)="handleDeletePost($event)" />
+<app-layout-manager
+  [title]="title"
+  [theadTable]="theadTable"
+  [posts]="PostsList"
+  (delete)="handleDeletePost($event)"
+  (exportToExcel)="exportToExcel()"
+/>

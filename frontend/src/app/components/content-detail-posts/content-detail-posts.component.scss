@@ -1,5 +1,13 @@
 .content-detail-posts {
   .content-posts {
-    width: 60%;
+    width: 70%;
+  }
+}
+
+@media (max-width: 768px) {
+  .content-detail-posts {
+    .content-posts {
+      width: 100%;
+    }
   }
 }

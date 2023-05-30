@@ -105,6 +105,53 @@
               </td>
             </tr>
           </tbody>
+          <!-- Posts -->
+
+          <tbody *ngIf="posts.length > 0">
+            <tr *ngFor="let post of posts; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ post.title }}</td>
+              <td>{{ post.author.username }}</td>
+              <td>{{ post.category.name }}</td>
+              <td>
+                <img
+                  *ngFor="let img of post.images"
+                  [src]="img"
+                  alt=""
+                  class="mb-1"
+                />
+              </td>
+              <td class="text-truncate">{{ post.content }}</td>
+
+              <td>
+                <span
+                  class="text-light p-1 rounded {{
+                    post.status === 'public' ? 'bg-success' : 'bg-danger'
+                  }}"
+                >
+                  {{ post.status }}
+                </span>
+              </td>
+              <td>
+                <span *ngFor="let tag of post.tags">{{ tag }}</span>
+              </td>
+
+              <td>{{ post.likes.toLocaleString() }}</td>
+              <td>
+                <a routerLink="/admin/edit-category/">
+                  <button class="settings text-primary">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+                </a>
+                <button
+                  class="delete text-danger"
+                  (click)="handleDelete(post._id!)"
+                >
+                  <i class="fa-sharp fa-solid fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
       <div class="clearfix mt-4">

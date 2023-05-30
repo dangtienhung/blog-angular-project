@@ -24,7 +24,7 @@ export class SidebarAdminComponent {
     {
       routerLink: 'manager-posts',
       label: 'Posts',
-      icon: 'fas fa-users',
+      icon: 'fa-solid fa-file',
       isActive: false,
     },
     {

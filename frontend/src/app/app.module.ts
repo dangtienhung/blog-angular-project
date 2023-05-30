@@ -39,6 +39,8 @@ import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { SliderComponent } from './components/slider/slider.component';
 import { ToastrModule } from 'ngx-toastr';
+// import } from 'ngx-toastr'
+
 import { UserInfoComponent } from './pages/user-info/user-info.component';
 import { RequestInterceptor } from './request/request.interceptor';
 
