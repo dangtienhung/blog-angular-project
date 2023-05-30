@@ -27,31 +27,30 @@
     </div>
     <div class="col-sm-12 col-lg-6 right px-4 h-100">
       <div class="post-lists">
-        <ngx-slick-carousel class="carousel" [config]="slideConfig" #slickModal="slick-carousel">
-          <div ngxSlickItem class="slide" *ngFor="let post of posts">
-            <div class="row post-item">
-              <div class="col-4">
-                <div class="img">
-                  <img [src]="post.image" class="img-fluid" alt="" />
-                </div>
+        <!-- <ngx-slick-carousel class="carousel" [config]="slideConfig" #slickModal="slick-carousel"> -->
+        <div class="slide" *ngFor="let post of posts">
+          <div class="row post-item">
+            <div class="col-4">
+              <div class="img">
+                <img [src]="post.image" class="img-fluid" alt="" />
               </div>
-              <div class="col-8">
-                <div class="tag mb-2">
-                  <span class="d-inline-block font-600 bg-light text-6B6B6B rounded-3 text-sm px-3">Kiến thức</span>
-                </div>
-                <div class="post-item-title mb-3">
-                  <h4 class="text-xl">{{post.title}}</h4>
-                </div>
-                <div class="info d-flex align-items-center gap-3">
-                  <span class="text-6B6B6B text-sm font-600">{{post.date}}</span>
-                  <span class="d-inline-block rounded-circle"
-                    style="width: 6px; height: 6px; background: #b1b5c3"></span>
-                  <span class="text-6B6B6B text-sm font-600">{{post.author}}</span>
-                </div>
+            </div>
+            <div class="col-8">
+              <div class="tag mb-2">
+                <span class="d-inline-block font-600 bg-light text-6B6B6B rounded-3 text-sm px-3">Kiến thức</span>
+              </div>
+              <div class="post-item-title mb-3">
+                <h4 class="text-xl">{{post.title}}</h4>
+              </div>
+              <div class="info d-flex align-items-center gap-3">
+                <span class="text-6B6B6B text-sm font-600">{{post.date}}</span>
+                <span class="d-inline-block rounded-circle" style="width: 6px; height: 6px; background: #b1b5c3"></span>
+                <span class="text-6B6B6B text-sm font-600">{{post.author}}</span>
               </div>
             </div>
           </div>
-        </ngx-slick-carousel>
+        </div>
+        <!-- </ngx-slick-carousel> -->
       </div>
     </div>
   </div>

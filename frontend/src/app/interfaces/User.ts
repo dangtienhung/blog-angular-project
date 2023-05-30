@@ -27,6 +27,11 @@ export interface IUserDocs {
   nextPage?: null | number;
 }
 
+export interface ILogin {
+  email: string;
+  password: string;
+}
+
 export interface IUserResponse {
   user: IUser;
   accessToken: string;

@@ -10,43 +10,42 @@ import { baseURL } from 'src/app/utils/instance';
   providedIn: 'root',
 })
 export class CategoryService {
-  baseURL: string = '';
+  //Proxy rest_api at file proxy.conf.json
+  baseURL: string = '/api/v1/category';
   categories: ICategory[] = [];
-  constructor(private http: HttpClient, private router: Router) {
-    this.baseURL = `${baseURL}/category`;
-  }
-  getAccessToken() {
-    const accessToken = JSON.parse(localStorage.getItem('accessToken') || '');
-    if (!accessToken || accessToken === '') {
-      this.router.navigate(['/login-admin']);
-    }
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${accessToken}`,
-    });
-    const options = { headers: headers };
-    return options;
-  }
+  constructor(private http: HttpClient, private router: Router) {}
+  // getAccessToken() {
+  //   const accessToken = JSON.parse(localStorage.getItem('accessToken') || '');
+  //   if (!accessToken || accessToken === '') {
+  //     this.router.navigate(['/login-admin']);
+  //   }
+  //   const headers = new HttpHeaders({
+  //     Authorization: `Bearer ${accessToken}`,
+  //   });
+  //   const options = { headers: headers };
+  //   return options;
+  // }
   /* getAllCategories */
   getAllCategories(): Observable<IDocCategories> {
     return this.http.get<IDocCategories>(`${this.baseURL}`);
   }
   /* add new category */
-  addNewCategory(category: { name: string }): Observable<ICategory> {
-    const options = this.getAccessToken();
-    return this.http.post<ICategory>(`${this.baseURL}`, category, options);
+  addNewCategory(category: ICategory): Observable<ICategory> {
+    // const options = this.getAccessToken();
+    return this.http.post<ICategory>(`${this.baseURL}`, category);
   }
   /* delete category */
   deleteCategory(id: string): Observable<ICategory> {
-    const options = this.getAccessToken();
-    return this.http.delete<ICategory>(`${this.baseURL}/${id}`, options);
+    // const options = this.getAccessToken();
+    return this.http.delete<ICategory>(`${this.baseURL}/${id}`);
   }
   /* update category */
   updateCategory(
     id: string,
     category: { name: string }
   ): Observable<ICategory> {
-    const options = this.getAccessToken();
-    return this.http.put<ICategory>(`${this.baseURL}/${id}`, category, options);
+    // const options = this.getAccessToken();
+    return this.http.put<ICategory>(`${this.baseURL}/${id}`, category);
   }
   /* get category by id */
   getCategoryById(
