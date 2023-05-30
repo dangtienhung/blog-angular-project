@@ -42,6 +42,7 @@ import { ToastrModule } from 'ngx-toastr';
 // import } from 'ngx-toastr'
 
 import { UserInfoComponent } from './pages/user-info/user-info.component';
+import { BlogPageComponent } from './pages/blog-page/blog-page.component';
 import { RequestInterceptor } from './request/request.interceptor';
 
 @NgModule({
@@ -79,6 +80,7 @@ import { RequestInterceptor } from './request/request.interceptor';
     EditCategoryComponent,
     PostListsComponent,
     AvatarDirective,
+    BlogPageComponent,
   ],
   imports: [
     BrowserModule,

@@ -14,7 +14,6 @@ export interface IUser {
   avatar?: string;
   phone?: string;
 }
-
 export interface IUserDocs {
   docs: IUser[];
   totalDocs: number;
@@ -37,4 +36,12 @@ export interface IUserResponse {
   user: IUser;
   accessToken: string;
   message?: string;
+}
+
+export interface IUserRegister {
+  _id?: string;
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
 }

@@ -9,64 +9,69 @@
       </div>
     </div>
 
-    <form [formGroup]="SignUp" (ngSubmit)="onSubmit()" action="" class="d-flex flex-column align-items-center">
-      <!-- <div class="form-group">
-        <div class="card">
-          <div class="card-body">
-            <h3 class="text-center">Avatar</h3>
-            <img appAvatar src="./assets/images/icon-256x256.png" style="cursor: pointer; object-fit: contain;"
-              width="150px" class="avatar img-fluid m-auto" alt="">
+    <form [formGroup]='signUpForm' (ngSubmit)='onHandleSubmit()' class="d-flex flex-column align-items-center">
+      <div class="form-group mb-3">
+        <label class="mb-3" for="username">UserName</label>
+        <input formControlName="username" class="form-control" style="border: 1px solid #00b4aa" id="fullname"
+          type="text" placeholder="Please enter your username" />
+        <div *ngIf="f.username.invalid && (f.username.dirty || f.username.touched)">
+          <div *ngIf="f.username.errors?.['required']" class="message-error text-danger pt-2 ">
+            username cannot be empty
           </div>
         </div>
-        <input #avatar type="file" name="files" formControlName="file" (change)="onFileSelected($event)" id="files"
-          hidden>
-      </div> -->
-      <div class="form-group mb-5">
-        <label class="mb-3" for="fullname">Fullname</label>
-        <input class="form-control" style="border: 1px solid #00b4aa" id="fullname" type="text"
-          formControlName="fullname" placeholder="Please enter your fullname" />
-        <div *ngIf="checkName.invalid && (checkName.touched || checkName.dirty)">
-          <span class="text-danger" *ngIf="checkName?.errors?.['required']">FullName is required</span>
-          <span class="text-danger" *ngIf="checkName?.errors?.['pattern']">FullName is not correct</span>
-        </div>
       </div>
-      <div class="form-group mb-5">
+      <div class="form-group mb-3">
         <label class="mb-3" for="email">Email address</label>
-        <input class="form-control" id="email" type="email" formControlName="email"
+        <input formControlName="email" class="form-control" style="border: 1px solid #00b4aa" id="email" type="email"
           placeholder="Please enter your email address" />
-        <div *ngIf="checkEmail.invalid && (checkEmail.touched || checkEmail.dirty)">
-          <span class="text-danger" *ngIf="checkEmail?.errors?.['pattern']">Email is not correct</span>
+        <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)">
+          <div *ngIf="f.email.errors?.['required']" class="message-error text-danger pt-2 ">
+            Email cannot be empty
+          </div>
+          <div *ngIf="f.email.errors?.['email']" class="message-error text-danger pt-2 ">
+            Email address is invalid
+          </div>
         </div>
       </div>
-      <div class="form-group mb-5">
+
+      <div class="form-group mb-3">
         <label class="mb-3" for="password">Password</label>
         <div class="position-relative">
-          <input class="form-control" id="password" type="password" formControlName="password"
+          <input formControlName="password" class="form-control" style="border: 1px solid #00b4aa" type="password"
             placeholder="Please enter your password" />
           <i class="fa-solid fa-eye position-absolute translate-middle-y top-50" style="right: 20px"></i>
         </div>
-        <div *ngIf="checkPassowrd.invalid && (checkPassowrd.touched || checkPassowrd.dirty)">
-          <span class="text-danger" *ngIf="checkPassowrd?.errors?.['minlength']">Password > 10 syntax</span>
+        <div *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)">
+          <div *ngIf="f.password.errors?.['required']" class="message-error text-danger pt-2 ">
+            Password cannot be empty
+          </div>
+          <div *ngIf="f.password.errors?.['pattern']" class="message-error text-danger pt-2 ">
+            Password must contain at least one number, one uppercase and a
+            lowercase letter and at least 8 characters <br/>Password cannot
+            contain whitespace
+          </div>
         </div>
       </div>
+
       <div class="form-group">
-        <label class="mb-3" for="confirmpassword">Confirm Password</label>
+        <label class="mb-3" for="password">Confirm Password</label>
         <div class="position-relative">
-          <input class="form-control" id="confirmpassword" type="password" formControlName="confirmpassword"
-            placeholder="Please enter your password" />
+          <input formControlName="confirmPassword" class="form-control" style="border: 1px solid #00b4aa"
+            type="password" placeholder="Please enter your confirm password" />
           <i class="fa-solid fa-eye position-absolute translate-middle-y top-50" style="right: 20px"></i>
         </div>
-        <div
-          *ngIf="SignUp.errors?.['passwordMismatch'] && (checkConfirmPassword.touched || checkConfirmPassword.dirty)">
-          <span class="text-danger">Passwords do not match</span>
-        </div>
-        <div class="d-flex justify-content-start align-items-center" style="margin-top: 20px">
-          <p class="text-left">Have already an account? <a routerLink="/login" class="text-decoration-none">SignIn</a>
-          </p>
+        <div *ngIf="f.confirmPassword.invalid && (f.confirmPassword.dirty || f.confirmPassword.touched)">
+          <div *ngIf="f.confirmPassword.errors?.['required']" class="message-error text-danger pt-2 ">
+            ConfirmPassword cannot be empty
+          </div>
+          <!-- <div *ngIf="f.confirmPassword.errors?.['beMatch']" class="message-error text-danger pt-2 ">
+            ConfirmPassword didn't match
+          </div> -->
         </div>
       </div>
-      <div class="form-group" style="margin-top: 90px">
-        <button class="rounded" [disabled]="!SignUp.valid">Sign Up</button>
+      <!-- <p>Have already an account? <a routerLink="login-admin">Login</a> </p> -->
+      <div class="form-group" style="margin-top: 60px">
+        <button class="rounded" [disabled]="!signUpForm.valid">Sign Up</button>
       </div>
     </form>
   </div>
