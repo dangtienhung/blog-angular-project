@@ -28,38 +28,24 @@ export class SignupPageComponent {
     {
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(
-            /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{8,}/
-          ),
-        ],
-      ],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]],
+    },
+    {
+      validators: this.checkPasswords,
     }
-    // , {
-    //   validator: this.ConfirmedValidator('password','confirmPassword' )
-    // }
   );
 
   get f() {
     return this.signUpForm.controls;
   }
 
-  //   ConfirmedValidator(controlName: string, matchingControlName: string){
-  //     return (formGroup: FormGroup) => {
-  //         const control = formGroup.controls[controlName];
-  //         const matchingControl = formGroup.controls[matchingControlName];
-
-  //         if (control.value !== matchingControl.value) {
-  //             matchingControl.setErrors({ confirmedValidator: true });
-  //         } else {
-  //             matchingControl.setErrors(null);
-  //         }
-  //     }
-  // }
+  checkPasswords(form: FormGroup) {
+    const password = form.get('password')?.value;
+    const confirmPassword = form.get('confirmPassword')?.value;
+    if (password === confirmPassword) return null;
+    return { notMatch: true };
+  }
 
   onHandleSubmit() {
     const user: IUserRegister = {
