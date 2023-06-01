@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 const { Schema } = mongoose;
 const categorySchema = new Schema(
   {
@@ -13,6 +14,12 @@ const categorySchema = new Schema(
       unique: true,
       lowercase: true,
     },
+    posts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post',
+      },
+    ],
   },
   { timestamps: true, versionKey: false }
 );
