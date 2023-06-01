@@ -36,9 +36,9 @@ export class SignupPageComponent {
     }
   );
 
-  get f() {
-    return this.signUpForm.controls;
-  }
+  // get f() {
+  //   return this.signUpForm.controls;
+  // }
 
   checkPasswords(form: FormGroup) {
     const password = form.get('password')?.value;
