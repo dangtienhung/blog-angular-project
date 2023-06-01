@@ -21,16 +21,20 @@ export const postController = {
         return res.status(400).json({ message: 'Create post failed' });
       }
       /* update user post */
-      await User.findByIdAndUpdate(req.author, {
+      await User.findByIdAndUpdate(body.author, {
         $addToSet: { postList: post._id },
+      });
+      /* update category */
+      await Category.findByIdAndUpdate(body.category, {
+        $addToSet: { posts: post._id },
       });
       return res.status(200).json({ message: 'Create post successfully', post });
     } catch (error) {
       return res.status(500).json({ message: 'Internal server error' });
     }
   },
-  /* get all posts */
-  getAllPosts: async (req, res) => {
+  /* get all posts && status = approved */
+  getAllPostsWithStatusApproved: async (req, res) => {
     try {
       const { _page = 1, _limit = 10, category, q } = req.query;
       let query = {};
@@ -41,7 +45,7 @@ export const postController = {
         sort: { createdAt: -1 },
         populate: [
           { path: 'author', select: '-postList -isVerified -role -password' },
-          { path: 'category' },
+          { path: 'category', select: '-posts' },
           { path: 'tags' },
         ],
       };
@@ -54,10 +58,50 @@ export const postController = {
               {
                 $or: [{ title: { $regex: q, $options: 'i' } }, { content: { $regex: q, $options: 'i' } }],
               },
-              { deleted: false, status: true },
+              { deleted: false, status: 'approved' },
             ],
           }
-        : { deleted: false, status: true };
+        : { deleted: false, status: 'approved' };
+      if (category) {
+        query['category'] = { _id: cateId._id };
+      }
+      const posts = await Post.paginate(query, options);
+      if (!posts.docs) {
+        return res.status(400).json({ message: 'Get all posts failed' });
+      }
+      return res.status(200).json({ message: 'Get all posts successfully', posts });
+    } catch (error) {
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  },
+  /* get all post */
+  getAllPosts: async (req, res) => {
+    try {
+      const { _page = 1, _limit = 10, category, q } = req.query;
+      let query = {};
+      let cateId;
+      const options = {
+        page: _page,
+        limit: _limit,
+        sort: { createdAt: -1 },
+        populate: [
+          { path: 'author', select: '-postList -isVerified -role -password' },
+          { path: 'category', select: '-posts' },
+          { path: 'tags' },
+        ],
+      };
+      if (category) {
+        cateId = await Category.findOne({ slug: { $regex: category, $options: 'i' } });
+      }
+      query = q
+        ? {
+            $and: [
+              {
+                $or: [{ title: { $regex: q, $options: 'i' } }, { content: { $regex: q, $options: 'i' } }],
+              },
+            ],
+          }
+        : {};
       if (category) {
         query['category'] = { _id: cateId._id };
       }
@@ -97,6 +141,14 @@ export const postController = {
       if (!post) {
         return res.status(400).json({ message: 'Update post failed' });
       }
+      /* update category */
+      await Category.findByIdAndUpdate(food.category, {
+        $pull: { posts: post._id },
+      });
+      const categoryId = post.category;
+      await Category.findByIdAndUpdate(categoryId, {
+        $addToSet: { posts: post._id },
+      });
       return res.status(200).json({ message: 'Update post successfully' });
     } catch (error) {
       return res.status(500).json({ message: 'Internal server error' });
@@ -133,13 +185,16 @@ export const postController = {
     try {
       const { id } = req.params;
       const post = await Post.findByIdAndRemove(id);
-      await commentsModel.findOneAndRemove({ postId: post._id });
-      await User.findByIdAndUpdate(req.user._id, {
-        $pull: { postList: id },
-      });
       if (!post) {
         return res.status(400).json({ message: 'Delete post failed' });
       }
+      await commentsModel.findOneAndRemove({ postId: post._id });
+      await User.findByIdAndUpdate(post.author, {
+        $pull: { postList: post._id },
+      });
+      await Category.findByIdAndUpdate(post.category, {
+        $pull: { posts: post._id },
+      });
       return res.status(200).json({ message: 'Delete post successfully', post });
     } catch (error) {
       return res.status(500).json({ message: 'Internal server error' });

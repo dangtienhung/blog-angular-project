@@ -30,7 +30,7 @@ export const postValidate = joi.object({
   }),
   comments: joi.array().items(joi.string()),
   is_active: joi.boolean().default(true),
-  status: joi.boolean().default(true),
+  status: joi.string().valid('pendding', 'approved', 'rejected').default('pendding'),
   tags: joi.array().items(joi.string()),
   deleted: joi.boolean().default(false),
 });
