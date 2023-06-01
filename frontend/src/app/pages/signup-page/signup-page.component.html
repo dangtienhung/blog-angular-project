@@ -14,23 +14,23 @@
         <label class="mb-3" for="username">UserName</label>
         <input formControlName="username" class="form-control" style="border: 1px solid #00b4aa" id="fullname"
           type="text" placeholder="Please enter your username" />
-        <div *ngIf="f.username.invalid && (f.username.dirty || f.username.touched)">
-          <div *ngIf="f.username.errors?.['required']" class="message-error text-danger pt-2 ">
-            username cannot be empty
-          </div>
+        <div class="message-error text-danger pt-2 "
+          *ngIf="signUpForm.get('username')?.hasError('required') &&  (signUpForm.get('username')?.touched || signUpForm.get('username')?.dirty) ">
+          Username is required
         </div>
       </div>
+
       <div class="form-group mb-3">
         <label class="mb-3" for="email">Email address</label>
         <input formControlName="email" class="form-control" style="border: 1px solid #00b4aa" id="email" type="email"
           placeholder="Please enter your email address" />
-        <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)">
-          <div *ngIf="f.email.errors?.['required']" class="message-error text-danger pt-2 ">
-            Email cannot be empty
-          </div>
-          <div *ngIf="f.email.errors?.['email']" class="message-error text-danger pt-2 ">
-            Email address is invalid
-          </div>
+        <div class="message-error text-danger pt-2 "
+          *ngIf="signUpForm.get('email')?.hasError('required') &&  (signUpForm.get('email')?.touched || signUpForm.get('email')?.dirty) ">
+          Email is required
+        </div>
+        <div class="message-error text-danger pt-2 "
+          *ngIf="signUpForm.get('email')?.hasError('email') &&  (signUpForm.get('email')?.touched || signUpForm.get('email')?.dirty) ">
+          Email is invalid
         </div>
       </div>
 
@@ -41,15 +41,14 @@
             placeholder="Please enter your password" />
           <i class="fa-solid fa-eye position-absolute translate-middle-y top-50" style="right: 20px"></i>
         </div>
-        <div *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)">
-          <div *ngIf="f.password.errors?.['required']" class="message-error text-danger pt-2 ">
-            Password cannot be empty
-          </div>
-          <div *ngIf="f.password.errors?.['pattern']" class="message-error text-danger pt-2 ">
-            Password must contain at least one number, one uppercase and a
-            lowercase letter and at least 8 characters <br/>Password cannot
-            contain whitespace
-          </div>
+
+        <div class="message-error text-danger pt-2 "
+          *ngIf="signUpForm.get('password')?.hasError('required') &&  (signUpForm.get('password')?.touched || signUpForm.get('password')?.dirty) ">
+          Password is required
+        </div>
+        <div class="message-error text-danger pt-2 "
+          *ngIf="signUpForm.get('password')?.hasError('minlength') &&  (signUpForm.get('password')?.touched || signUpForm.get('password')?.dirty) ">
+          Password must have 6 characters
         </div>
       </div>
 
@@ -60,13 +59,13 @@
             type="password" placeholder="Please enter your confirm password" />
           <i class="fa-solid fa-eye position-absolute translate-middle-y top-50" style="right: 20px"></i>
         </div>
-        <div *ngIf="f.confirmPassword.invalid && (f.confirmPassword.dirty || f.confirmPassword.touched)">
-          <div *ngIf="f.confirmPassword.errors?.['required']" class="message-error text-danger pt-2 ">
-            ConfirmPassword cannot be empty
-          </div>
-          <!-- <div *ngIf="f.confirmPassword.errors?.['beMatch']" class="message-error text-danger pt-2 ">
-            ConfirmPassword didn't match
-          </div> -->
+        <div class="message-error text-danger pt-2 "
+          *ngIf="signUpForm.get('confirmPassword')?.hasError('required') &&  (signUpForm.get('confirmPassword')?.touched || signUpForm.get('confirmPassword')?.dirty) ">
+          Confirm password is required
+        </div>
+        <div class="message-error text-danger pt-2 "
+          *ngIf="signUpForm.hasError('notMatch') &&  (signUpForm.get('confirmPassword')?.touched || signUpForm.get('confirmPassword')?.dirty) ">
+          Confirm password is not match
         </div>
       </div>
       <!-- <p>Have already an account? <a routerLink="login-admin">Login</a> </p> -->
