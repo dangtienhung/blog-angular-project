@@ -44,6 +44,7 @@ export class LoginPageAdminComponent {
       if (!user) {
         this.router.navigate(['/']);
       }
+
       if (user.user.role === 'admin') {
         this.isAdminUser = true;
         localStorage.setItem('accessToken', JSON.stringify(user.accessToken));

@@ -13,7 +13,7 @@ export interface IPosts {
   is_active: boolean;
   status: string;
   deleted: boolean;
-  created_at: Date;
+  createdAt: Date;
   updated_at: Date;
 }
 

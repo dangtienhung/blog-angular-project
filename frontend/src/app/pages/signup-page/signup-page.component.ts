@@ -59,7 +59,7 @@ export class SignupPageComponent implements OnInit {
   }
   ngOnInit(): void {
     this.service.getAllUsers().subscribe((data) => {
-      console.log(data);
+      // console.log(data);
     });
   }
 

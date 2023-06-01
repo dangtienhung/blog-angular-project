@@ -15,6 +15,9 @@ export class PostsService {
   getAllPosts(): Observable<IDocPosts> {
     return this.http.get<IDocPosts>(`${baseURL}/posts`);
   }
+  getPost(id: number | string): Observable<any> {
+    return this.http.get<any>(`${baseURL}/posts/${id}`);
+  }
   deleteFakePost(id: number | string) {
     return this.http.put(`${baseURL}/posts/delete-fake/${id}`, {
       deleted: true,
