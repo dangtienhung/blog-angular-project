@@ -17,7 +17,6 @@ export class ManagePostsComponent {
     'Tác giả',
     'Danh mục',
     'Hình ảnh',
-    'Nội dung',
     'Trạng thái',
     'Tags',
     'Lượt thích',

@@ -1,8 +1,8 @@
+import Category from '../models/categories.model.js';
 import Post from '../models/posts.model.js';
 import User from '../models/users.models.js';
 import commentsModel from '../models/comments.model.js';
 import { postValidate } from '../validates/posts.validate.js';
-import Category from '../models/categories.model.js';
 
 export const postController = {
   /* create post */
@@ -21,7 +21,7 @@ export const postController = {
         return res.status(400).json({ message: 'Create post failed' });
       }
       /* update user post */
-      await User.findByIdAndUpdate(req.user._id, {
+      await User.findByIdAndUpdate(req.author, {
         $addToSet: { postList: post._id },
       });
       return res.status(200).json({ message: 'Create post successfully', post });
@@ -54,10 +54,10 @@ export const postController = {
               {
                 $or: [{ title: { $regex: q, $options: 'i' } }, { content: { $regex: q, $options: 'i' } }],
               },
-              { deleted: false, status: 'public' },
+              { deleted: false, status: true },
             ],
           }
-        : { deleted: false, status: 'public' };
+        : { deleted: false, status: true };
       if (category) {
         query['category'] = { _id: cateId._id };
       }

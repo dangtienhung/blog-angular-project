@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+
 import mongoosePaginate from 'mongoose-paginate-v2';
 
 /**
@@ -37,6 +38,14 @@ import mongoosePaginate from 'mongoose-paginate-v2';
  *         content: Post content
  *
  */
+const imageSchema = new mongoose.Schema({
+  url: {
+    type: String,
+  },
+  public_id: {
+    type: String,
+  },
+});
 const postSchema = new mongoose.Schema(
   {
     title: {
@@ -54,12 +63,7 @@ const postSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    images: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
+    images: [imageSchema],
     likes: {
       type: Number,
       default: 0,
@@ -79,9 +83,8 @@ const postSchema = new mongoose.Schema(
       default: true,
     },
     status: {
-      type: String,
-      enum: ['public', 'private'],
-      default: 'public',
+      type: Boolean,
+      default: true,
     },
     tags: [
       {
