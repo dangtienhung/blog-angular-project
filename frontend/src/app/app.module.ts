@@ -1,4 +1,6 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { Image, ImageUpload } from '@ckeditor/ckeditor5-image';
 
 import { AddCategoryComponent } from './modules/category/add-category/add-category.component';
 import { AddUserComponent } from './modules/user/add-user/add-user.component';
@@ -8,6 +10,7 @@ import { AvatarDirective } from './Directive/avatar.directive';
 import { BlogPageComponent } from './pages/blog-page/blog-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { CommonModule } from '@angular/common';
 import { ContentDetailPostsComponent } from './components/content-detail-posts/content-detail-posts.component';
@@ -29,6 +32,10 @@ import { ManagePostsComponent } from './components/manage-posts/manage-posts.com
 import { ManageUserComponent } from './components/manage-user/manage-user.component';
 import { ManagerCommentsComponent } from './components/manager-comments/manager-comments.component';
 import { ManagerTagsComponent } from './components/manager-tags/manager-tags.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 import { NewPostComponent } from './components/new-post/new-post.component';
 import { NgModule } from '@angular/core';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
@@ -37,7 +44,6 @@ import { PostAddComponent } from './modules/posts/post-add/post-add.component';
 import { PostListsComponent } from './pages/post-lists/post-lists.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { PostsDetailPageComponent } from './pages/posts-detail-page/posts-detail-page.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { RelatedPostsComponent } from './components/related-posts/related-posts.component';
 import { RequestInterceptor } from './request/request.interceptor';
 import { SidebarAdminComponent } from './components/sidebar-admin/sidebar-admin.component';
@@ -98,7 +104,7 @@ import { UserInfoComponent } from './pages/user-info/user-info.component';
     ReactiveFormsModule,
     CommonModule,
     BrowserAnimationsModule, // required animations module
-
+    FormsModule,
     // Toi bi loi ToastrModule nay ko down dc ngx-toastr len phai comment lai!!
 
     ToastrModule.forRoot({
@@ -107,6 +113,11 @@ import { UserInfoComponent } from './pages/user-info/user-info.component';
       preventDuplicates: true,
     }), // ToastrModule added
     SlickCarouselModule,
+    CKEditorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
   ],
   providers: [
     {

@@ -57,7 +57,6 @@ export class SidebarAdminComponent {
     private direct: Router
   ) {
     this.urlPath = this.location.path();
-    console.log(this.urlPath);
     this.setActiveItemByUrl(this.urlPath);
   }
   /* setActiveItem */

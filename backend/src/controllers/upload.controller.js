@@ -13,6 +13,7 @@ export const UploadFiles = (req, res) => {
 export const uploadImage = async (req, res) => {
   try {
     const files = req.files;
+    console.log('🚀 ~ file: upload.controller.js:16 ~ uploadImage ~ files:', files);
     if (!Array.isArray(files)) {
       return res.status(400).send({ message: 'File is not correct' });
     }

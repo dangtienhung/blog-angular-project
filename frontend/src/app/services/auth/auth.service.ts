@@ -13,7 +13,7 @@ interface ILogin {
   providedIn: 'root',
 })
 export class AuthService {
-  TOKEN_KEY = 'authToken';
+  TOKEN_KEY = 'accessToken';
   TOKEN_USER = 'user';
   constructor(private http: HttpClient) {}
   /* login */
