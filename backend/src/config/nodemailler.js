@@ -6,6 +6,7 @@ dotenv.config();
 // async..await is not allowed in global scope, must use a wrapper
 export const sendVerificationEmail = async (user, linkToVerify) => {
   try {
+    console.log(user);
     const transporter = nodemailer.createTransport({
       service: 'Gmail',
       auth: {

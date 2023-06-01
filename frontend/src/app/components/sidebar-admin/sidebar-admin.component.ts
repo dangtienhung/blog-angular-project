@@ -1,5 +1,8 @@
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { MenuItems } from 'src/app/interfaces/ISidebarAdmin';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar-admin',
@@ -7,6 +10,8 @@ import { MenuItems } from 'src/app/interfaces/ISidebarAdmin';
   styleUrls: ['./sidebar-admin.component.scss'],
 })
 export class SidebarAdminComponent {
+  urlPath: string = 'dashboard';
+  // constructor(private service: AuthService, private direct: Router) {}
   /* router link */
   menuItems: MenuItems[] = [
     {
@@ -39,12 +44,38 @@ export class SidebarAdminComponent {
       icon: 'fa-solid fa-comments',
       isActive: false,
     },
+    {
+      routerLink: 'manager-tags',
+      label: 'Tags',
+      icon: 'fa-solid fa-tag',
+      isActive: false,
+    },
   ];
+  constructor(
+    private location: Location,
+    private service: AuthService,
+    private direct: Router
+  ) {
+    this.urlPath = this.location.path();
+    this.setActiveItemByUrl(this.urlPath);
+  }
   /* setActiveItem */
   setActiveItem(item: MenuItems) {
     this.menuItems.forEach((item) => {
       item.isActive = false;
     });
     item.isActive = true;
+  }
+  /* setActiveItemByUrl */
+  setActiveItemByUrl(url: string) {
+    this.menuItems.forEach((item) => {
+      if (item.routerLink === `/admin/${url}`) {
+        item.isActive = true;
+      }
+    });
+  }
+  onLogout() {
+    this.service.logOut();
+    this.direct.navigateByUrl('login-admin');
   }
 }

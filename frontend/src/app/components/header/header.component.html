@@ -2,23 +2,16 @@
   <!-- Navbar -->
   <div class="row align-items-center py-3">
     <div class="col-6 d-flex align-items-center">
-      <a routerLink="/"
-        ><img [width]="43" [height]="56" src="./assets/images/logo.png" alt=""
-      /></a>
+      <a routerLink="/"><img [width]="43" [height]="56" src="./assets/images/logo.png" alt="" /></a>
       <ul class="d-flex m-0 gap-5">
         <li>
-          <a
-            class="text-decoration-none font-500 text-black text-xl"
-            routerLink="/"
-            >Home</a
-          >
+          <a class="text-decoration-none font-500 text-black text-xl" routerLink="/">Home</a>
         </li>
         <li>
-          <a
-            class="text-decoration-none font-500 text-black text-xl"
-            routerLink="/posts"
-            >Blog</a
-          >
+          <a class="text-decoration-none font-500 text-black text-xl" routerLink="blog">Blog</a>
+        </li>
+        <li>
+          <a class="text-decoration-none font-500 text-black text-xl" routerLink="#">Contact</a>
         </li>
         <!-- <li>
           <a
@@ -29,25 +22,24 @@
         </li> -->
       </ul>
     </div>
-    <div class="col-sm-6 col-md-4">
+
+    <div class="col-4">
       <div class="position-relative">
-        <input
-          type="text"
-          class="search-input ps-4 py-3 border border-2 rounded text-medium text-gray"
-          placeholder="Search posts..."
-        />
-        <i
-          class="fa-solid fa-magnifying-glass position-absolute top-50 translate-middle-y text-gray text-medium"
-          style="right: 16px"
-        ></i>
+        <input type="text" class="search-input ps-4 py-3 border border-2 rounded text-medium text-gray"
+          placeholder="Search posts..." />
+        <i class="fa-solid fa-magnifying-glass position-absolute top-50 translate-middle-y text-gray text-medium"
+          style="right: 16px"></i>
       </div>
     </div>
+
+    <!-- <div class="col-1 d-flex justify-content-end">
+      <a routerLink="signup"
+        class="d-block text-center btn-signup text-decoration-none text-white rounded text-xl font-600">Sign Up</a>
+    </div> -->
     <div class="col-2 d-flex justify-content-end">
-      <a
-        routerLink="/signup"
-        class="d-block text-center btn-signup text-decoration-none text-white rounded text-xl font-600"
-        >Sign Up</a
-      >
+      <a routerLink="login"
+        class="d-inline-block text-center btn-signup text-decoration-none text-white rounded text-xl font-600">Log
+        in</a>
     </div>
   </div>
 </header>

@@ -2,71 +2,152 @@
   <div class="row">
     <div class="head">
       <div class="logo mb-4 d-flex justify-content-center">
-        <img src="./assets/images/monkey.png" [width]="121" [height]="156" alt="Logo" />
+        <img
+          src="./assets/images/monkey.png"
+          [width]="121"
+          [height]="156"
+          alt="Logo"
+        />
       </div>
       <div class="title">
         <h1 class="text-center">Monkey Blogging</h1>
       </div>
     </div>
 
-    <form [formGroup]="SignUp" (ngSubmit)="onSubmit()" action="" class="d-flex flex-column align-items-center">
-      <div class="form-group">
-        <div class="card">
-          <div class="card-body">
-            <h3 class="text-center">Avatar</h3>
-            <img appAvatar src="./assets/images/icon-256x256.png" style="cursor: pointer; object-fit: contain;"
-              width="150px" class="avatar img-fluid m-auto" alt="">
-          </div>
+    <form
+      [formGroup]="signUpForm"
+      (ngSubmit)="onHandleSubmit()"
+      class="d-flex flex-column align-items-center"
+    >
+      <div class="form-group mb-3">
+        <label class="mb-3" for="username">UserName</label>
+        <input
+          formControlName="username"
+          class="form-control"
+          style="border: 1px solid #00b4aa"
+          id="fullname"
+          type="text"
+          placeholder="Please enter your username"
+        />
+        <div
+          class="message-error text-danger pt-2"
+          *ngIf="
+            signUpForm.get('username')?.hasError('required') &&
+            (signUpForm.get('username')?.touched ||
+              signUpForm.get('username')?.dirty)
+          "
+        >
+          Username is required
         </div>
-        <input #avatar type="file" name="files" formControlName="file" (change)="onFileSelected($event)" id="files"
-          hidden>
       </div>
-      <div class="form-group mb-5">
-        <label class="mb-3" for="fullname">Fullname</label>
-        <input class="form-control" style="border: 1px solid #00b4aa" id="fullname" type="text"
-          formControlName="fullname" placeholder="Please enter your fullname" />
-        <div *ngIf="checkName.invalid && (checkName.touched || checkName.dirty)">
-          <span class="text-danger" *ngIf="checkName?.errors?.['required']">FullName is required</span>
-          <span class="text-danger" *ngIf="checkName?.errors?.['pattern']">FullName is not correct</span>
-        </div>
-      </div>
-      <div class="form-group mb-5">
+
+      <div class="form-group mb-3">
         <label class="mb-3" for="email">Email address</label>
-        <input class="form-control" id="email" type="email" formControlName="email"
-          placeholder="Please enter your email address" />
-        <div *ngIf="checkEmail.invalid && (checkEmail.touched || checkEmail.dirty)">
-          <span class="text-danger" *ngIf="checkEmail?.errors?.['pattern']">Email is not correct</span>
-        </div>
-      </div>
-      <div class="form-group mb-5">
-        <label class="mb-3" for="password">Password</label>
-        <div class="position-relative">
-          <input class="form-control" id="password" type="password" formControlName="password"
-            placeholder="Please enter your password" />
-          <i class="fa-solid fa-eye position-absolute translate-middle-y top-50" style="right: 20px"></i>
-        </div>
-        <div *ngIf="checkPassowrd.invalid && (checkPassowrd.touched || checkPassowrd.dirty)">
-          <span class="text-danger" *ngIf="checkPassowrd?.errors?.['minlength']">Password > 10 syntax</span>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="mb-3" for="confirmpassword">Confirm Password</label>
-        <div class="position-relative">
-          <input class="form-control" id="confirmpassword" type="password" formControlName="confirmpassword"
-            placeholder="Please enter your password" />
-          <i class="fa-solid fa-eye position-absolute translate-middle-y top-50" style="right: 20px"></i>
+        <input
+          formControlName="email"
+          class="form-control"
+          style="border: 1px solid #00b4aa"
+          id="email"
+          type="email"
+          placeholder="Please enter your email address"
+        />
+        <div
+          class="message-error text-danger pt-2"
+          *ngIf="
+            signUpForm.get('email')?.hasError('required') &&
+            (signUpForm.get('email')?.touched || signUpForm.get('email')?.dirty)
+          "
+        >
+          Email is required
         </div>
         <div
-          *ngIf="SignUp.errors?.['passwordMismatch'] && (checkConfirmPassword.touched || checkConfirmPassword.dirty)">
-          <span class="text-danger">Passwords do not match</span>
-        </div>
-        <div class="d-flex justify-content-start align-items-center" style="margin-top: 20px">
-          <p class="text-left">Have already an account? <a routerLink="/login" class="text-decoration-none">SignIn</a>
-          </p>
+          class="message-error text-danger pt-2"
+          *ngIf="
+            signUpForm.get('email')?.hasError('email') &&
+            (signUpForm.get('email')?.touched || signUpForm.get('email')?.dirty)
+          "
+        >
+          Email is invalid
         </div>
       </div>
-      <div class="form-group" style="margin-top: 90px">
-        <button class="rounded" [disabled]="!SignUp.valid">Sign Up</button>
+
+      <div class="form-group mb-3">
+        <label class="mb-3" for="password">Password</label>
+        <div class="position-relative">
+          <input
+            formControlName="password"
+            class="form-control"
+            style="border: 1px solid #00b4aa"
+            type="password"
+            placeholder="Please enter your password"
+          />
+          <i
+            class="fa-solid fa-eye position-absolute translate-middle-y top-50"
+            style="right: 20px"
+          ></i>
+        </div>
+
+        <div
+          class="message-error text-danger pt-2"
+          *ngIf="
+            signUpForm.get('password')?.hasError('required') &&
+            (signUpForm.get('password')?.touched ||
+              signUpForm.get('password')?.dirty)
+          "
+        >
+          Password is required
+        </div>
+        <div
+          class="message-error text-danger pt-2"
+          *ngIf="
+            signUpForm.get('password')?.hasError('minlength') &&
+            (signUpForm.get('password')?.touched ||
+              signUpForm.get('password')?.dirty)
+          "
+        >
+          Password must have 6 characters
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="mb-3" for="password">Confirm Password</label>
+        <div class="position-relative">
+          <input
+            formControlName="confirmPassword"
+            class="form-control"
+            style="border: 1px solid #00b4aa"
+            type="password"
+            placeholder="Please enter your confirm password"
+          />
+          <i
+            class="fa-solid fa-eye position-absolute translate-middle-y top-50"
+            style="right: 20px"
+          ></i>
+        </div>
+        <div
+          class="message-error text-danger pt-2"
+          *ngIf="
+            signUpForm.get('confirmPassword')?.hasError('required') &&
+            (signUpForm.get('confirmPassword')?.touched ||
+              signUpForm.get('confirmPassword')?.dirty)
+          "
+        >
+          Confirm password is required
+        </div>
+        <div
+          class="message-error text-danger pt-2"
+          *ngIf="
+            signUpForm.hasError('notMatch') &&
+            (signUpForm.get('confirmPassword')?.touched ||
+              signUpForm.get('confirmPassword')?.dirty)
+          "
+        >
+          Confirm password is not match
+        </div>
+      </div>
+      <!-- <p>Have already an account? <a routerLink="login-admin">Login</a> </p> -->
+      <div class="form-group" style="margin-top: 60px">
+        <button class="rounded" [disabled]="!signUpForm.valid">Sign Up</button>
       </div>
     </form>
   </div>

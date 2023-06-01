@@ -15,7 +15,7 @@ const router = express.Router();
 // router.delete('/posts/:id', postController.deletePost);
 
 router.get('/related/:id', authorUser, postController.getRelatedPosts);
-router.post('/', authors, authorUser, postController.createPost);
+router.post('/', postController.createPost);
 router.get('/', postController.getAllPosts);
 router.get('/:id', postController.getPostById);
 router.put('/:id', authors, authorUser, postController.updatePost);

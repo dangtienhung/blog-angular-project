@@ -1,119 +1,71 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators,
   AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
 } from '@angular/forms';
-import { UserService } from 'src/app/services/users/user.service';
-import { HttpClient } from '@angular/common/http';
-import { IUser } from 'src/app/interfaces/User';
-import Swal from 'sweetalert2';
-import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { IUserRegister } from 'src/app/interfaces/User';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-signup-page',
   templateUrl: './signup-page.component.html',
   styleUrls: ['./signup-page.component.scss'],
 })
-export class SignupPageComponent implements OnInit {
-  selectedFile!: File;
-
-  onFileSlected(e: any) {
-    this.selectedFile = e.target.files[0];
-  }
-
+export class SignupPageComponent {
   constructor(
-    private fb: FormBuilder,
-    private service: UserService,
-    private http: HttpClient,
-    private direct: Router
-  ) {}
-  SignUp = this.fb.group(
+    private authService: AuthService,
+    private formSignup: FormBuilder,
+    private router: Router
+  ) {
+    this.formSignup.group({});
+  }
+
+  signUpForm = this.formSignup.group(
     {
-      fullname: ['', [Validators.required, Validators.pattern(/^[\p{L} ]+$/u)]],
-      file: [''],
-      email: [
-        '',
-        [
-          Validators.pattern(
-            /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
-          ),
-        ],
-      ],
-      password: ['', [Validators.minLength(10)]],
-      confirmpassword: ['', [Validators.required]],
+      username: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required]],
     },
-    { validator: this.passwordMatchValidator }
+    {
+      validators: this.checkPasswords,
+    }
   );
-  passwordMatchValidator(formGroup: AbstractControl) {
-    const password = formGroup.get('password')?.value;
-    const confirmPassword = formGroup.get('confirmpassword')?.value;
 
-    if (password !== confirmPassword) {
-      return { passwordMismatch: true };
-    }
-    return null;
-  }
-  ngOnInit(): void {
-    this.service.getAllUsers().subscribe((data) => {
-      // console.log(data);
-    });
+  get f() {
+    return this.signUpForm.controls;
   }
 
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+  checkPasswords(form: FormGroup) {
+    const password = form.get('password')?.value;
+    const confirmPassword = form.get('confirmPassword')?.value;
+    if (password === confirmPassword) return null;
+    return { notMatch: true };
   }
 
-  onSubmit() {
-    if (this.selectedFile) {
-      const formdata = new FormData();
-      formdata.append('files', this.selectedFile);
-      this.http.post<any>('/api/v1/uploadfiles', formdata).subscribe((res) => {
-        const pressSignUp: IUser = {
-          username: this.SignUp.value.fullname || '',
-          password: this.SignUp.value.password || '',
-          email: this.SignUp.value.email || '',
-          role: 'user',
-          is_active: true,
-          postList: [],
-          isVerified: true,
-          avatar: res.data[0],
-        };
-        this.service
-          .createUser(pressSignUp)
-          .pipe(
-            catchError((err) => {
-              Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: err.error.msg,
-              });
-              return throwError('Đã xảy ra lỗi');
-            })
-          )
-          .subscribe(() => {
-            this.direct.navigateByUrl('/login');
-          });
-      });
-    }
+  onHandleSubmit() {
+    const user: IUserRegister = {
+      username: this.signUpForm.value.username || '',
+      email: this.signUpForm.value.email || '',
+      password: this.signUpForm.value.password || '',
+      confirmPassword: this.signUpForm.value.confirmPassword || '',
+    };
+
+    this.authService.signUpUser(user).subscribe(
+      (user) => {
+        alert('Successful account registration');
+        console.log(user);
+        this.router.navigate(['/login']);
+      },
+      (error) => console.log(error.message)
+    );
   }
 
-  get checkName() {
-    return this.SignUp.get('fullname') as FormControl;
-  }
-
-  get checkEmail() {
-    return this.SignUp.get('email') as FormControl;
-  }
-
-  get checkPassowrd() {
-    return this.SignUp.get('password') as FormControl;
-  }
-
-  get checkConfirmPassword() {
-    return this.SignUp.get('confirmpassword') as FormControl;
-  }
+  // get checkConfirmPassword() {
+  //   return this.SignUp.get('confirmpassword') as FormControl;
+  // }
 }

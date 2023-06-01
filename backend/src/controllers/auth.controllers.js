@@ -19,6 +19,7 @@ export const authController = {
   register: async (req, res) => {
     try {
       const body = req.body;
+      console.log(body);
       /* validate */
       const { error } = authValidate.validate(body, { abortEarly: false });
       if (error) {
@@ -27,6 +28,7 @@ export const authController = {
       }
       /* check user */
       const exists = await User.findOne({ email: body.email });
+      // console.log(exists);
       if (exists) {
         return res.status(400).json({ message: 'Email already exists' });
       }
@@ -39,18 +41,20 @@ export const authController = {
         password: hashedPassword,
       };
       const user = await User.create(data);
+      console.log("🚀 ~ file: auth.controllers.js:42 ~ register: ~ user:", user)
       if (!user) {
         return res.status(400).json({ message: 'Register failed' });
       }
       /* gennerate token */
       const token = authController.generateToken(user);
+      console.log("🚀 ~ file: auth.controllers.js:49 ~ register: ~ token:", token)
       /* mailer */
-      // const linkToVerify = `http://localhost:8080/api/v1/auth/verify?token=${token}`;
-      // const info = await sendVerificationEmail(user, linkToVerify);
-      // if (!info) {
-      //   return res.status(400).json({ message: 'Send mail failed' });
-      // }
-      return res.status(200).json({ message: 'Register successfully', accessToken: token, user });
+      const linkToVerify = `http://localhost:8080/api/v1/auth/verify?token=${token}`;
+      const info = await sendVerificationEmail(user, linkToVerify);
+      if (!info) {
+        return res.status(400).json({ message: 'Send mail failed' });
+      }
+      return res.status(200).json({ message: 'Register successfully',accessToken: token, user });
     } catch (error) {
       return res.status(500).json({ message: 'Internal server error' });
     }

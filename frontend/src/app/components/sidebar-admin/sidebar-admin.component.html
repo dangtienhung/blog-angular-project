@@ -40,8 +40,8 @@
       <ul class="navbar-nav ms-auto d-flex flex-row">
         <!-- Notification dropdown -->
         <li class="nav-item dropdown">
-          <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" routerLink="#" id="navbarDropdownMenuLink"
-            role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" id="navbarDropdownMenuLink" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fas fa-bell"></i>
             <span class="badge rounded-pill badge-notification bg-danger">1</span>
           </a>
@@ -56,8 +56,8 @@
 
         <!-- Icon dropdown -->
         <li class="nav-item dropdown">
-          <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" routerLink="#" id="navbarDropdown" role="button"
-            data-mdb-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" id="navbarDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
             <i class="united kingdom flag m-0"></i>
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -97,15 +97,15 @@
 
         <!-- Avatar -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" routerLink=""
-            id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" id="navbarDropdownMenuLink"
+            role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg" class="rounded-circle" height="22" alt=""
               loading="lazy" />
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" routerLink="#">My profile</a></li>
-            <li><a class="dropdown-item" routerLink="#">Settings</a></li>
-            <li><a class="dropdown-item" routerLink="#">Logout</a></li>
+            <li><a class="dropdown-item" style="cursor: pointer;">My profile</a></li>
+            <li><a class="dropdown-item" style="cursor: pointer;">Settings</a></li>
+            <li><a class="dropdown-item" style="cursor: pointer;" (click)="onLogout()">Logout</a></li>
           </ul>
         </li>
       </ul>

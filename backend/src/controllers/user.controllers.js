@@ -117,7 +117,6 @@ export const userController = {
   createUser: async (req, res) => {
     try {
       const body = req.body;
-      console.log(body);
       /* validate */
       const { error } = userValidate.validate(body);
       if (error) {

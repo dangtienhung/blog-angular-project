@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.post('/sign-up', authController.register);
 router.post('/sign-in', authController.login);
-router.post('/verify', authController.verifyAccount);
+router.get('/verify', authController.verifyAccount);
 
 export default router;
