@@ -120,7 +120,7 @@ export const postController = {
       const { id } = req.params;
       const post = await Post.findById({ _id: id }).populate([
         { path: 'author', select: '-postList -isVerified -role -password' },
-        { path: 'category' },
+        { path: 'category', select: '-posts' },
       ]);
       if (!post) {
         return res.status(400).json({ message: 'Get post by id failed' });

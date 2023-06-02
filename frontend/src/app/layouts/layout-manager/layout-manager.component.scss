@@ -168,3 +168,37 @@ table.table .avatar {
   margin-top: 10px;
   font-size: 13px;
 }
+
+.post__image-group {
+  display: grid;
+  width: 300px;
+  grid-template-columns: repeat(2, 1fr);
+  .post__image-wrapper {
+    height: 120px;
+    width: 120px;
+    .post__image {
+      height: 120px;
+      width: 120px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+  }
+}
+
+.content-detail-posts {
+  .content-posts {
+    width: 70%;
+  }
+}
+
+@media (max-width: 768px) {
+  .content-detail-posts {
+    .content-posts {
+      width: 100%;
+    }
+  }
+}
+
+.post__image-preview {
+  border-radius: 12px;
+}
