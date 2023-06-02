@@ -65,7 +65,4 @@ export class SignupPageComponent {
     );
   }
 
-  // get checkConfirmPassword() {
-  //   return this.SignUp.get('confirmpassword') as FormControl;
-  // }
 }

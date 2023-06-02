@@ -2,17 +2,21 @@
   <div class="row">
     <div class="head">
       <div class="logo mb-4 d-flex justify-content-center">
-        <img src="./assets/images/monkey.png" [width]="121" [height]="156" alt="Logo" />
+        <a routerLink="/">
+          <img src="./assets/images/monkey.png" [width]="121" [height]="156" alt="Logo" />
+        </a>
       </div>
-      <div class="title">
-        <h1 class="text-center">Monkey Blogging</h1>
+      <div class="">
+        <a routerLink="/" class=" title text-decoration-none">
+          <h1 class="text-center">Monkey Blogging</h1>
+        </a>
       </div>
     </div>
 
     <form [formGroup]="FormLogin" (ngSubmit)="onLogin()" action="" class="d-flex flex-column align-items-center">
       <div class="form-group mb-5">
         <label class="mb-3" for="email">Email address</label>
-        <input class="form-control" id="email" type="email" formControlName="email"
+        <input class="form-control" autocomplete="off" id="email" type="email" formControlName="email"
           placeholder="Please enter your email address" />
         <div *ngIf="checkEmail.invalid && (checkEmail.touched || checkEmail.dirty)">
           <span class="text-danger" *ngIf="checkEmail.errors?.['required']">Email is required</span>
@@ -22,13 +26,16 @@
       <div class="form-group">
         <label class="mb-3" for="password">Password</label>
         <div class="position-relative">
-          <input class="form-control" id="password" type="password" formControlName="password"
+          <input class="form-control" autocomplete="off" id="password" type="password" formControlName="password"
             placeholder="Please enter your password" />
           <i class="fa-solid fa-eye position-absolute translate-middle-y top-50" style="right: 20px"></i>
         </div>
         <div *ngIf="checkPassword.invalid && (checkPassword.touched || checkPassword.dirty)">
           <span class="text-danger" *ngIf="checkPassword.errors?.['required']">Password is required</span>
         </div>
+      </div>
+      <div>
+        <p>Do you have an account? <a routerLink="/signup">Sign up</a></p>
       </div>
       <div class="form-group" style="margin-top: 90px">
         <button class="rounded" [disabled]="!FormLogin.valid">Login</button>

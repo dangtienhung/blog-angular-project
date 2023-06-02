@@ -29,6 +29,7 @@ a {
 }
 
 .avatar img {
+  width: 50%;
   border-radius: 50%;
 }
 
@@ -69,30 +70,3 @@ a {
   word-break: break-word;
 }
 
-.blog-style3 {
-  .image-frame {
-    img {
-      height: 500px;
-    }
-  }
-  .card-body {
-    border-radius: 10px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
-  }
-  .align-center{
-    padding-left: 12px;
-  }
-
-  .col-lg-1 {
-    padding: 0;
-  }
-
-  .col-lg-11 {
-    .text-light {
-      margin: 0;
-      padding-top: 15px;
-
-    }
-  }
-  
-}

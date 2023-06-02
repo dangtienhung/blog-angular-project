@@ -16,16 +16,11 @@
         <li>
           <a class="text-decoration-none font-500 text-black text-xl" routerLink="blog">Blog</a>
         </li>
-        <li>
-          <a class="text-decoration-none font-500 text-black text-xl" routerLink="#">Contact</a>
-        </li>
+        
         <!-- <li>
-          <a
-            class="text-decoration-none font-500 text-black text-xl"
-            routerLink="#"
-            >Contact</a
-          >
+          <a class="text-decoration-none font-500 text-black text-xl" routerLink="#">Contact</a>
         </li> -->
+        
       </ul>
     </div>
 
@@ -43,11 +38,16 @@
       </div>
     </div>
     
-    <div class="col-1 d-flex justify-content-end">
+    <!-- <div class="col-1 d-flex justify-content-end">
       <a routerLink="signup"
         class="d-block text-center btn-signup text-decoration-none text-white rounded text-xl font-600">Sign Up</a>
+    </div> -->
+
+    <div *ngIf="isAuth" class="col-2 d-flex justify-content-end">
+      <button (click)="logOut()"
+        class="d-block text-center btn-signup text-decoration-none text-white rounded text-xl font-600">Log out</button>
     </div>
-    <div class="col-1 d-flex justify-content-end">
+    <div *ngIf="!isAuth" class="col-2 d-flex justify-content-end">
       <a routerLink="login"
         class="d-block text-center btn-signup text-decoration-none text-white rounded text-xl font-600">Log in</a>
     </div>

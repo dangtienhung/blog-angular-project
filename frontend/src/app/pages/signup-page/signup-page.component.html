@@ -2,18 +2,22 @@
   <div class="row">
     <div class="head">
       <div class="logo mb-4 d-flex justify-content-center">
-        <img src="./assets/images/monkey.png" [width]="121" [height]="156" alt="Logo" />
+        <a routerLink="/">
+          <img src="./assets/images/monkey.png" [width]="121" [height]="156" alt="Logo" />
+        </a>
       </div>
-      <div class="title">
-        <h1 class="text-center">Monkey Blogging</h1>
+      <div class="">
+        <a routerLink="/" class=" title text-decoration-none">
+          <h1 class="text-center">Monkey Blogging</h1>
+        </a>
       </div>
     </div>
 
     <form [formGroup]='signUpForm' (ngSubmit)='onHandleSubmit()' class="d-flex flex-column align-items-center">
       <div class="form-group mb-3">
         <label class="mb-3" for="username">UserName</label>
-        <input formControlName="username" class="form-control" style="border: 1px solid #00b4aa" id="fullname"
-          type="text" placeholder="Please enter your username" />
+        <input formControlName="username" autocomplete="off" class="form-control" style="border: 1px solid #00b4aa"
+          id="fullname" type="text" placeholder="Please enter your username" />
         <div class="message-error text-danger pt-2 "
           *ngIf="signUpForm.get('username')?.hasError('required') &&  (signUpForm.get('username')?.touched || signUpForm.get('username')?.dirty) ">
           Username is required
@@ -22,8 +26,8 @@
 
       <div class="form-group mb-3">
         <label class="mb-3" for="email">Email address</label>
-        <input formControlName="email" class="form-control" style="border: 1px solid #00b4aa" id="email" type="email"
-          placeholder="Please enter your email address" />
+        <input formControlName="email" autocomplete="off" class="form-control" style="border: 1px solid #00b4aa"
+          id="email" type="email" placeholder="Please enter your email address" />
         <div class="message-error text-danger pt-2 "
           *ngIf="signUpForm.get('email')?.hasError('required') &&  (signUpForm.get('email')?.touched || signUpForm.get('email')?.dirty) ">
           Email is required
@@ -37,8 +41,8 @@
       <div class="form-group mb-3">
         <label class="mb-3" for="password">Password</label>
         <div class="position-relative">
-          <input formControlName="password" class="form-control" style="border: 1px solid #00b4aa" type="password"
-            placeholder="Please enter your password" />
+          <input formControlName="password" autocomplete="off" class="form-control" style="border: 1px solid #00b4aa"
+            type="password" placeholder="Please enter your password" />
           <i class="fa-solid fa-eye position-absolute translate-middle-y top-50" style="right: 20px"></i>
         </div>
 
@@ -55,8 +59,8 @@
       <div class="form-group">
         <label class="mb-3" for="password">Confirm Password</label>
         <div class="position-relative">
-          <input formControlName="confirmPassword" class="form-control" style="border: 1px solid #00b4aa"
-            type="password" placeholder="Please enter your confirm password" />
+          <input formControlName="confirmPassword" autocomplete="off" class="form-control"
+            style="border: 1px solid #00b4aa" type="password" placeholder="Please enter your confirm password" />
           <i class="fa-solid fa-eye position-absolute translate-middle-y top-50" style="right: 20px"></i>
         </div>
         <div class="message-error text-danger pt-2 "
