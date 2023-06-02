@@ -142,7 +142,7 @@ export const postController = {
         return res.status(400).json({ message: 'Update post failed' });
       }
       /* update category */
-      await Category.findByIdAndUpdate(food.category, {
+      await Category.findByIdAndUpdate(post.category, {
         $pull: { posts: post._id },
       });
       const categoryId = post.category;
@@ -212,6 +212,24 @@ export const postController = {
       return res.status(200).json({ message: 'Get related posts successfully', posts: relatedPosts });
     } catch (error) {
       return res.status(500).json({ message: 'Internal server error' });
+    }
+  },
+  /* liệt kê số lượng bài viết được tạo ra trong 1 ngày/ 1 tháng/ 1 tuần */
+  getCountPostNew: async (req, res) => {
+    try {
+      const oneMonthAgo = new Date();
+      const oneDayAgo = new Date();
+      const oneWeekAgo = new Date();
+      oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1); // Lấy tháng 1 tháng trước
+      oneDayAgo.setDate(oneDayAgo.getDate() - 1);
+      oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+      const countMonth = await Post.countDocuments({ createdAt: { $gte: oneMonthAgo } });
+      const countWeek = await Post.countDocuments({ createdAt: { $gte: oneWeekAgo } });
+      const countDay = await Post.countDocuments({ createdAt: { $gte: oneDayAgo } });
+      res.json({ count: { month: countMonth, week: countWeek, day: countDay } });
+    } catch (err) {
+      console.error('Lỗi khi đếm số lượng bài post:', err);
+      res.status(500).json({ error: 'Lỗi server' });
     }
   },
 };
