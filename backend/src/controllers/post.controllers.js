@@ -159,4 +159,18 @@ export const postController = {
       return res.status(500).json({ message: 'Internal server error' });
     }
   },
+
+  // countCommentPost: async (req, res) => {
+  //   try {
+  //     const { id } = req.params;
+  //     const post = await Post.findById(id);
+  //     if (!post) {
+  //       return res.status(400).json({ message: 'Get related posts failed' });
+  //     }
+  //     const relatedPosts = await Post.find({ category: post.category, _id: { $ne: id } });
+  //     return res.status(200).json({ message: 'Get related posts successfully', posts: relatedPosts });
+  //   } catch (error) {
+  //     return res.status(500).json({ message: 'Internal server error' });
+  //   }
+  // },
 };

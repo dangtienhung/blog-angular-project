@@ -93,7 +93,7 @@
             <tr *ngFor="let post of posts; let i = index">
               <td>{{ i + 1 }}</td>
               <td>{{ post.title }}</td>
-              <td>{{ post.author.username }}</td>
+              <td>{{ post.author.username! }}</td>
               <td>{{ post.category.name }}</td>
               <td>
                 <img *ngFor="let img of post.images" [src]="img" alt="" class="mb-1" />
@@ -108,18 +108,37 @@
                 </span>
               </td>
               <td>
-                <span *ngFor="let tag of post.tags">{{ tag }}</span>
+                <span *ngFor="let tag of post.tags">{{ tag.title }}</span>
               </td>
 
               <td>{{ post.likes.toLocaleString() }}</td>
               <td>
-                <a routerLink="/admin/edit-category/">
+                <a routerLink="/admin/edit-post/">
                   <button class="settings text-primary">
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
                 </a>
                 <button class="delete text-danger" (click)="handleDelete(post._id!)">
                   <i class="fa-sharp fa-solid fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+
+          <!-- Tag -->
+          <tbody *ngIf="tags.length > 0">
+            <tr *ngFor="let tag of tags; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ tag.title }}</td>
+              <td>{{ tag.slug }}</td>
+              <td>
+                <a routerLink="/admin/edit-tag/{{ tag._id }}">
+                  <button class="settings text-primary">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+                </a>
+                <button class="delete text-danger">
+                  <i class="fa-sharp fa-solid fa-trash" (click)="handleDelete(tag._id!)"></i>
                 </button>
               </td>
             </tr>

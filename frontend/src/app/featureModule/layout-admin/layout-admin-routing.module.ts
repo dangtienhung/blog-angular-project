@@ -10,6 +10,10 @@ import { AddCategoryComponent } from 'src/app/modules/category/add-category/add-
 import { EditCategoryComponent } from 'src/app/modules/category/edit-category/edit-category.component';
 import { ManagerTagsComponent } from 'src/app/components/manager-tags/manager-tags.component';
 import { ManagerCommentsComponent } from 'src/app/components/manager-comments/manager-comments.component';
+import { AddTagComponent } from 'src/app/modules/tag/add-tag/add-tag.component';
+import { EditTagComponent } from 'src/app/modules/tag/edit-tag/edit-tag.component';
+import { AddPostComponent } from 'src/app/modules/post/add-post/add-post.component';
+import { EditPostComponent } from 'src/app/modules/post/edit-post/edit-post.component';
 
 const routes: Routes = [
   {
@@ -28,8 +32,12 @@ const routes: Routes = [
       { path: 'manager-categories', component: CategoriesComponent },
       { path: 'add-category', component: AddCategoryComponent },
       { path: 'edit-category/:id', component: EditCategoryComponent },
+      { path: 'add-tag', component: AddTagComponent },
+      { path: 'edit-tag/:id', component: EditTagComponent },
       { path: 'manager-tags', component: ManagerTagsComponent },
       { path: 'manager-comments', component: ManagerCommentsComponent },
+      { path: 'add-post', component: AddPostComponent },
+      { path: 'edit-post', component: EditPostComponent },
     ],
   },
 ];

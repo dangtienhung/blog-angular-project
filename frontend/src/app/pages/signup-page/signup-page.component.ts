@@ -40,6 +40,7 @@ export class SignupPageComponent {
       email: [
         '',
         [
+          // Validators.required,
           Validators.pattern(
             /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
           ),
@@ -96,7 +97,6 @@ export class SignupPageComponent {
               const sendingUser = setInterval(() => {
                 this.user.getUser(data.user._id!).subscribe((data) => {
                   if (data.user.isVerified) {
-                    console.log(data);
                     Swal.close();
                     this.direct.navigateByUrl('/login');
                     clearInterval(sendingUser);

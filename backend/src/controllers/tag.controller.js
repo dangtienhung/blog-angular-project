@@ -38,7 +38,7 @@ export const getTagById = async (req, res) => {
     if (!data) {
       return res.status(400).send({ message: 'Fail', err: "Dont' get Tags" });
     }
-    return res.status(200).send({ message: 'Success', data: data });
+    return res.status(200).send({ message: 'Success', data: [data] });
   } catch (error) {
     return res.status(500).send({ message: 'Fail', error: error });
   }

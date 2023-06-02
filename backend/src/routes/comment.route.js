@@ -6,14 +6,12 @@ import {
   getComments,
   sendComment,
   updateComment,
+  countCommentPost,
 } from '../controllers/comment.controller.js';
 const commentRouter = express.Router();
 
-commentRouter.route('/').get(getComments).post(authorUser, sendComment);
-commentRouter
-  .route('/:id')
-  .get(authors, authorUser, getCommentById)
-  .delete(authors, authorUser, deleteComment)
-  .put(authors, authorUser, updateComment);
+commentRouter.route('/').get(getComments).post(sendComment);
+commentRouter.route('/:id').get(getCommentById).delete(deleteComment).put(updateComment);
+commentRouter.route('/countComment').get(countCommentPost);
 
 export default commentRouter;

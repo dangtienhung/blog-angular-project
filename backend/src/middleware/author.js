@@ -19,6 +19,7 @@ export const authors = async (req, res, next) => {
 export const authorUser = async (req, res, next) => {
   try {
     const user = req.user;
+    // console.log(user);
     if (!['user', 'admin', 'superadmin'].includes(user.role)) {
       return res.status(200).send({ message: 'fail', err: 'you do not have permission' });
     }

@@ -4,7 +4,6 @@ import UploadFileRouter from './routes/uploadfile.routes.js';
 import YAML from 'yamljs';
 import authRouter from './routes/auth.routes.js';
 import { authors } from './middleware/author.js';
-import commentRouter from './routes/comment.route.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
@@ -17,6 +16,7 @@ import swaggerUi from 'swagger-ui-express';
 import tagRouter from './routes/tag.route.js';
 import uploadRouter from './routes/upload.routes.js';
 import userRouter from './routes/users.routes.js';
+import commentRouter from './routes/comment.route.js';
 
 // import commentRouter from './routes/comments.routes.js';
 
@@ -49,7 +49,7 @@ ConnectDB();
 /* router category*/
 app.use('/api/v1', CatRoute);
 
-/* router category*/
+/* router comment*/
 app.use('/api/v1/comments', commentRouter);
 
 /* router tag*/

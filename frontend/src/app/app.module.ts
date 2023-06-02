@@ -40,9 +40,13 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { SliderComponent } from './components/slider/slider.component';
 import { ToastrModule } from 'ngx-toastr';
 // import } from 'ngx-toastr'
-
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { UserInfoComponent } from './pages/user-info/user-info.component';
 import { RequestInterceptor } from './request/request.interceptor';
+import { AddTagComponent } from './modules/tag/add-tag/add-tag.component';
+import { EditTagComponent } from './modules/tag/edit-tag/edit-tag.component';
+import { AddPostComponent } from './modules/post/add-post/add-post.component';
+import { EditPostComponent } from './modules/post/edit-post/edit-post.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +83,10 @@ import { RequestInterceptor } from './request/request.interceptor';
     EditCategoryComponent,
     PostListsComponent,
     AvatarDirective,
+    AddTagComponent,
+    EditTagComponent,
+    AddPostComponent,
+    EditPostComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,6 +96,7 @@ import { RequestInterceptor } from './request/request.interceptor';
     CommonModule,
     BrowserAnimationsModule, // required animations module
 
+    CKEditorModule,
     // Toi bi loi ToastrModule nay ko down dc ngx-toastr len phai comment lai!!
 
     ToastrModule.forRoot({
