@@ -96,10 +96,8 @@
               <td>{{ post.author.username }}</td>
               <td>{{ post.category.name }}</td>
               <td>
-                <img *ngFor="let img of post.images" [src]="img" alt="" class="mb-1" />
+                <img *ngFor="let img of post.images" [src]="img.url" alt="" class="mb-1" />
               </td>
-              <td class="text-truncate">{{ post.content }}</td>
-
               <td>
                 <span class="text-light p-1 rounded {{
                     post.status === 'public' ? 'bg-success' : 'bg-danger'
