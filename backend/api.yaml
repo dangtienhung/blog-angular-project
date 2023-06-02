@@ -141,7 +141,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Category'
 
-  /category/posts/{id}:
+  /categories/posts/{id}:
     get:
       tags:
         - Category
@@ -170,15 +170,15 @@ paths:
                   example:
                     message: success
                     data:
-                      _id: "category_id"
-                      name: "Category name"
+                      _id: 'category_id'
+                      name: 'Category name'
                       posts:
-                        - _id: "post_id_1"
-                          title: "Post title 1"
-                          content: "Post content 1"
-                        - _id: "post_id_2"
-                          title: "Post title 2"
-                          content: "Post content 2"
+                        - _id: 'post_id_1'
+                          title: 'Post title 1'
+                          content: 'Post content 1'
+                        - _id: 'post_id_2'
+                          title: 'Post title 2'
+                          content: 'Post content 2'
         404:
           description: Not Found
           content:
@@ -517,20 +517,20 @@ paths:
                     message: Get all posts successfully
                     posts:
                       docs:
-                        - _id: "post_id_1"
-                          title: "Post title 1"
-                          content: "Post content 1"
+                        - _id: 'post_id_1'
+                          title: 'Post title 1'
+                          content: 'Post content 1'
                           author:
-                            _id: "author_id_1"
-                            name: "Author name 1"
+                            _id: 'author_id_1'
+                            name: 'Author name 1'
                           category:
-                            _id: "category_id_1"
-                            name: "Category name 1"
+                            _id: 'category_id_1'
+                            name: 'Category name 1'
                           tags:
-                            - _id: "tag_id_1"
-                              name: "Tag name 1"
-                            - _id: "tag_id_2"
-                              name: "Tag name 2"
+                            - _id: 'tag_id_1'
+                              name: 'Tag name 1'
+                            - _id: 'tag_id_2'
+                              name: 'Tag name 2'
                       totalDocs: 20
                       totalPages: 2
                       page: 1
@@ -679,20 +679,20 @@ paths:
                     message: Get all posts successfully
                     posts:
                       docs:
-                        - _id: "post_id_1"
-                          title: "Post title 1"
-                          content: "Post content 1"
+                        - _id: 'post_id_1'
+                          title: 'Post title 1'
+                          content: 'Post content 1'
                           author:
-                            _id: "author_id_1"
-                            name: "Author name 1"
+                            _id: 'author_id_1'
+                            name: 'Author name 1'
                           category:
-                            _id: "category_id_1"
-                            name: "Category name 1"
+                            _id: 'category_id_1'
+                            name: 'Category name 1'
                           tags:
-                            - _id: "tag_id_1"
-                              name: "Tag name 1"
-                            - _id: "tag_id_2"
-                              name: "Tag name 2"
+                            - _id: 'tag_id_1'
+                              name: 'Tag name 1'
+                            - _id: 'tag_id_2'
+                              name: 'Tag name 2'
                       totalDocs: 20
                       totalPages: 2
                       page: 1
@@ -1176,7 +1176,7 @@ paths:
   /images/{public_id}:
     delete:
       tags:
-          - Upload_Files
+        - Upload_Files
       summary: Delete an image by public ID
       parameters:
         - in: path
