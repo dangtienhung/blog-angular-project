@@ -7,14 +7,15 @@
         <li>
           <a class="text-decoration-none font-500 text-black text-xl" routerLink="/">Home</a>
         </li>
+
         <li>
           <a class="text-decoration-none font-500 text-black text-xl" routerLink="blog">Blog</a>
         </li>
-        
+
         <!-- <li>
           <a class="text-decoration-none font-500 text-black text-xl" routerLink="#">Contact</a>
         </li> -->
-        
+
       </ul>
     </div>
 
@@ -26,19 +27,27 @@
           style="right: 16px"></i>
       </div>
     </div>
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> 66968251cbdd1b1cba4d9b686227652cec6b2fae
     <!-- <div class="col-1 d-flex justify-content-end">
       <a routerLink="signup"
         class="d-block text-center btn-signup text-decoration-none text-white rounded text-xl font-600">Sign Up</a>
     </div> -->
 
-    <div *ngIf="isAuth" class="col-2 d-flex justify-content-end">
-      <button (click)="logOut()"
-        class="d-block text-center btn-signup text-decoration-none text-white rounded text-xl font-600">Log out</button>
+    <div *ngIf="user" class="col-2 d-flex justify-content-end">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" id="navbarDropdownMenuLink"
+          role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <img [src]="user.avatar" class="rounded-circle" height="50" alt=""
+            loading="lazy" />
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+          <li><a class="dropdown-item" style="cursor: pointer;">My profile</a></li>
+          <li><a class="dropdown-item" style="cursor: pointer;">Settings</a></li>
+          <li><a class="dropdown-item" style="cursor: pointer;" (click)="logOut()">Logout</a></li>
+        </ul>
+      </li>
+      <!-- <button (click)="logOut()"
+        class="d-block text-center btn-signup text-decoration-none text-white rounded text-xl font-600">Log out</button> -->
+
     </div>
     <div *ngIf="!isAuth" class="col-2 d-flex justify-content-end">
       <a routerLink="login"

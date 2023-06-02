@@ -74,8 +74,19 @@ export const deleteCategory = async (req, res) => {
 
 export const getAllPostByCategory = async (req, res) => {
   try {
+    
     const { id } = req.params;
-    const data = await Category.findById(id).populate('posts');
+    const query = { status: 'approved' };
+    const data = await Category.findById(id).populate({
+      path: 'posts',
+      match: query,
+      populate: [
+        { path: 'author', select: '-postList -isVerified -role -password' },
+        { path: 'category', select: '-posts' },
+        { path: 'tags' },
+      ],
+    });
+    // const data = await Category.findById(id).populate('posts');
     if (!data) {
       return res.status(404).send({ message: 'fail', error: 'Not found post by category' });
     }

@@ -5,15 +5,18 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { baseURL } from 'src/app/utils/instance';
+import { IPosts } from 'src/app/interfaces/Posts';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategoryService {
   //Proxy rest_api at file proxy.conf.json
-  baseURL: string = '/api/v1/category';
+  baseURL: string = '';
   categories: ICategory[] = [];
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {
+    this.baseURL = `${baseURL}/category`;
+  }
   // getAccessToken() {
   //   const accessToken = JSON.parse(localStorage.getItem('accessToken') || '');
   //   if (!accessToken || accessToken === '') {
@@ -53,6 +56,15 @@ export class CategoryService {
   ): Observable<{ message: string; data: ICategory }> {
     return this.http.get<{ message: string; data: ICategory }>(
       `${this.baseURL}/${id}`
+    );
+  }
+
+  /*get posts by category id */
+  getCategoryPostId(
+    id: string
+  ): Observable<{ message: string; data: ICategory }> {
+    return this.http.get<{ message: string; data: ICategory }>(
+      `${baseURL}/categories/posts/${id}`
     );
   }
 }

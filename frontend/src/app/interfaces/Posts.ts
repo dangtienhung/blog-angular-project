@@ -34,3 +34,5 @@ interface IDocs {
   prevPage?: null | number;
   nextPage?: null | number;
 }
+
+
