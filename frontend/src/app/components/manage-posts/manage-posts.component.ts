@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IPosts } from 'src/app/interfaces/Posts';
 import { ExcelServiceService } from 'src/app/services/excelService/excel-service.service';
+import { IPosts } from 'src/app/interfaces/Posts';
 import { PostsService } from 'src/app/services/posts/posts.service';
 
 @Component({
@@ -10,15 +10,15 @@ import { PostsService } from 'src/app/services/posts/posts.service';
 })
 export class ManagePostsComponent {
   title: string = 'Quản lý các bài đăng';
+  linkActive: string = '/admin/post-add';
+  titleModal: string = 'Thông tin bài post';
   theadTable: string[] = [
     'STT',
     'Tên bài đăng',
     'Tác giả',
     'Danh mục',
-    'Hình ảnh',
-    'Nội dung',
     'Trạng thái',
-    'Tags',
+    'Xét duyệt',
     'Lượt thích',
     'Action',
   ];

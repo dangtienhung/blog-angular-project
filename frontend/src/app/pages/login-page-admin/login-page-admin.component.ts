@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from './../../services/auth/auth.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import jwt_decode from 'jwt-decode';
 
 @Component({
@@ -19,7 +20,8 @@ export class LoginPageAdminComponent {
   constructor(
     private authService: AuthService,
     private builder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
     if (localStorage.getItem('accessToken')) {
       const accessToken = JSON.parse(localStorage.getItem('accessToken') || '');
@@ -35,21 +37,49 @@ export class LoginPageAdminComponent {
     }
   }
   handleSubmitLoginForm() {
-    if (this.loginForm.invalid) return;
+    if (this.loginForm.invalid) {
+      this.toastr.warning('Vui lòng nhập đầy đủ thông tin');
+      return;
+    }
     const user = {
       email: this.loginForm.value.email || '',
       password: this.loginForm.value.password || '',
     };
-    this.authService.loginUser(user).subscribe((user) => {
-      if (!user) {
-        this.router.navigate(['/']);
+    this.authService.loginUser(user).subscribe(
+      (user) => {
+        if (!user) {
+          this.router.navigate(['/']);
+          this.toastr.warning('Vui lòng nhập đầy đủ thông tin');
+        }
+        if (user.user.role === 'admin') {
+          // this.isAdminUser = true;
+          localStorage.setItem('accessToken', JSON.stringify(user.accessToken));
+          localStorage.setItem('user', JSON.stringify(user.user));
+          this.router.navigateByUrl('/admin');
+          this.router.navigate(['/admin']);
+          this.toastr.success('Đăng nhập thành công');
+        } else {
+          this.toastr.warning('Tài khoản hoặc mật khẩu không đúng');
+        }
+      },
+      () => {
+        this.toastr.warning('Tài khoản hoặc mật khẩu không đúng');
       }
-      if (user.user.role === 'admin') {
-        this.isAdminUser = true;
-        localStorage.setItem('accessToken', JSON.stringify(user.accessToken));
-        localStorage.setItem('user', JSON.stringify(user.user));
-        this.router.navigate(['/admin']);
-      }
-    });
+    );
+
+    //   if (user.user.role === 'admin') {
+    //     this.isAdminUser = true;
+    //     localStorage.setItem('accessToken', JSON.stringify(user.accessToken));
+    //     localStorage.setItem('user', JSON.stringify(user.user));
+    //     this.router.navigate(['/admin']);
+    //   }
+
+    //   if (user.user.role === 'user') {
+    //     this.isAdminUser = true;
+    //     localStorage.setItem('accessToken', JSON.stringify(user.accessToken));
+    //     localStorage.setItem('user', JSON.stringify(user.user));
+    //     this.router.navigate(['/']);
+    //   }
+    // });
   }
 }

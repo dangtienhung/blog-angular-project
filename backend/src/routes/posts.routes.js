@@ -15,13 +15,15 @@ const router = express.Router();
 // router.delete('/posts/:id', postController.deletePost);
 
 router.get('/related/:id', authorUser, postController.getRelatedPosts);
-router.post('/', authors, authorUser, postController.createPost);
-router.get('/', postController.getAllPosts);
+router.post('/', postController.createPost);
+router.get('/approved', postController.getAllPostsWithStatusApproved);
 router.get('/:id', postController.getPostById);
-router.put('/:id', authors, authorUser, postController.updatePost);
+router.put('/:id', postController.updatePost);
 router.put('/delete-fake/:id', authors, authorUser, postController.fakeDeletPost);
 router.put('/restore/:id', authors, authorUser, postController.undoDeletePost);
 router.delete('/:id', authors, authorUser, postController.deletePost);
+router.get('/', postController.getAllPosts);
+router.get('/counter/post-new', postController.getCountPostNew);
 
 export default router;
 
