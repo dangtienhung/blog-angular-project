@@ -41,7 +41,7 @@ export class ManageUserComponent {
   /* get All users */
   getAllUsers() {
     this.userService.getAllUsers().subscribe((users) => {
-      console.log(users);
+      // console.log(users);
 
       this.usersList = users.docs;
     });

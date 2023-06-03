@@ -21,7 +21,7 @@ export class NewPostComponent {
 
   constructor(private postService: PostsService) {
     this.postService.getAllPosts().subscribe((data) => {
-      console.log(data.posts.docs);
+      // console.log(data.posts.docs);
       this.posts = data.posts.docs;
     });
   }

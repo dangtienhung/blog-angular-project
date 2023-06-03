@@ -18,9 +18,9 @@ export class EditCategoryComponent {
     private categoryService: CategoryService,
     private route: ActivatedRoute,
     private router: Router,
-    private builder: FormBuilder
-  ) // private toastr: ToastrService
-  {
+    private builder: FormBuilder,
+    private toastr: ToastrService // private toastr: ToastrService
+  ) {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       this.getCategoryById(id!);
@@ -33,7 +33,7 @@ export class EditCategoryComponent {
       name: this.editForm.value.name || '',
     };
     this.categoryService.updateCategory(id!, category).subscribe(() => {
-      // this.toastr.success('Update category successfully!');
+      this.toastr.success('Update category successfully!');
       this.router.navigate(['/admin/manager-categories']);
     });
   }

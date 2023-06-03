@@ -22,9 +22,12 @@ export class LayoutManagerComponent {
   @Input() posts: IPosts[] = [];
   @Input() handleAddNewUser: any;
   @Input() userForm: any;
+  @Input() dataPreview: any;
   @Output() exportToExcel = new EventEmitter<void>();
   @Output() delete = new EventEmitter<string>();
   @Output() edit = new EventEmitter<any>();
+  @Output() getDatabyid = new EventEmitter<string | number>();
+
   /* handle edit */
   handleEdit(items: any) {
     this.edit.emit(items);
@@ -58,5 +61,8 @@ export class LayoutManagerComponent {
   /* handle export excel */
   handleExportToExcel() {
     this.exportToExcel.emit();
+  }
+  handleGetDataById(id: number | string) {
+    this.getDatabyid.emit(id);
   }
 }

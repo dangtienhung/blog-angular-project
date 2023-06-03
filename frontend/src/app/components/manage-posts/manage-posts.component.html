@@ -1,2 +1,10 @@
-<app-layout-manager [title]="title" [theadTable]="theadTable" [posts]="PostsList" (delete)="handleDeletePost($event)"
-  (exportToExcel)="exportToExcel()" [linkActive]="linkActive" />
+<app-layout-manager
+  [title]="title"
+  [theadTable]="theadTable"
+  [posts]="PostsList"
+  [dataPreview]="Post"
+  (delete)="handleDeletePost($event)"
+  (getDatabyid)="handleGetPost($event)"
+  (exportToExcel)="exportToExcel()"
+  [linkActive]="linkActive"
+/>

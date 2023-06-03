@@ -11,16 +11,24 @@
   </div>
   <div class="row">
     <div class="col">
-      <form class="mt-5 form" [formGroup]="postForm" (submit)="handleSubmitPostForm()">
+      <form
+        class="mt-5 form"
+        [formGroup]="postForm"
+        (submit)="handleSubmitPostForm()"
+      >
         <div class="row g-5">
           <div class="col-6">
             <mat-form-field class="form__field">
               <mat-label>Tiêu đề bài post</mat-label>
-              <input type="text" matInput formControlName="title">
+              <input type="text" matInput formControlName="title" />
             </mat-form-field>
             <div
-              *ngIf="postForm.get('title')?.invalid && (postForm.get('title')?.dirty || postForm.get('title')?.touched)"
-              class="text-danger">
+              *ngIf="
+                postForm.get('title')?.invalid &&
+                (postForm.get('title')?.dirty || postForm.get('title')?.touched)
+              "
+              class="text-danger"
+            >
               <div *ngIf="postForm.get('title')?.errors?.['required']">
                 Title is required.
               </div>
@@ -33,12 +41,21 @@
             <mat-form-field class="form__field">
               <mat-label>Danh mục bài viết</mat-label>
               <mat-select formControlName="category">
-                <mat-option *ngFor="let category of categories" [value]="category._id">{{category.name}}</mat-option>
+                <mat-option
+                  *ngFor="let category of categories"
+                  [value]="category._id"
+                  >{{ category.name }}</mat-option
+                >
               </mat-select>
             </mat-form-field>
             <div
-              *ngIf="postForm.get('category')?.invalid && (postForm.get('category')?.dirty || postForm.get('category')?.touched)"
-              class="text-danger">
+              *ngIf="
+                postForm.get('category')?.invalid &&
+                (postForm.get('category')?.dirty ||
+                  postForm.get('category')?.touched)
+              "
+              class="text-danger"
+            >
               <div *ngIf="postForm.get('category')?.errors?.['required']">
                 Danh mục is required.
               </div>
@@ -48,18 +65,32 @@
             <mat-form-field class="form__field">
               <mat-label>Hashtag</mat-label>
               <mat-select formControlName="hashTags" multiple>
-                <mat-option *ngFor="let hashTag of hashTagLists" [value]="hashTag">{{hashTag}}</mat-option>
+                <mat-option
+                  *ngFor="let hashTag of hashTagLists"
+                  [value]="hashTag"
+                  >{{ hashTag }}</mat-option
+                >
               </mat-select>
             </mat-form-field>
           </div>
           <div class="col-6">
-            <mat-radio-group aria-label="Trạng thái bài post" formControlName="status">
-              <mat-radio-button value="public" selected>Public</mat-radio-button>
+            <mat-radio-group
+              aria-label="Trạng thái bài post"
+              formControlName="status"
+            >
+              <mat-radio-button value="public" selected
+                >Public</mat-radio-button
+              >
               <mat-radio-button value="private">Private</mat-radio-button>
             </mat-radio-group>
             <div
-              *ngIf="postForm.get('status')?.invalid && (postForm.get('status')?.dirty || postForm.get('status')?.touched)"
-              class="text-danger">
+              *ngIf="
+                postForm.get('status')?.invalid &&
+                (postForm.get('status')?.dirty ||
+                  postForm.get('status')?.touched)
+              "
+              class="text-danger"
+            >
               <div *ngIf="postForm.get('status')?.errors?.['required']">
                 Status is required.
               </div>
@@ -68,11 +99,23 @@
         </div>
         <div class="row">
           <div class="col-12 mb-5">
-            <input class="form-control" type="file" accept="image/*" id="formFileMultiple" formControlName="images"
-              multiple (change)="handleFileInput($event)">
+            <input
+              class="form-control"
+              type="file"
+              accept="image/*"
+              id="formFileMultiple"
+              formControlName="images"
+              multiple
+              (change)="handleFileInput($event)"
+            />
             <div
-              *ngIf="postForm.get('images')?.invalid && (postForm.get('images')?.dirty || postForm.get('images')?.touched)"
-              class="text-danger">
+              *ngIf="
+                postForm.get('images')?.invalid &&
+                (postForm.get('images')?.dirty ||
+                  postForm.get('images')?.touched)
+              "
+              class="text-danger"
+            >
               <div *ngIf="postForm.get('images')?.errors?.['required']">
                 Image is required.
               </div>
@@ -80,7 +123,10 @@
           </div>
           <div class="image-preview" *ngIf="imagePreviews.length > 0">
             <div class="preview-container" *ngFor="let image of imagePreviews">
-              <div class="preview-remove" (click)="handleRemoveImage(image.public_id)">
+              <div
+                class="preview-remove"
+                (click)="handleRemoveImage(image.public_id)"
+              >
                 <i class="fa-solid fa-circle-xmark"></i>
               </div>
               <img [src]="image.url" class="preview-image" alt="image" />
@@ -88,18 +134,25 @@
           </div>
         </div>
         <div class="form-group mb-5">
-          <ckeditor [editor]="Editor" formControlName="content">
-          </ckeditor>
+          <ckeditor [editor]="Editor" formControlName="content"> </ckeditor>
           <div
-            *ngIf="postForm.get('content')?.invalid && (postForm.get('content')?.dirty || postForm.get('content')?.touched)"
-            class="text-danger">
+            *ngIf="
+              postForm.get('content')?.invalid &&
+              (postForm.get('content')?.dirty ||
+                postForm.get('content')?.touched)
+            "
+            class="text-danger"
+          >
             <div *ngIf="postForm.get('content')?.errors?.['required']">
               content is required.
             </div>
           </div>
         </div>
-        <button type="submit" [disabled]="postForm.invalid"
-          class="btn btn-primary d-flex justify-content-center align-items-center w-100">
+        <button
+          type="submit"
+          [disabled]="postForm.invalid"
+          class="btn btn-primary d-flex justify-content-center align-items-center w-100"
+        >
           <i class="fa-solid fa-plus mx-2"></i>
           <span>Thêm</span>
         </button>

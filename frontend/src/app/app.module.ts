@@ -52,6 +52,8 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { SliderComponent } from './components/slider/slider.component';
 import { ToastrModule } from 'ngx-toastr';
 import { UserInfoComponent } from './pages/user-info/user-info.component';
+import { PreviewComponent } from './components/preview/preview.component';
+import { EditUserComponent } from './modules/user/edit-user/edit-user.component';
 
 // import } from 'ngx-toastr'
 
@@ -96,6 +98,8 @@ import { UserInfoComponent } from './pages/user-info/user-info.component';
     HashTagAddComponent,
     HashTagEditComponent,
     BlogPageComponent,
+    PreviewComponent,
+    EditUserComponent,
   ],
   imports: [
     BrowserModule,

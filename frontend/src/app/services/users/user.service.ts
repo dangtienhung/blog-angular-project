@@ -19,7 +19,7 @@ export class UserService {
     return this.http.get<IUserDocs>(`${this.baseURL}?_page=1&&_limit=10`);
   }
 
-  getUser(id: string): Observable<IUserResponse> {
+  getUser(id: string | number): Observable<IUserResponse> {
     return this.http.get<IUserResponse>(`${this.baseURL}/${id}`);
   }
   /* create */

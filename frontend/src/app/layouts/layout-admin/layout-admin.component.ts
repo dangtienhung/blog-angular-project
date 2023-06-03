@@ -10,7 +10,9 @@ import jwt_decode from 'jwt-decode';
 export class LayoutAdminComponent {
   constructor(private router: Router) {
     if (localStorage.getItem('accessToken')) {
-      const accessToken = JSON.parse(localStorage.getItem('accessToken') || '');
+      const accessToken = JSON.stringify(
+        localStorage.getItem('accessToken') || ''
+      );
       if (accessToken === '') {
         this.router.navigate(['/login-admin']);
       }

@@ -2,7 +2,7 @@
   <div class="row align-items-center mb-5">
     <div class="col-sm-12 col-lg-6">
       <div class="main-img">
-        <img [src]="post.images[0]" alt="" style="width: 100%" />
+        <img [src]="post.images[0]?.url" alt="" style="width: 100%" />
       </div>
     </div>
     <div class="col-sm-12 col-lg-6">
@@ -32,8 +32,7 @@
     </div>
   </div>
   <div class="content-posts mx-auto">
-    <div class="content mb-5">
-      {{ post.content }}
+    <div class="content mb-5" [innerHTML]="post.content">
       <!-- <h2 class="text-2xl font-600 mb-3">Chương 1</h2>
       <p class="text-xl font-500">
         Gastronomy atmosphere set aside. Slice butternut cooking home. Delicious

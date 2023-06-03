@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ExcelServiceService } from 'src/app/services/excelService/excel-service.service';
 import { IPosts } from 'src/app/interfaces/Posts';
 import { PostsService } from 'src/app/services/posts/posts.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-manage-posts',
   templateUrl: './manage-posts.component.html',
@@ -23,21 +23,36 @@ export class ManagePostsComponent {
     'Action',
   ];
   PostsList: IPosts[] = [];
+  Post!: IPosts;
   constructor(
     private postsService: PostsService,
-    private excelServices: ExcelServiceService
+    private excelServices: ExcelServiceService,
+    private toastr: ToastrService
   ) {
     this.getAllPost();
   }
 
   getAllPost() {
     this.postsService.getAllPosts().subscribe((postsData) => {
-      console.log(postsData.posts.docs);
+      // console.log(postsData.posts.docs);
       this.PostsList = postsData.posts.docs;
     });
   }
 
-  /* handle delete user */
+  // get post by id
+  handleGetPost(id: number | string) {
+    this.postsService.getPost(id).subscribe(
+      (data) => {
+        this.Post = data.post;
+        // console.log(data);
+      },
+      () => {
+        this.toastr.error('Not found this post!');
+      }
+    );
+  }
+
+  /* handle delete post */
   handleDeletePost(id: string) {
     console.log(id);
     this.postsService.deleteFakePost(id).subscribe(
