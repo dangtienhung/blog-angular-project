@@ -44,7 +44,8 @@ export class PostAddComponent {
     images: [[''], [Validators.required]],
     author: [''],
     category: ['', [Validators.required]],
-    status: ['public', [Validators.required]],
+    is_active: ['public', [Validators.required]],
+    status: ['peding', [Validators.required]],
   });
   categories: ICategory[] = [];
   public Editor = ClassicEditor;
@@ -113,11 +114,12 @@ export class PostAddComponent {
       category: this.postForm.value.category,
       images: this.urls,
       author: userId,
-      status:
-        this.postForm.value.status === '' ||
-        this.postForm.value.status === 'public'
+      is_active:
+        this.postForm.value.is_active === '' ||
+        this.postForm.value.is_active === 'public'
           ? true
           : false,
+      status: this.postForm.value.status,
     };
     this.postsService.createPost(post).subscribe(
       () => {

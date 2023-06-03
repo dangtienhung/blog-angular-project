@@ -83,8 +83,9 @@ const postSchema = new mongoose.Schema(
       default: true,
     },
     status: {
-      type: Boolean,
-      default: true,
+      type: String,
+      enum: ['pedding', 'approved', 'rejected'],
+      default: 'pedding',
     },
     tags: [
       {

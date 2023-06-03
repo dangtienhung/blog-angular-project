@@ -65,6 +65,16 @@
               </div>
             </div>
           </div>
+          <div class="col-6">
+            <mat-form-field class="form__field">
+              <mat-label>Duyệt bài viết</mat-label>
+              <mat-select formControlName="status">
+                <mat-option value="pending">Pending</mat-option>
+                <mat-option value="approved">Approved</mat-option>
+                <mat-option value="rejected">Reject</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
         </div>
         <div class="row">
           <div class="col-12 mb-5">

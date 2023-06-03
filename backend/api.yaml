@@ -141,10 +141,81 @@ paths:
               schema:
                 $ref: '#/components/schemas/Category'
 
+  /categories/posts/{id}:
+    get:
+      tags:
+        - Category
+      summary: Get all posts by category
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: The ID of the category
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: The response message
+                  data:
+                    type: object
+                    description: The retrieved category data
+                  example:
+                    message: success
+                    data:
+                      _id: 'category_id'
+                      name: 'Category name'
+                      posts:
+                        - _id: 'post_id_1'
+                          title: 'Post title 1'
+                          content: 'Post content 1'
+                        - _id: 'post_id_2'
+                          title: 'Post title 2'
+                          content: 'Post content 2'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: The error message
+                  error:
+                    type: string
+                    description: The specific error details
+                  example:
+                    message: fail
+                    error: Not found post by category
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: The error message
+                  error:
+                    type: string
+                    description: The specific error details
+                  example:
+                    message: fail
+                    error: Internal server error
+
   /sign-up:
     post:
       tags:
-        - author
+        - authen
       summary: SignUp
       requestBody:
         content:
@@ -161,7 +232,7 @@ paths:
   /sign-in:
     post:
       tags:
-        - author
+        - authen
       summary: SignIn
       requestBody:
         content:
@@ -404,23 +475,90 @@ paths:
     get:
       tags:
         - Post_blog
-      summary: get all blogs
+      summary: Get all posts
       parameters:
         - in: query
-          name: q
+          name: _page
           schema:
-            type: string
+            type: integer
+            default: 1
+          description: The page number (optional)
+        - in: query
+          name: _limit
+          schema:
+            type: integer
+            default: 10
+          description: The number of posts per page (optional)
         - in: query
           name: category
           schema:
             type: string
+          description: Filter posts by category (optional)
+        - in: query
+          name: q
+          schema:
+            type: string
+          description: Filter posts by keyword (optional)
       responses:
         200:
-          description: 'Success'
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Post'
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: The response message
+                  posts:
+                    type: object
+                    description: The retrieved posts data
+                  example:
+                    message: Get all posts successfully
+                    posts:
+                      docs:
+                        - _id: 'post_id_1'
+                          title: 'Post title 1'
+                          content: 'Post content 1'
+                          author:
+                            _id: 'author_id_1'
+                            name: 'Author name 1'
+                          category:
+                            _id: 'category_id_1'
+                            name: 'Category name 1'
+                          tags:
+                            - _id: 'tag_id_1'
+                              name: 'Tag name 1'
+                            - _id: 'tag_id_2'
+                              name: 'Tag name 2'
+                      totalDocs: 20
+                      totalPages: 2
+                      page: 1
+                      limit: 10
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: The error message
+                  example:
+                    message: Get all posts failed
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: The error message
+                  example:
+                    message: Internal server error
     post:
       tags:
         - Post_blog
@@ -495,7 +633,94 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Post'
-
+  /post/approved:
+    get:
+      tags:
+        - Post_blog
+      summary: Get all approved posts
+      parameters:
+        - in: query
+          name: _page
+          schema:
+            type: integer
+            default: 1
+          description: The page number (optional)
+        - in: query
+          name: _limit
+          schema:
+            type: integer
+            default: 10
+          description: The number of posts per page (optional)
+        - in: query
+          name: category
+          schema:
+            type: string
+          description: Filter posts by category (optional)
+        - in: query
+          name: q
+          schema:
+            type: string
+          description: Filter posts by keyword (optional)
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: The response message
+                  posts:
+                    type: object
+                    description: The retrieved posts data
+                  example:
+                    message: Get all posts successfully
+                    posts:
+                      docs:
+                        - _id: 'post_id_1'
+                          title: 'Post title 1'
+                          content: 'Post content 1'
+                          author:
+                            _id: 'author_id_1'
+                            name: 'Author name 1'
+                          category:
+                            _id: 'category_id_1'
+                            name: 'Category name 1'
+                          tags:
+                            - _id: 'tag_id_1'
+                              name: 'Tag name 1'
+                            - _id: 'tag_id_2'
+                              name: 'Tag name 2'
+                      totalDocs: 20
+                      totalPages: 2
+                      page: 1
+                      limit: 10
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: The error message
+                  example:
+                    message: Get all posts failed
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: The error message
+                  example:
+                    message: Internal server error
   /delete-fake/{id}:
     put:
       tags:
@@ -951,7 +1176,7 @@ paths:
   /images/{public_id}:
     delete:
       tags:
-          - Upload_Files
+        - Upload_Files
       summary: Delete an image by public ID
       parameters:
         - in: path
