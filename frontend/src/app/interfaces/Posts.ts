@@ -1,5 +1,6 @@
-import { IUser } from './User';
 import { ICategory } from './Category';
+import { IUser } from './User';
+
 export interface IPosts {
   _id: string;
   title: string;
@@ -13,8 +14,13 @@ export interface IPosts {
   is_active: boolean;
   status: string;
   deleted: boolean;
+<<<<<<< HEAD
   createdAt: Date;
   updated_at: Date;
+=======
+  createdAt: string;
+  updatedAt: string;
+>>>>>>> main
 }
 
 export interface IDocPosts {

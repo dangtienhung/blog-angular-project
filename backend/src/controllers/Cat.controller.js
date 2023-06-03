@@ -1,7 +1,8 @@
 import CatValidate from '../validates/categories.validate.js';
 import Category from '../models/categories.model.js';
-// import slugify from 'slugify';
 import slugify from 'slugify';
+
+// import slugify from 'slugify';
 
 export const getCategories = async (req, res) => {
   try {
@@ -64,6 +65,31 @@ export const deleteCategory = async (req, res) => {
     const data = await Category.findByIdAndDelete(id);
     if (!data) {
       return res.status(404).send({ message: 'fail', error: 'Ko tim thay category de delete' });
+    }
+    return res.status(200).send({ message: 'success', data: data });
+  } catch (error) {
+    return res.status(500).send({ message: 'fail', error: error });
+  }
+};
+
+export const getAllPostByCategory = async (req, res) => {
+  try {
+    const { id } = req.params;
+    /* get post status = approved */
+    const query = {
+      status: 'approved',
+    };
+    const data = await Category.findById(id).populate({
+      path: 'posts',
+      match: query,
+      populate: [
+        { path: 'author', select: '-postList -isVerified -role -password' },
+        { path: 'category', select: '-posts' },
+        { path: 'tags' },
+      ],
+    });
+    if (!data) {
+      return res.status(404).send({ message: 'fail', error: 'Not found post by category' });
     }
     return res.status(200).send({ message: 'success', data: data });
   } catch (error) {

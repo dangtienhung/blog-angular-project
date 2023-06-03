@@ -116,44 +116,53 @@
           <!-- Posts -->
 
           <tbody *ngIf="posts.length > 0">
-            <tr *ngFor="let post of posts; let i = index">
+            <tr
+              *ngFor="let post of posts; let i = index"
+              class="{{ post.status === 'pending' ? 'bg-danger' : 'bg-red' }}"
+            >
               <td>{{ i + 1 }}</td>
-              <td>{{ post.title }}</td>
+              <td>
+                <div class="post__image-group">
+                  <div class="post__image-wrapper">
+                    <img
+                      [src]="post.images[0].url"
+                      alt=""
+                      class="mb-1 post__image"
+                    />
+                  </div>
+                  {{ post.title }}
+                </div>
+              </td>
               <td>{{ post.author.username }}</td>
               <td>{{ post.category.name }}</td>
               <td>
-                <img
-                  *ngFor="let img of post.images"
-                  [src]="img.url"
-                  alt=""
-                  class="mb-1"
-                />
-              </td>
-              <td>
                 <span
                   class="text-light p-1 rounded {{
-                    post.status === 'public' ? 'bg-success' : 'bg-danger'
+                    post.is_active === true ? 'bg-success' : 'bg-danger'
                   }}"
+                >
+                  {{ post.is_active ? "public" : "private" }}
+                </span>
+              </td>
+              <td>
+                <!-- <span *ngFor="let tag of post.tags">{{ tag }}</span> -->
+                <span
+                  class="text-light p-1 rounded
+                  {{ post.status === 'pending' ? 'bg-warning' : 'bg-primary' }}
+                  {{ post.status === 'rejected' ? 'bg-dark text-white' : '' }}"
                 >
                   {{ post.status }}
                 </span>
               </td>
-              <td>
-                <span *ngFor="let tag of post.tags">{{ tag }}</span>
-              </td>
-
               <td>{{ post.likes.toLocaleString() }}</td>
               <td>
-                <button class="text-primary">
-                  <a
-                    href="#myModal"
-                    role="button"
-                    class="d-block"
-                    data-bs-toggle="modal"
-                    (click)="handleGetDataById(post._id)"
-                  >
-                    <i class="fa-solid fa-eye"></i
-                  ></a>
+                <button
+                  class="text-warning"
+                  (click)="getPostById(post._id!)"
+                  data-toggle="modal"
+                  data-target="#exampleModal"
+                >
+                  <i class="fa-solid fa-eye"></i>
                 </button>
                 <a routerLink="/admin/edit-category/">
                   <button class="settings text-primary">
@@ -215,7 +224,109 @@
 
 <!-- modal add -->
 <!-- <app-layout-modal-admin data-bs-toggle="modal" data-bs-target="#exampleModal" [titleModal]="titleModal"
-  [userForm]="userForm"></app-layout-modal-admin> -->
+  [postInfo]="postInfo"></app-layout-modal-admin> -->
 
-<!-- modal preview -->
-<app-preview [dataPreview]="dataPreview"></app-preview>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Thông tin bài viết</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="postInfo">
+        <section class="content-detail-posts my-5">
+          <div class="row align-items-center mb-5">
+            <div class="col-sm-12 col-lg-6">
+              <div class="main-img">
+                <img
+                  [src]="postInfo.images[0].url"
+                  alt="{{ postInfo.title }}"
+                  class="w-100 post__image-preview"
+                />
+              </div>
+            </div>
+            <div class="col-sm-12 col-lg-6">
+              <div class="info">
+                <div class="tag mb-2">
+                  <span
+                    class="d-inline-block font-600 bg-F3EDFF text-6B6B6B rounded-4 text-sm px-3"
+                    >{{ postInfo.category.name }}</span
+                  >
+                </div>
+                <div class="title mb-3">
+                  <h1 class="text-23BB86 font-600">
+                    {{ postInfo.title }}
+                  </h1>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                  <span class="text-6B6B6B text-sm font-600">{{
+                    handleFomatDate(postInfo.createdAt)
+                  }}</span>
+                  <span
+                    class="d-inline-block rounded-circle"
+                    style="width: 6px; height: 6px; background: #b1b5c3"
+                  ></span>
+                  <span class="text-6B6B6B text-sm font-600">{{
+                    postInfo.author.username
+                  }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="content-posts mx-auto">
+            <div class="content" [innerHTML]="postInfo.content">
+              <h2 class="text-2xl font-600 mb-3">{{ postInfo.title }}</h2>
+              {{ postInfo.content }}
+            </div>
+            <div class="author mt-5">
+              <div class="row align-items-center">
+                <div class="col-sm-12 col-md-4 mb-4">
+                  <div class="img">
+                    <img
+                      src="{{ postInfo.author.avatar }}"
+                      alt=""
+                      class="mx-auto"
+                    />
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-8">
+                  <div class="infomation">
+                    <div class="name mb-3">
+                      <h3 class="text-23BB86 font-600 text-2xl">
+                        {{ postInfo.author.username }}
+                      </h3>
+                    </div>
+                    <div class="quote">
+                      <p>
+                        Gastronomy atmosphere set aside. Slice butternut cooking
+                        home. Delicious romantic undisturbed raw platter will
+                        meld. Thick Skewers skillet natural, smoker soy sauce
+                        wait roux. Gastronomy atmosphere set aside. Slice
+                        butternut cooking home.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

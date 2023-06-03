@@ -44,4 +44,10 @@ export class PostsService {
     const options = this.getAccessToken();
     return this.http.post(`${baseURL}/posts`, post, options);
   }
+  /* get post by id */
+  getPostById(id: string): Observable<{ message: string; post: IPosts }> {
+    return this.http.get<{ message: string; post: IPosts }>(
+      `${this.baseURL}/posts/${id}`
+    );
+  }
 }

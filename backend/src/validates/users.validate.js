@@ -12,4 +12,5 @@ export const userValidate = joi.object({
   isVerified: joi.boolean().default(false),
   address: joi.string(),
   phone: joi.string(),
+  description: joi.string(),
 });
