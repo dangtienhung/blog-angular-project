@@ -9,16 +9,6 @@
       </div>
     </div>
 
-<<<<<<< HEAD
-    <form [formGroup]="SignUp" (ngSubmit)="onSubmit()" action="" class="d-flex flex-column align-items-center">
-      <div class="form-group mb-5">
-        <label class="mb-3" for="fullname">Fullname</label>
-        <input class="form-control" style="border: 1px solid #00b4aa" id="fullname" type="text"
-          formControlName="fullname" placeholder="Please enter your fullname" />
-        <div *ngIf="checkName.invalid && (checkName.touched || checkName.dirty)">
-          <span class="text-danger" *ngIf="checkName?.errors?.['required']">FullName is required</span>
-          <span class="text-danger" *ngIf="checkName?.errors?.['pattern']">FullName is not correct</span>
-=======
     <form [formGroup]='signUpForm' (ngSubmit)='onHandleSubmit()' class="d-flex flex-column align-items-center">
       <div class="form-group mb-3">
         <label class="mb-3" for="username">UserName</label>
@@ -27,7 +17,6 @@
         <div class="message-error text-danger pt-2 "
           *ngIf="signUpForm.get('username')?.hasError('required') &&  (signUpForm.get('username')?.touched || signUpForm.get('username')?.dirty) ">
           Username is required
->>>>>>> 5c681f5e10a1d0aa687939d396ec386ca1ed75a7
         </div>
       </div>
 

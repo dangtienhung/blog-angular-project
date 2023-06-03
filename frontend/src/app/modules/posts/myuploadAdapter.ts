@@ -15,7 +15,6 @@ export class MyUploadAdapter {
           this.http?.post(`${baseURL}/images/upload`, formData).subscribe(
             (response: any) => {
               resolve({ default: response.urls[0].url });
-              console.log(response.urls[0].url);
 
               this.uploadedUrl = response.urls[0].url;
             },

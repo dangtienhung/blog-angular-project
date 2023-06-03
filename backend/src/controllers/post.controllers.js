@@ -99,9 +99,12 @@ export const postController = {
               {
                 $or: [{ title: { $regex: q, $options: 'i' } }, { content: { $regex: q, $options: 'i' } }],
               },
+              {
+                deleted: false,
+              },
             ],
           }
-        : {};
+        : { deleted: false };
       if (category) {
         query['category'] = { _id: cateId._id };
       }
@@ -137,7 +140,6 @@ export const postController = {
       const body = req.body;
       /* update post */
       const post = await Post.findByIdAndUpdate(id, body, { new: true, runValidators: true });
-      console.log(post);
       if (!post) {
         return res.status(400).json({ message: 'Update post failed' });
       }

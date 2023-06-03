@@ -93,20 +93,8 @@
             <tr *ngFor="let post of posts; let i = index"
               class="{{post.status === 'pending' ? 'bg-danger' : 'bg-red'}}">
               <td>{{ i + 1 }}</td>
-<<<<<<< HEAD
               <td>{{ post.title }}</td>
               <td>{{ post.author.username! }}</td>
-=======
-              <td>
-                <div class="post__image-group">
-                  <div class="post__image-wrapper">
-                    <img [src]="post.images[0].url" alt="" class="mb-1 post__image" />
-                  </div>
-                  {{ post.title }}
-                </div>
-              </td>
-              <td>{{ post.author.username }}</td>
->>>>>>> 5c681f5e10a1d0aa687939d396ec386ca1ed75a7
               <td>{{ post.category.name }}</td>
               <td>
                 <span class="text-light p-1 rounded {{
@@ -116,28 +104,11 @@
                 </span>
               </td>
               <td>
-<<<<<<< HEAD
-                <span *ngFor="let tag of post.tags">{{ tag.title }}</span>
-=======
-                <!-- <span *ngFor="let tag of post.tags">{{ tag }}</span> -->
-                <span class="text-light p-1 rounded
-                  {{post.status === 'pending' ? 'bg-warning' : 'bg-primary'}}
-                  {{post.status === 'rejected' ? 'bg-dark text-white' : ''}}">
-                  {{ post.status}}
-                </span>
->>>>>>> 5c681f5e10a1d0aa687939d396ec386ca1ed75a7
+                <span>{{ post.status }}</span>
               </td>
               <td>{{ post.likes.toLocaleString() }}</td>
               <td>
-<<<<<<< HEAD
-                <a routerLink="/admin/edit-post/">
-=======
-                <button class="text-warning" (click)="getPostById(post._id!)" data-toggle="modal"
-                  data-target="#exampleModal">
-                  <i class="fa-solid fa-eye"></i>
-                </button>
-                <a routerLink="/admin/edit-category/">
->>>>>>> 5c681f5e10a1d0aa687939d396ec386ca1ed75a7
+                <a routerLink="/admin/post-edit/{{post._id}}">
                   <button class="settings text-primary">
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
@@ -149,7 +120,6 @@
             </tr>
           </tbody>
 
-<<<<<<< HEAD
           <!-- Tag -->
           <tbody *ngIf="tags.length > 0">
             <tr *ngFor="let tag of tags; let i = index">
@@ -158,27 +128,12 @@
               <td>{{ tag.slug }}</td>
               <td>
                 <a routerLink="/admin/edit-tag/{{ tag._id }}">
-=======
-          <!-- hashtags -->
-          <tbody *ngIf="hashTags.length > 0">
-            <tr *ngFor="let hashTag of hashTags; let i = index">
-              <td>{{ i + 1 }}</td>
-              <td>{{ hashTag.title }}</td>
-              <td>{{ hashTag.slug }}</td>
-              <td>
-                <a routerLink="/admin/hash-tags-edit/{{hashTag._id!}}">
->>>>>>> 5c681f5e10a1d0aa687939d396ec386ca1ed75a7
                   <button class="settings text-primary">
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
                 </a>
-<<<<<<< HEAD
                 <button class="delete text-danger">
                   <i class="fa-sharp fa-solid fa-trash" (click)="handleDelete(tag._id!)"></i>
-=======
-                <button class="delete text-danger" (click)="handleDelete(hashTag._id!)">
-                  <i class="fa-sharp fa-solid fa-trash"></i>
->>>>>>> 5c681f5e10a1d0aa687939d396ec386ca1ed75a7
                 </button>
               </td>
             </tr>

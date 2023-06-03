@@ -9,7 +9,7 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row p-2">
     <div class="col">
       <form class="mt-5 form" [formGroup]="postForm" (submit)="handleSubmitPostForm()">
         <div class="row g-5">
@@ -97,8 +97,8 @@
             </div>
           </div>
         </div>
-        <div class="form-group mb-5">
-          <ckeditor [editor]="Editor" formControlName="content">
+        <div class="form-group mb-1">
+          <ckeditor [editor]="Editor" formControlName="content" (ready)="onEditorReady($event)">
           </ckeditor>
           <div
             *ngIf="postForm.get('content')?.invalid && (postForm.get('content')?.dirty || postForm.get('content')?.touched)"

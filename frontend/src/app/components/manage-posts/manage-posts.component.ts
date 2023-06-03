@@ -22,7 +22,7 @@ export class ManagePostsComponent {
     'Lượt thích',
     'Action',
   ];
-  routerLink = '/admin/add-post';
+  routerLink = '/admin/post-add';
   PostsList: IPosts[] = [];
   constructor(
     private postsService: PostsService,

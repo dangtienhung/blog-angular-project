@@ -13,13 +13,6 @@
         <li>
           <a class="text-decoration-none font-500 text-black text-xl" routerLink="#">Contact</a>
         </li>
-        <!-- <li>
-          <a
-            class="text-decoration-none font-500 text-black text-xl"
-            routerLink="#"
-            >Contact</a
-          >
-        </li> -->
       </ul>
     </div>
 
@@ -32,14 +25,20 @@
       </div>
     </div>
 
-    <!-- <div class="col-1 d-flex justify-content-end">
-      <a routerLink="signup"
-        class="d-block text-center btn-signup text-decoration-none text-white rounded text-xl font-600">Sign Up</a>
-    </div> -->
-    <div class="col-2 d-flex justify-content-end">
+    <div class="col-2 d-flex justify-content-end gap-2" *ngIf="accessToken; else login">
       <a routerLink="login"
-        class="d-inline-block text-center btn-signup text-decoration-none text-white rounded text-xl font-600">Log
-        in</a>
+        class="d-inline-block text-center hoverBtn btn-signin text-decoration-none text-white rounded text-xl font-600">Log
+        out</a>
     </div>
+    <ng-template #login class="col-2 d-flex justify-content-end gap-2">
+      <div class="col-2 d-flex justify-content-end gap-2">
+        <a routerLink="login"
+          class="d-inline-block text-center hoverBtn btn-signin text-decoration-none text-white rounded text-xl font-600">Log
+          in</a>
+        <a routerLink="signup"
+          class=" d-inline-block text-center hoverBtn btn-signup text-decoration-none rounded text-xl font-600">Register
+        </a>
+      </div>
+    </ng-template>
   </div>
 </header>
