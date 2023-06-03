@@ -32,7 +32,7 @@ export class PostsService {
   getAllPosts(): Observable<IDocPosts> {
     return this.http.get<IDocPosts>(`${baseURL}/posts`);
   }
-  deleteFakePost(id: number | string) {
+  deleteFakePost(id: string) {
     return this.http.put(`${baseURL}/posts/delete-fake/${id}`, {
       deleted: true,
     });
@@ -40,5 +40,11 @@ export class PostsService {
   createPost(post: any): Observable<any> {
     const options = this.getAccessToken();
     return this.http.post(`${baseURL}/posts`, post, options);
+  }
+  /* get post by id */
+  getPostById(id: string): Observable<{ message: string; post: IPosts }> {
+    return this.http.get<{ message: string; post: IPosts }>(
+      `${this.baseURL}/posts/${id}`
+    );
   }
 }

@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { IPosts } from 'src/app/interfaces/Posts';
+
 @Component({
   selector: 'app-layout-modal-admin',
   templateUrl: './layout-modal-admin.component.html',
@@ -7,10 +9,5 @@ import { Component, Input } from '@angular/core';
 })
 export class LayoutModalAdminComponent {
   @Input() titleModal: string = '';
-  @Input() userForm: any;
-  @Input() handleAdd: any;
-  /* handle add new user */
-  handleAddNewUser() {
-    this.handleAdd.emit(this.userForm);
-  }
+  @Input() postInfo!: IPosts;
 }

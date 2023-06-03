@@ -76,7 +76,11 @@ export const getAllPostByCategory = async (req, res) => {
   try {
     
     const { id } = req.params;
-    const query = { status: 'approved' };
+    // const query = { status: 'approved' };
+    /* get post status = approved */
+    const query = {
+      status: 'approved',
+    };
     const data = await Category.findById(id).populate({
       path: 'posts',
       match: query,
