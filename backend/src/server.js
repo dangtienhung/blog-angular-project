@@ -1,5 +1,6 @@
 import CatRoute from './routes/cat.route.js';
 import { ConnectDB } from './config/connect.js';
+import { Server } from 'socket.io';
 import UploadFileRouter from './routes/uploadfile.routes.js';
 import YAML from 'yamljs';
 import authRouter from './routes/auth.routes.js';
@@ -62,7 +63,27 @@ app.use('/api/v1/hashtag', hashTagRouter);
 app.use('/api/v1/', UploadFileRouter);
 
 /* server */
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log('Port is running at: ' + port);
 });
 // export const viteNodeApp = app;
+
+/* socket */
+const io = new Server(server, {
+  cors: {
+    origin: `http://localhost:${port}`,
+    methods: ['GET', 'POST'],
+    creadentials: true,
+  },
+});
+
+io.on('connection', (socket) => {
+  console.log('Made socket connection');
+  socket.on('comment', (data) => {
+    console.log('🚀 ~ file: server.js:83 ~ socket.on ~ data:', data);
+    io.emit('comment', data);
+  });
+  socket.on('disconnect', () => {
+    console.log('User disconnected');
+  });
+});

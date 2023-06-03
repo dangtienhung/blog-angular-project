@@ -24,6 +24,7 @@ router.put('/restore/:id', authors, authorUser, postController.undoDeletePost);
 router.delete('/:id', authors, authorUser, postController.deletePost);
 router.get('/', postController.getAllPosts);
 router.get('/counter/post-new', postController.getCountPostNew);
+router.get('/pending/all', postController.getAllPostWithStatusPending);
 
 export default router;
 
