@@ -7,11 +7,13 @@ import {
   sendComment,
   updateComment,
   countCommentPost,
+  getCommentByIdBlog,
 } from '../controllers/comment.controller.js';
 const commentRouter = express.Router();
 
-commentRouter.route('/').get(getComments).post(sendComment);
-commentRouter.route('/:id').get(getCommentById).delete(deleteComment).put(updateComment);
-commentRouter.route('/countComment').get(countCommentPost);
+commentRouter.route('/comments').get(getComments).post(sendComment);
+commentRouter.route('/comments/:id').get(getCommentById).delete(deleteComment).put(updateComment);
+commentRouter.route('/countcommentPosts').get(countCommentPost);
+commentRouter.route('/commentPosts/:id').get(getCommentByIdBlog);
 
 export default commentRouter;
