@@ -7,12 +7,15 @@
         <li>
           <a class="text-decoration-none font-500 text-black text-xl" routerLink="/">Home</a>
         </li>
+
         <li>
           <a class="text-decoration-none font-500 text-black text-xl" routerLink="blog">Blog</a>
         </li>
-        <li>
+
+        <!-- <li>
           <a class="text-decoration-none font-500 text-black text-xl" routerLink="#">Contact</a>
-        </li>
+        </li> -->
+
       </ul>
     </div>
 
@@ -24,8 +27,30 @@
           style="right: 16px"></i>
       </div>
     </div>
+    <!-- <div class="col-1 d-flex justify-content-end">
+      <a routerLink="signup"
+        class="d-block text-center btn-signup text-decoration-none text-white rounded text-xl font-600">Sign Up</a>
+    </div> -->
 
-    <div class="col-2 d-flex justify-content-end gap-2" *ngIf="accessToken; else login">
+    <div *ngIf="user" class="col-2 d-flex justify-content-end">
+      <ul class="my-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" id="navbarDropdownMenuLink"
+            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img [src]="user.avatar" class="rounded-circle" height="60" alt="" loading="lazy" />
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+            <li><a routerLink="user-info" class="dropdown-item" style="cursor: pointer;">My profile</a></li>
+            <li><a class="dropdown-item" style="cursor: pointer;">History blog</a></li>
+            <li><a class="dropdown-item" style="cursor: pointer;" (click)="logOut()">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+      <!-- <button (click)="logOut()"
+        class="d-block text-center btn-signup text-decoration-none text-white rounded text-xl font-600">Log out</button> -->
+
+    </div>
+    <div *ngIf="!user" class="col-2 d-flex justify-content-end">
       <a routerLink="login"
         class="d-inline-block text-center hoverBtn btn-signin text-decoration-none text-white rounded text-xl font-600">Log
         out</a>
