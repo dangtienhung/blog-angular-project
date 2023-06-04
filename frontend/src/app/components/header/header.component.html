@@ -33,22 +33,24 @@
     </div> -->
 
     <div *ngIf="user" class="col-2 d-flex justify-content-end">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" id="navbarDropdownMenuLink"
-          role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <img [src]="user.avatar" class="rounded-circle" height="50" alt=""
-            loading="lazy" />
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-          <li><a class="dropdown-item" style="cursor: pointer;">My profile</a></li>
-          <li><a class="dropdown-item" style="cursor: pointer;" (click)="logOut()">Logout</a></li>
-        </ul>
-      </li>
+      <ul class="my-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" id="navbarDropdownMenuLink"
+            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img [src]="user.avatar" class="rounded-circle" height="60" alt="" loading="lazy" />
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+            <li><a routerLink="user-info" class="dropdown-item" style="cursor: pointer;">My profile</a></li>
+            <li><a class="dropdown-item" style="cursor: pointer;">History blog</a></li>
+            <li><a class="dropdown-item" style="cursor: pointer;" (click)="logOut()">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
       <!-- <button (click)="logOut()"
         class="d-block text-center btn-signup text-decoration-none text-white rounded text-xl font-600">Log out</button> -->
 
     </div>
-    <div *ngIf="!isAuth" class="col-2 d-flex justify-content-end">
+    <div *ngIf="!user" class="col-2 d-flex justify-content-end">
       <a routerLink="login"
         class="d-inline-block text-center btn-signup text-decoration-none text-white rounded text-xl font-600">Log
         in</a>

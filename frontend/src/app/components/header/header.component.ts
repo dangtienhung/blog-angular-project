@@ -12,7 +12,7 @@ export class HeaderComponent {
   constructor(private auth: AuthService, private router: Router) {}
 
   user = this.auth.getUserLogin();
-  isAuth = this.auth.isAuthenticated();
+  // isAuth = this.auth.isAuthenticated();
 
   logOut() {
     this.auth.logOut();
