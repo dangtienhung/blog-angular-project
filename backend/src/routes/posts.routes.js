@@ -19,12 +19,13 @@ router.post('/', postController.createPost);
 router.get('/approved', postController.getAllPostsWithStatusApproved);
 router.get('/:id', postController.getPostById);
 router.put('/:id', postController.updatePost);
-router.put('/delete-fake/:id', authors, authorUser, postController.fakeDeletPost);
-router.put('/restore/:id', authors, authorUser, postController.undoDeletePost);
-router.delete('/:id', authors, authorUser, postController.deletePost);
+router.put('/delete-fake/:id', postController.fakeDeletPost);
+router.put('/restore/:id', postController.undoDeletePost);
+router.delete('/:id', postController.deletePost);
 router.get('/', postController.getAllPosts);
 router.get('/counter/post-new', postController.getCountPostNew);
 router.get('/pending/all', postController.getAllPostWithStatusPending);
+// router.get('/counter/post-new', postController.getCountPostNew);
 
 export default router;
 

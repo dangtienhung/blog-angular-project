@@ -1,2 +1,2 @@
-<app-layout-manager [title]="title" [theadTable]="theadTable" [hashTags]="hashTags" (delete)="deleteHashTag($event)"
-  [linkActive]="linkActive" (exportToExcel)="exportToExcel()" />
+<app-layout-manager [title]="title" [theadTable]="theadTable" (delete)="deleteTag($event)" [tags]="tagList"
+  [titleModal]="titleModal" [userForm]="tagForm" [linkActive]="routerLink" />

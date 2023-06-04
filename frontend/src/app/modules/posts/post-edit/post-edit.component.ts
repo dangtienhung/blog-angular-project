@@ -1,24 +1,25 @@
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-
-import { CategoryService } from './../../../services/category/category.service';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { Component } from '@angular/core';
-import { HashtagsService } from './../../../services/hashtags/hashtags.service';
 import { HttpClient } from '@angular/common/http';
-import { ICategory } from 'src/app/interfaces/Category';
-import { PostsService } from './../../../services/posts/posts.service';
-import { Router } from '@angular/router';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ToastrService } from 'ngx-toastr';
-import { UploadImageService } from './../../../services/uploadImage/upload-image.service';
+import { ICategory } from 'src/app/interfaces/Category';
+import { CategoryService } from 'src/app/services/category/category.service';
+import { HashtagsService } from 'src/app/services/hashtags/hashtags.service';
+import { PostsService } from 'src/app/services/posts/posts.service';
+import { UploadImageService } from 'src/app/services/uploadImage/upload-image.service';
 import { MyUploadAdapter } from '../myuploadAdapter';
 import { ImagePreview } from 'src/app/interfaces/Image';
+import { IPosts } from 'src/app/interfaces/Posts';
 
 @Component({
-  selector: 'app-post-add',
-  templateUrl: './post-add.component.html',
-  styleUrls: ['./post-add.component.scss'],
+  selector: 'app-post-edit',
+  templateUrl: './post-edit.component.html',
+  styleUrls: ['./post-edit.component.scss'],
 })
-export class PostAddComponent {
+export class PostEditComponent implements AfterViewInit {
+  tempFile: any;
   hashTags = new FormControl('');
   hashTagLists: string[] = [
     'Extra cheese',
@@ -28,7 +29,7 @@ export class PostAddComponent {
     'Sausage',
     'Tomato',
   ];
-  postForm = this.builder.group({
+  EditForm = this.builder.group({
     // title: ['', [Validators.required, Validators.minLength(5)]],
     // content: ['', [Validators.required]],
     // author: ['', [Validators.required]],
@@ -41,12 +42,12 @@ export class PostAddComponent {
     images: [[''], [Validators.required]],
     author: [''],
     category: ['', [Validators.required]],
-    is_active: ['public', [Validators.required]],
+    is_active: [''],
     status: ['peding', [Validators.required]],
   });
   categories: ICategory[] = [];
   public Editor = ClassicEditor;
-  public editorContent = '';
+  public ContentPost!: IPosts;
   imagePreviews: ImagePreview[] = [];
   nextImageId = 0;
   urls: any[] = [];
@@ -58,11 +59,30 @@ export class PostAddComponent {
     private uploadImageService: UploadImageService,
     private http: HttpClient,
     private categoryService: CategoryService,
-    private hashtagsService: HashtagsService
+    private hashtagsService: HashtagsService,
+    private params: ActivatedRoute
   ) {
     this.getAllCategories();
     this.getAllTags();
   }
+
+  ngAfterViewInit(): void {
+    const id = this.params.snapshot.params['id'];
+    this.postsService.getPostById(id).subscribe((data) => {
+      this.ContentPost = data.post;
+      this.imagePreviews = data.post.images;
+      this.tempFile = data.post.images;
+
+      this.EditForm.patchValue({
+        title: data.post.title,
+        content: data.post.content,
+        category: data.post.category._id,
+        is_active: data.post.is_active ? 'public' : 'private',
+        status: data.post.status,
+      });
+    });
+  }
+
   /* get data */
   getAllCategories() {
     this.categoryService.getAllCategories().subscribe((categories) => {
@@ -87,6 +107,7 @@ export class PostAddComponent {
       }
     );
   }
+
   handleRemoveImage(public_id: string) {
     if (!public_id) return;
     this.uploadImageService.deleteImage(public_id).subscribe(() => {
@@ -95,8 +116,10 @@ export class PostAddComponent {
       );
     });
   }
+
   handleSubmitPostForm() {
-    if (this.postForm.invalid) return;
+    const id = this.params.snapshot.params['id'];
+    if (this.EditForm.invalid) return;
     /* lấy ra thông tin người dùng */
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     if (!user) {
@@ -106,28 +129,25 @@ export class PostAddComponent {
     /* lấy ra thông tin người dùng */
     const userId = user._id;
     const post = {
-      title: this.postForm.value.title,
-      content: this.postForm.value.content,
-      category: this.postForm.value.category,
-      images: this.urls,
+      title: this.EditForm.value.title,
+      content: this.EditForm.value.content,
+      category: this.EditForm.value.category,
+      images: this.urls.length <= 0 ? this.tempFile : this.urls,
       author: userId,
-      is_active:
-        this.postForm.value.is_active === '' ||
-        this.postForm.value.is_active === 'public'
-          ? true
-          : false,
-      status: this.postForm.value.status,
+      is_active: this.EditForm.value.is_active === 'public' ? true : false,
+      status: this.EditForm.value.status,
     };
-    // console.log(this.postForm.value.content);
 
-    this.postsService.createPost(post).subscribe(
+    console.log(post);
+
+    this.postsService.updatePost(post, id).subscribe(
       () => {
-        this.toastr.success('Đăng bài thành công');
+        this.toastr.success('Chỉnh sửa thành công');
         this.router.navigate(['/admin/manager-posts']);
-        this.postForm.reset();
+        this.EditForm.reset();
       },
       () => {
-        this.toastr.error('Đăng bài thất bại');
+        this.toastr.error('Chỉnh sửa thất bại');
       }
     );
   }

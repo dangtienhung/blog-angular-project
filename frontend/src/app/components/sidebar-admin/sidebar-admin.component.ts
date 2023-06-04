@@ -39,6 +39,12 @@ export class SidebarAdminComponent {
       isActive: false,
     },
     {
+      routerLink: 'manager-tags',
+      label: 'Tags',
+      icon: 'fa-solid fa-tags',
+      isActive: false,
+    },
+    {
       routerLink: 'manager-comments',
       label: 'Comments',
       icon: 'fa-solid fa-comments',

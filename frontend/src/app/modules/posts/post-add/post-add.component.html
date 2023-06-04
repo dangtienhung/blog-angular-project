@@ -9,7 +9,7 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row p-2">
     <div class="col">
       <form class="mt-5 form" [formGroup]="postForm" (submit)="handleSubmitPostForm()">
         <div class="row g-5">
@@ -53,7 +53,7 @@
             </mat-form-field>
           </div>
           <div class="col-6">
-            <mat-radio-group aria-label="Trạng thái bài post" formControlName="status">
+            <mat-radio-group aria-label="Trạng thái bài post" formControlName="is_active">
               <mat-radio-button value="public" selected>Public</mat-radio-button>
               <mat-radio-button value="private">Private</mat-radio-button>
             </mat-radio-group>
@@ -97,8 +97,8 @@
             </div>
           </div>
         </div>
-        <div class="form-group mb-5">
-          <ckeditor [editor]="Editor" formControlName="content">
+        <div class="form-group mb-1">
+          <ckeditor [editor]="Editor" formControlName="content" (ready)="onEditorReady($event)">
           </ckeditor>
           <div
             *ngIf="postForm.get('content')?.invalid && (postForm.get('content')?.dirty || postForm.get('content')?.touched)"

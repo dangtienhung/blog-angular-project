@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { ICategory } from 'src/app/interfaces/Category';
-import { IHashTags } from 'src/app/interfaces/Tags';
+import { ITag, ITagDocs } from 'src/app/interfaces/ITag';
 import { IPosts } from 'src/app/interfaces/Posts';
 import { IUser } from 'src/app/interfaces/User';
 import { PostsService } from 'src/app/services/posts/posts.service';
@@ -19,7 +19,7 @@ export class LayoutManagerComponent {
   @Input() theadTable: string[] = [];
   @Input() dataTbody: IUser[] = [];
   @Input() categories: ICategory[] = [];
-  @Input() hashTags: IHashTags[] = [];
+  @Input() tags: ITag[] = [];
   @Input() posts: IPosts[] = [];
   @Input() handleAddNewUser: any;
   @Input() userForm: any;
