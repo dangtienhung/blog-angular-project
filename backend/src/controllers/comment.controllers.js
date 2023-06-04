@@ -114,4 +114,27 @@ export const commentController = {
       return res.status(500).json({ message: 'Server error' });
     }
   },
+  /* count comment */
+  countComment: async (req, res) => {
+    try {
+      /* get new comment one day */
+      let today = new Date();
+      today.setHours(0, 0, 0, 0); // Đặt giờ về 00:00:00.000
+      const tomorrow = new Date(today);
+      tomorrow.setDate(today.getDate() + 1); // Tăng ngày lên 1 để lấy đến 23:59:59.999
+      const countCommentDay = await Comment.countDocuments({ createdAt: { $gte: today, $lt: tomorrow } });
+      /* get new comment one week */
+      today = new Date();
+      today.setHours(23, 59, 59, 999); // Đặt giờ về 00:00:00.000
+      const oneWeekAgo = new Date(today);
+      oneWeekAgo.setDate(today.getDate() - 7); // Giảm ngày đi 7 để lấy từ ngày trước đó
+      const countCommentWeek = await Comment.countDocuments({ createdAt: { $gte: oneWeekAgo, $lt: today } });
+      return res.status(200).json([
+        { message: 'Số lượng người dùng được tạo trong ngày', count: countCommentDay },
+        { message: 'Số lượng người dùng được tạo mới trong tuần', count: countCommentWeek },
+      ]);
+    } catch (error) {
+      return res.status(500).json({ message: 'Server error' });
+    }
+  },
 };

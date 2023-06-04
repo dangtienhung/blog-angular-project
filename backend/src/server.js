@@ -1,5 +1,6 @@
 import CatRoute from './routes/cat.route.js';
 import { ConnectDB } from './config/connect.js';
+import { Server } from 'socket.io';
 import UploadFileRouter from './routes/uploadfile.routes.js';
 import YAML from 'yamljs';
 import authRouter from './routes/auth.routes.js';
@@ -17,6 +18,8 @@ import tagRouter from './routes/tag.route.js';
 import uploadRouter from './routes/upload.routes.js';
 import userRouter from './routes/users.routes.js';
 import commentRouter from './routes/comment.route.js';
+
+// import commentRoute from './routes/comments.routes.js';
 
 // import commentRouter from './routes/comments.routes.js';
 
@@ -42,6 +45,7 @@ app.use('/api/v1/posts', postRouter);
 app.use('/api/v1', userRouter);
 app.use('/api/v1', authRouter);
 app.use('/api/v1', uploadRouter);
+// app.use('/api/v1', commentRoute);
 
 /* db */
 ConnectDB();
@@ -62,7 +66,27 @@ app.use('/api/v1/hashtag', hashTagRouter);
 app.use('/api/v1/', UploadFileRouter);
 
 /* server */
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log('Port is running at: ' + port);
 });
 // export const viteNodeApp = app;
+
+/* socket */
+const io = new Server(server, {
+  cors: {
+    origin: `http://localhost:${port}`,
+    methods: ['GET', 'POST'],
+    creadentials: true,
+  },
+});
+
+io.on('connection', (socket) => {
+  console.log('Made socket connection');
+  socket.on('comment', (data) => {
+    console.log('🚀 ~ file: server.js:83 ~ socket.on ~ data:', data);
+    io.emit('comment', data);
+  });
+  socket.on('disconnect', () => {
+    console.log('User disconnected');
+  });
+});
