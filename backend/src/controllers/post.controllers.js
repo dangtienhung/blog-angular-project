@@ -273,4 +273,37 @@ export const postController = {
       return res.status(500).json({ message: 'Server Error' });
     }
   },
+  /* get all post deleted */
+  getAllPostDeleted: async (req, res) => {
+    try {
+      const { _page = 1, _limit = 10, q } = req.query;
+      const options = {
+        page: _page,
+        limit: _limit,
+        sort: { createdAt: -1 },
+        populate: [
+          { path: 'author', select: '-postList -isVerified -role -password' },
+          { path: 'category', select: '-posts' },
+          { path: 'tags' },
+        ],
+      };
+      const query = q
+        ? {
+            $and: [
+              {
+                $or: [{ title: { $regex: q, $options: 'i' } }, { content: { $regex: q, $options: 'i' } }],
+              },
+              { deleted: true },
+            ],
+          }
+        : { deleted: true };
+      const posts = await Post.paginate(query, options);
+      if (!posts.docs) {
+        return res.status(400).json({ message: 'Get all posts failed' });
+      }
+      return res.status(200).json({ message: 'Get all posts successfully', posts });
+    } catch (error) {
+      return res.status(500).json({ message: 'Server Error' });
+    }
+  },
 };
