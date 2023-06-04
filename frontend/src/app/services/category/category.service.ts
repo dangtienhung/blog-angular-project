@@ -1,11 +1,11 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ICategory, IDocCategories } from 'src/app/interfaces/Category';
 
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
 import { baseURL } from 'src/app/utils/instance';
 import { IPosts } from 'src/app/interfaces/Posts';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -28,9 +28,12 @@ export class CategoryService {
   //   const options = { headers: headers };
   //   return options;
   // }
+  // baseURL: string = `${baseURL}/category`;
+  // categories: ICategory[] = [];
+  // constructor(private http: HttpClient) {}
   /* getAllCategories */
   getAllCategories(): Observable<IDocCategories> {
-    return this.http.get<IDocCategories>(`${this.baseURL}`);
+    return this.http.get<IDocCategories>(this.baseURL);
   }
   /* add new category */
   addNewCategory(category: ICategory): Observable<ICategory> {

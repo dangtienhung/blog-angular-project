@@ -1,5 +1,6 @@
 import commentsModel from '../models/comments.model.js';
 import Post from '../models/posts.model.js';
+import User from '../models/users.models.js';
 import CommentValidate from '../validates/comment.validate.js';
 
 export const getComments = async (req, res) => {
@@ -25,6 +26,77 @@ export const getComments = async (req, res) => {
   }
 };
 
+export const countCommentPost = async (req, res) => {
+  try {
+    console.log('Test');
+    const data = await commentsModel.aggregate([
+      {
+        $group: {
+          _id: '$postId',
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $lookup: {
+          from: 'Post',
+          localField: '_id',
+          foreignField: '_id',
+          as: 'Post',
+        },
+      },
+      {
+        $unwind: {
+          path: '$Post',
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $lookup: {
+          from: 'User',
+          localField: 'Post.author',
+          foreignField: '_id',
+          as: 'Author',
+        },
+      },
+      {
+        $unwind: {
+          path: '$Author',
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $project: {
+          count: 1,
+          _id: 0,
+          Post: {
+            _id: 1,
+            title: 1,
+            author: 1,
+            content: 1,
+            createdAt: 1,
+          },
+          Author: {
+            _id: 1,
+            username: 1,
+            avatar: 1,
+          },
+        },
+      },
+      {
+        $sort: {
+          createAt: -1,
+        },
+      },
+    ]);
+    if (!data) {
+      return res.status(400).send({ message: 'Fail', err: 'Not found data' });
+    }
+    return res.status(200).send({ message: 'Success', data: data });
+  } catch (error) {
+    return res.status(500).send({ message: 'Fail', err: error });
+  }
+};
+
 export const getCommentById = async (req, res) => {
   try {
     const { id } = req.params; //Fake post
@@ -40,14 +112,37 @@ export const getCommentById = async (req, res) => {
   }
 };
 
+export const getCommentByIdBlog = async (req, res) => {
+  try {
+    const { id } = req.params; //Fake post
+
+    //get comment by id
+    const comment = await commentsModel
+      .find({ postId: id })
+      .populate('userId', 'username avatar')
+      .sort({ createdAt: -1 });
+    if (!comment) {
+      return res.status(400).send({ message: 'Fail', err: "Can't to find comment!" });
+    }
+    return res.status(200).send({ message: 'Success', data: comment });
+  } catch (error) {
+    return res.status(500).send({ message: 'Fail', err: error });
+  }
+};
+
 export const sendComment = async (req, res) => {
   try {
-    const { postId } = req.body;
-    const post = await Post.findById(postId);
+    const body = req.body;
+    const post = await Post.findById(body.postId);
 
     //Validate
     if (!post) {
       return res.status(404).send({ message: 'Fail', err: 'Some thing wrong' });
+    }
+
+    const user = await User.findById({ _id: body.userId });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
     }
 
     //send Comment && validate
@@ -55,13 +150,13 @@ export const sendComment = async (req, res) => {
     if (error) {
       return res.status(400).send({ message: 'Fail', err: error.details.map((err) => err.message) });
     }
-    const comment = await commentsModel.create(req.body);
+    const comment = await commentsModel.create(body);
     if (!comment) {
       return res.status(400).send({ message: 'Fail', err: "Can't to send comment!" });
     }
 
     // update Post
-    await Post.findByIdAndUpdate(postId, {
+    await Post.findByIdAndUpdate(body.postId, {
       $addToSet: { comments: comment._id },
     });
     return res.status(200).send({ message: 'Success', data: comment });
@@ -73,6 +168,7 @@ export const sendComment = async (req, res) => {
 export const deleteComment = async (req, res) => {
   try {
     const { id } = req.params;
+    console.log(id);
     //delete Comment
     const comment = await commentsModel.findByIdAndRemove(id);
     console.log(comment);

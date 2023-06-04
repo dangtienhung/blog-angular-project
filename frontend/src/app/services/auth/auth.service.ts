@@ -30,8 +30,8 @@ export class AuthService {
     localStorage.removeItem(this.TOKEN_USER)
   }
 
-  getToken() {
-    return localStorage.getItem(this.TOKEN_KEY);
+  getToken(): string {
+    return localStorage.getItem(this.TOKEN_KEY) as string;
   }
 
   getUserLogin() {

@@ -52,8 +52,18 @@
     </div>
     <div *ngIf="!user" class="col-2 d-flex justify-content-end">
       <a routerLink="login"
-        class="d-inline-block text-center btn-signup text-decoration-none text-white rounded text-xl font-600">Log
-        in</a>
+        class="d-inline-block text-center hoverBtn btn-signin text-decoration-none text-white rounded text-xl font-600">Log
+        out</a>
     </div>
+    <ng-template #login class="col-2 d-flex justify-content-end gap-2">
+      <div class="col-2 d-flex justify-content-end gap-2">
+        <a routerLink="login"
+          class="d-inline-block text-center hoverBtn btn-signin text-decoration-none text-white rounded text-xl font-600">Log
+          in</a>
+        <a routerLink="signup"
+          class=" d-inline-block text-center hoverBtn btn-signup text-decoration-none rounded text-xl font-600">Register
+        </a>
+      </div>
+    </ng-template>
   </div>
 </header>

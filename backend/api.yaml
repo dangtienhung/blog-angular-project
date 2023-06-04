@@ -999,6 +999,39 @@ paths:
             application/json:
               schema:
                 $ref: '#components/schemas/Comments'
+
+  /countcommentPosts:
+    get:
+      tags:
+        - Comment_blog
+      summary: get amount comment by Post
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                # properties:
+  /commentPosts/{id}:
+    get:
+      tags:
+        - Comment_blog
+      summary: get amount comment by Post
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+
   /tag:
     get:
       tags:

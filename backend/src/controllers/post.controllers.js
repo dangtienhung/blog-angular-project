@@ -99,9 +99,12 @@ export const postController = {
               {
                 $or: [{ title: { $regex: q, $options: 'i' } }, { content: { $regex: q, $options: 'i' } }],
               },
+              {
+                deleted: false,
+              },
             ],
           }
-        : {};
+        : { deleted: false };
       if (category) {
         query['category'] = { _id: cateId._id };
       }
@@ -137,7 +140,6 @@ export const postController = {
       const body = req.body;
       /* update post */
       const post = await Post.findByIdAndUpdate(id, body, { new: true, runValidators: true });
-      console.log(post);
       if (!post) {
         return res.status(400).json({ message: 'Update post failed' });
       }
@@ -184,6 +186,7 @@ export const postController = {
   deletePost: async (req, res) => {
     try {
       const { id } = req.params;
+      // console.log(id);
       const post = await Post.findByIdAndRemove(id);
       if (!post) {
         return res.status(400).json({ message: 'Delete post failed' });
@@ -217,19 +220,58 @@ export const postController = {
   /* liệt kê số lượng bài viết được tạo ra trong 1 ngày/ 1 tháng/ 1 tuần */
   getCountPostNew: async (req, res) => {
     try {
-      const oneMonthAgo = new Date();
-      const oneDayAgo = new Date();
-      const oneWeekAgo = new Date();
-      oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1); // Lấy tháng 1 tháng trước
-      oneDayAgo.setDate(oneDayAgo.getDate() - 1);
-      oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-      const countMonth = await Post.countDocuments({ createdAt: { $gte: oneMonthAgo } });
-      const countWeek = await Post.countDocuments({ createdAt: { $gte: oneWeekAgo } });
-      const countDay = await Post.countDocuments({ createdAt: { $gte: oneDayAgo } });
-      res.json({ count: { month: countMonth, week: countWeek, day: countDay } });
+      /* get new post one day */
+      let today = new Date();
+      today.setHours(0, 0, 0, 0); // Đặt giờ về 00:00:00.000
+      const tomorrow = new Date(today);
+      tomorrow.setDate(today.getDate() + 1); // Tăng ngày lên 1 để lấy đến 23:59:59.999
+      const countPostDay = await Post.countDocuments({ createdAt: { $gte: today, $lt: tomorrow } });
+      /* get new post one week */
+      today = new Date();
+      today.setHours(23, 59, 59, 999); // Đặt giờ về 00:00:00.000
+      const oneWeekAgo = new Date(today);
+      oneWeekAgo.setDate(today.getDate() - 7); // Giảm ngày đi 7 để lấy từ ngày trước đó
+      const countPostWeek = await Post.countDocuments({ createdAt: { $gte: oneWeekAgo, $lt: today } });
+      return res.status(200).json([
+        { message: 'Số lượng bài post được tạo trong ngày', count: countPostDay },
+        { message: 'Số lượng bài post được tạo mới trong tuần', count: countPostWeek },
+      ]);
     } catch (err) {
       console.error('Lỗi khi đếm số lượng bài post:', err);
       res.status(500).json({ error: 'Lỗi server' });
+    }
+  },
+  /* get all post with status pending */
+  getAllPostWithStatusPending: async (req, res) => {
+    try {
+      const { _page = 1, _limit = 10, q } = req.query;
+      const options = {
+        page: _page,
+        limit: _limit,
+        sort: { createdAt: -1 },
+        populate: [
+          { path: 'author', select: '-postList -isVerified -role -password' },
+          { path: 'category', select: '-posts' },
+          { path: 'tags' },
+        ],
+      };
+      const query = q
+        ? {
+            $and: [
+              {
+                $or: [{ title: { $regex: q, $options: 'i' } }, { content: { $regex: q, $options: 'i' } }],
+              },
+              { deleted: false, status: 'pending' },
+            ],
+          }
+        : { deleted: false, status: 'pending' };
+      const posts = await Post.paginate(query, options);
+      if (!posts.docs) {
+        return res.status(400).json({ message: 'Get all posts failed' });
+      }
+      return res.status(200).json({ message: 'Get all posts successfully', posts });
+    } catch (error) {
+      return res.status(500).json({ message: 'Server Error' });
     }
   },
 };

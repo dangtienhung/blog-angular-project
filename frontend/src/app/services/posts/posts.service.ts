@@ -16,10 +16,10 @@ export class PostsService {
   }
   getAccessToken() {
     const accessToken = JSON.parse(localStorage.getItem('accessToken') || '');
-    console.log(
-      '🚀 ~ file: posts.service.ts:19 ~ PostsService ~ getAccessToken ~ accessToken:',
-      accessToken
-    );
+    // console.log(
+    //   '🚀 ~ file: posts.service.ts:19 ~ PostsService ~ getAccessToken ~ accessToken:',
+    //   accessToken
+    // );
     if (!accessToken || accessToken === '') {
       this.router.navigate(['/login-admin']);
     }
@@ -32,14 +32,20 @@ export class PostsService {
   getAllPosts(): Observable<IDocPosts> {
     return this.http.get<IDocPosts>(`${baseURL}/posts`);
   }
+
   deleteFakePost(id: string) {
     return this.http.put(`${baseURL}/posts/delete-fake/${id}`, {
       deleted: true,
     });
   }
   createPost(post: any): Observable<any> {
-    const options = this.getAccessToken();
-    return this.http.post(`${baseURL}/posts`, post, options);
+    // const options = this.getAccessToken();
+    return this.http.post(`${baseURL}/posts`, post);
+  }
+
+  updatePost(post: any, id: string): Observable<any> {
+    // const options = this.getAccessToken();
+    return this.http.put(`${baseURL}/posts/${id}`, post);
   }
   /* get post by id */
   getPostById(id: string): Observable<{ message: string; post: IPosts }> {

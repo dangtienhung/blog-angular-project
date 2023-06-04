@@ -93,15 +93,8 @@
             <tr *ngFor="let post of posts; let i = index"
               class="{{post.status === 'pending' ? 'bg-danger' : 'bg-red'}}">
               <td>{{ i + 1 }}</td>
-              <td>
-                <div class="post__image-group">
-                  <div class="post__image-wrapper">
-                    <img [src]="post.images[0].url" alt="" class="mb-1 post__image" />
-                  </div>
-                  {{ post.title }}
-                </div>
-              </td>
-              <td>{{ post.author.username }}</td>
+              <td>{{ post.title }}</td>
+              <td>{{ post.author.username! }}</td>
               <td>{{ post.category.name }}</td>
               <td>
                 <span class="text-light p-1 rounded {{
@@ -111,20 +104,11 @@
                 </span>
               </td>
               <td>
-                <!-- <span *ngFor="let tag of post.tags">{{ tag }}</span> -->
-                <span class="text-light p-1 rounded
-                  {{post.status === 'pending' ? 'bg-warning' : 'bg-primary'}}
-                  {{post.status === 'rejected' ? 'bg-dark text-white' : ''}}">
-                  {{ post.status}}
-                </span>
+                <span>{{ post.status }}</span>
               </td>
               <td>{{ post.likes.toLocaleString() }}</td>
               <td>
-                <button class="text-warning" (click)="getPostById(post._id!)" data-toggle="modal"
-                  data-target="#exampleModal">
-                  <i class="fa-solid fa-eye"></i>
-                </button>
-                <a routerLink="/admin/edit-category/">
+                <a routerLink="/admin/post-edit/{{post._id}}">
                   <button class="settings text-primary">
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
@@ -136,19 +120,65 @@
             </tr>
           </tbody>
 
-          <!-- hashtags -->
-          <tbody *ngIf="hashTags.length > 0">
-            <tr *ngFor="let hashTag of hashTags; let i = index">
+          <!-- Tag -->
+          <tbody *ngIf="tags.length > 0">
+            <tr *ngFor="let tag of tags; let i = index">
               <td>{{ i + 1 }}</td>
-              <td>{{ hashTag.title }}</td>
-              <td>{{ hashTag.slug }}</td>
+              <td>{{ tag.title }}</td>
+              <td>{{ tag.slug }}</td>
               <td>
-                <a routerLink="/admin/hash-tags-edit/{{hashTag._id!}}">
+                <a routerLink="/admin/edit-tag/{{ tag._id }}">
                   <button class="settings text-primary">
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
                 </a>
-                <button class="delete text-danger" (click)="handleDelete(hashTag._id!)">
+                <button class="delete text-danger">
+                  <i class="fa-sharp fa-solid fa-trash" (click)="handleDelete(tag._id!)"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+
+          <!-- Comment -->
+          <tbody *ngIf="comments.length > 0">
+            <tr *ngFor="let comment of comments; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{comment.Post.title}}</td>
+              <td>
+                <a href="">
+                  <img [src]="
+                      comment.Author.avatar ||
+                      'https://api.multiavatar.com/' + comment.Author.username + '.png'
+                    " class="avatar" alt="Avatar" />
+                  <span class="text-truncate">{{ comment.Author.username }}</span>
+                </a>
+              </td>
+              <td>{{comment.count}}</td>
+              <td>
+                <a routerLink="/admin/view-comment/{{ comment.Post._id }}">
+                  <button class="settings text-primary">
+                    <i class="fa-sharp fa-solid fa-chalkboard-user"></i>
+                  </button>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+          <!-- Comment Detail-->
+          <tbody *ngIf="viewComments.length > 0">
+            <tr *ngFor="let viewComment of viewComments; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>
+                <a href="">
+                  <img [src]="
+                  viewComment.userId.avatar ||
+                      'https://api.multiavatar.com/' + viewComment.userId.username + '.png'
+                    " class="avatar" alt="Avatar" />
+                  <span class="text-truncate">{{ viewComment.userId.username }}</span>
+                </a>
+              </td>
+              <td>{{viewComment.content}}</td>
+              <td>
+                <button class="delete text-danger" (click)="handleDelete(viewComment._id!)">
                   <i class="fa-sharp fa-solid fa-trash"></i>
                 </button>
               </td>
