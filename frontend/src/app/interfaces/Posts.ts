@@ -14,13 +14,8 @@ export interface IPosts {
   is_active: boolean;
   status: string;
   deleted: boolean;
-<<<<<<< HEAD
-  createdAt: Date;
-  updated_at: Date;
-=======
   createdAt: string;
   updatedAt: string;
->>>>>>> main
 }
 
 export interface IDocPosts {

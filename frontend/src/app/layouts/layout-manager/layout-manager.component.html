@@ -77,12 +77,11 @@
                     <i class="fa-solid fa-eye"></i
                   ></a>
                 </button> -->
-                <button
-                  class="settings text-primary"
-                  (click)="handleEdit({ name: 'dang tien hung', age: 20 })"
-                >
-                  <i class="fa-solid fa-pen-to-square"></i>
-                </button>
+                <a routerLink="/admin/edit-user/{{ user._id }}">
+                  <button class="settings text-primary">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+                </a>
                 <button
                   class="delete text-danger"
                   (click)="handleDelete(user._id!)"

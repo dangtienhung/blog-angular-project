@@ -1,6 +1,9 @@
+import { IPosts } from './Posts';
+
 export interface ICategory {
   _id?: string;
   name: string;
+  posts?: IPosts[];
   slug?: string;
   created_at?: Date;
   updated_at?: Date;

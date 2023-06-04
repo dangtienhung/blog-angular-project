@@ -45,7 +45,7 @@ export class PostAddComponent {
     author: [''],
     category: ['', [Validators.required]],
     is_active: ['public', [Validators.required]],
-    status: ['peding', [Validators.required]],
+    status: ['pending', [Validators.required]],
   });
   categories: ICategory[] = [];
   public Editor = ClassicEditor;

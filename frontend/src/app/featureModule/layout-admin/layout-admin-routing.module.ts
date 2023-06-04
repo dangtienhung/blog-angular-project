@@ -14,6 +14,7 @@ import { ManagerCommentsComponent } from 'src/app/components/manager-comments/ma
 import { ManagerTagsComponent } from 'src/app/components/manager-tags/manager-tags.component';
 import { NgModule } from '@angular/core';
 import { PostAddComponent } from 'src/app/modules/posts/post-add/post-add.component';
+import { EditUserComponent } from 'src/app/modules/user/edit-user/edit-user.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,7 @@ const routes: Routes = [
       },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'add-user', component: AddUserComponent },
+      { path: 'edit-user/:id', component: EditUserComponent },
       { path: 'manager-users', component: ManageUserComponent },
       { path: 'manager-posts', component: ManagePostsComponent },
       { path: 'post-add', component: PostAddComponent },

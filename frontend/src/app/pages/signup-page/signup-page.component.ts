@@ -58,7 +58,7 @@ export class SignupPageComponent {
     this.authService.signUpUser(user).subscribe(
       (user) => {
         alert('Successful account registration');
-        console.log(user);
+        // console.log(user);
         this.router.navigate(['/login']);
       },
       (error) => console.log(error.message)

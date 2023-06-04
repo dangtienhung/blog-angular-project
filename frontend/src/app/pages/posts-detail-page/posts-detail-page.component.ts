@@ -3,6 +3,7 @@ import { PostsService } from 'src/app/services/posts/posts.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IPosts } from 'src/app/interfaces/Posts';
 import { ToastrService } from 'ngx-toastr';
+import { CategoryService } from 'src/app/services/category/category.service';
 
 @Component({
   selector: 'app-posts-detail-page',
@@ -11,8 +12,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class PostsDetailPageComponent {
   post!: IPosts;
+  relatedPosts!: IPosts[];
   constructor(
     private postService: PostsService,
+    private cateService: CategoryService,
     private router: ActivatedRoute,
     private redirect: Router,
     private toastr: ToastrService
@@ -23,7 +26,14 @@ export class PostsDetailPageComponent {
       this.postService.getPost(id!).subscribe(
         (data) => {
           this.post = data.post;
-          // console.log(this.post);
+
+          // console.log(data.post.category._id);
+          this.cateService
+            .getRelatedPost(data.post.category._id)
+            .subscribe(({ data }) => {
+              this.relatedPosts = data.posts;
+              // console.log(data.posts);
+            });
         },
         () => {
           this.toastr.error("Couldn't find this post.Please try again😥😥");

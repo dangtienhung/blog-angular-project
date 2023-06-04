@@ -10,7 +10,10 @@
           <!-- Profile picture image-->
           <img
             class="img-account-profile rounded-circle mb-2 m-auto"
-            src="https://mdbootstrap.com/img/Photos/Avatars/img%20(31).jpg"
+            [src]="
+              user.avatar ||
+              'https://api.multiavatar.com/' + user.username + '.png'
+            "
             alt=""
           />
           <!-- Profile picture upload button-->

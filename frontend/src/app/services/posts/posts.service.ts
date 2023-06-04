@@ -50,4 +50,9 @@ export class PostsService {
       `${this.baseURL}/posts/${id}`
     );
   }
+
+  /*Search posts by title */
+  searchPost(keyword: string): Observable<IPosts[]> {
+    return this.http.get<IPosts[]>(`${baseURL}/posts?q=${keyword}`);
+  }
 }

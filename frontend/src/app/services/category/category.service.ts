@@ -55,4 +55,8 @@ export class CategoryService {
       `${this.baseURL}/${id}`
     );
   }
+  /*get related posts by id category */
+  getRelatedPost(id: string) {
+    return this.http.get<any>(`/api/v1/categories/posts/${id}`);
+  }
 }

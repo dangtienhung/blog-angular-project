@@ -23,7 +23,6 @@ export class LayoutManagerComponent {
   @Input() posts: IPosts[] = [];
   @Input() handleAddNewUser: any;
   @Input() userForm: any;
-  @Input() dataPreview: any;
   @Output() exportToExcel = new EventEmitter<void>();
   @Output() delete = new EventEmitter<string>();
   @Output() edit = new EventEmitter<any>();

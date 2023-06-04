@@ -80,7 +80,15 @@
       <div class="row align-items-center">
         <div class="col-sm-12 col-md-4 mb-4">
           <div class="img">
-            <img [src]="post.author.avatar" alt="" class="mx-auto" />
+            <img
+              [src]="
+                post.author.avatar ||
+                'https://api.multiavatar.com/' + post.author.username + '.png'
+              "
+              alt=""
+              height="100"
+              class="mx-auto"
+            />
           </div>
         </div>
         <div class="col-sm-12 col-md-8">

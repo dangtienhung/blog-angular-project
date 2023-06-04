@@ -1,5 +1,5 @@
 export interface IUser {
-  _id: string;
+  _id?: string;
   username: string;
   password: string;
   confirmPassword: string;
@@ -44,4 +44,13 @@ export interface IUserRegister {
   email: string;
   password: string;
   confirmPassword: string;
+}
+
+export interface IUserRequest {
+  _id?: string;
+  username: string;
+  password?: string;
+  email: string;
+  avatar: string;
+  role: string;
 }
