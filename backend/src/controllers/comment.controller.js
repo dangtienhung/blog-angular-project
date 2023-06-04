@@ -1,6 +1,6 @@
-import commentsModel from '../models/comments.model.js';
-import Post from '../models/posts.model.js';
 import CommentValidate from '../validates/comment.validate.js';
+import Post from '../models/posts.model.js';
+import commentsModel from '../models/comments.model.js';
 
 export const getComments = async (req, res) => {
   try {
@@ -43,6 +43,7 @@ export const getCommentById = async (req, res) => {
 export const sendComment = async (req, res) => {
   try {
     const { postId } = req.body;
+    console.log('🚀 ~ file: comment.controller.js:46 ~ sendComment ~ postId:', postId);
     const post = await Post.findById(postId);
 
     //Validate

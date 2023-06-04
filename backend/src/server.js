@@ -19,6 +19,8 @@ import tagRouter from './routes/tag.route.js';
 import uploadRouter from './routes/upload.routes.js';
 import userRouter from './routes/users.routes.js';
 
+// import commentRoute from './routes/comments.routes.js';
+
 // import commentRouter from './routes/comments.routes.js';
 
 /* port */
@@ -43,6 +45,7 @@ app.use('/api/v1/posts', postRouter);
 app.use('/api/v1', userRouter);
 app.use('/api/v1', authRouter);
 app.use('/api/v1', uploadRouter);
+// app.use('/api/v1', commentRoute);
 
 /* db */
 ConnectDB();

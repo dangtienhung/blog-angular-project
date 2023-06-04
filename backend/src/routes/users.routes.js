@@ -10,5 +10,6 @@ router.put('/users/restore/:id', userController.undoDelete);
 router.delete('/users/delete/:id', userController.deleteReal);
 router.put('/users/:id', userController.updateUser);
 router.post('/users/create', userController.createUser);
+router.get('/users/counter/user-new', userController.countNewUser);
 
 export default router;

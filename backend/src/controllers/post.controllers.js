@@ -217,16 +217,22 @@ export const postController = {
   /* liệt kê số lượng bài viết được tạo ra trong 1 ngày/ 1 tháng/ 1 tuần */
   getCountPostNew: async (req, res) => {
     try {
-      const oneMonthAgo = new Date();
-      const oneDayAgo = new Date();
-      const oneWeekAgo = new Date();
-      oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1); // Lấy tháng 1 tháng trước
-      oneDayAgo.setDate(oneDayAgo.getDate() - 1);
-      oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-      const countMonth = await Post.countDocuments({ createdAt: { $gte: oneMonthAgo } });
-      const countWeek = await Post.countDocuments({ createdAt: { $gte: oneWeekAgo } });
-      const countDay = await Post.countDocuments({ createdAt: { $gte: oneDayAgo } });
-      res.json({ count: { month: countMonth, week: countWeek, day: countDay } });
+      /* get new post one day */
+      let today = new Date();
+      today.setHours(0, 0, 0, 0); // Đặt giờ về 00:00:00.000
+      const tomorrow = new Date(today);
+      tomorrow.setDate(today.getDate() + 1); // Tăng ngày lên 1 để lấy đến 23:59:59.999
+      const countPostDay = await Post.countDocuments({ createdAt: { $gte: today, $lt: tomorrow } });
+      /* get new post one week */
+      today = new Date();
+      today.setHours(23, 59, 59, 999); // Đặt giờ về 00:00:00.000
+      const oneWeekAgo = new Date(today);
+      oneWeekAgo.setDate(today.getDate() - 7); // Giảm ngày đi 7 để lấy từ ngày trước đó
+      const countPostWeek = await Post.countDocuments({ createdAt: { $gte: oneWeekAgo, $lt: today } });
+      return res.status(200).json([
+        { message: 'Số lượng bài post được tạo trong ngày', count: countPostDay },
+        { message: 'Số lượng bài post được tạo mới trong tuần', count: countPostWeek },
+      ]);
     } catch (err) {
       console.error('Lỗi khi đếm số lượng bài post:', err);
       res.status(500).json({ error: 'Lỗi server' });
