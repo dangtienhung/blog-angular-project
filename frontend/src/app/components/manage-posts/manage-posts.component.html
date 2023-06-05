@@ -1,2 +1,9 @@
-<app-layout-manager [title]="title" [theadTable]="theadTable" [posts]="PostsList" (delete)="handleDeletePost($event)"
-  (exportToExcel)="exportToExcel()" [linkActive]="routerLink" />
+<app-layout-manager
+  [title]="title"
+  [theadTable]="theadTable"
+  [posts]="PostsList"
+  (delete)="handleDeletePost($event)"
+  (exportToExcel)="exportToExcel()"
+  [linkActive]="linkActive"
+  [titleModal]="titleModal"
+/>

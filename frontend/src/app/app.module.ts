@@ -59,6 +59,16 @@ import { ToastrModule } from 'ngx-toastr';
 import { TrashCanPostComponent } from './modules/trash-can/trash-can-post/trash-can-post.component';
 import { TrashCanUserComponent } from './modules/trash-can/trash-can-user/trash-can-user.component';
 import { UserInfoComponent } from './pages/user-info/user-info.component';
+import { PreviewComponent } from './components/preview/preview.component';
+import { EditUserComponent } from './modules/user/edit-user/edit-user.component';
+
+// import } from 'ngx-toastr'
+
+// import { RequestInterceptor } from './request/request.interceptor';
+// import { RequestInterceptor } from './request/request.interceptor';
+// import { AddTagComponent } from './modules/tag/add-tag/add-tag.component';
+// import { EditTagComponent } from './modules/tag/edit-tag/edit-tag.component';
+// import { PostEditComponent } from './modules/posts/post-edit/post-edit.component';
 import { ViewCommentComponent } from './components/manager-comments/view-comment/view-comment.component';
 
 @NgModule({
@@ -102,6 +112,8 @@ import { ViewCommentComponent } from './components/manager-comments/view-comment
     HashTagAddComponent,
     HashTagEditComponent,
     BlogPageComponent,
+    PreviewComponent,
+    EditUserComponent,
     PostEditComponent,
     ManagerTrashCanComponent,
     TrashCanPostComponent,

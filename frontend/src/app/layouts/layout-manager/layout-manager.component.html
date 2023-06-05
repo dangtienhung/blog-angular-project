@@ -33,37 +33,59 @@
               <td>{{ i + 1 }}</td>
               <td>
                 <a routerLink="/">
-                  <img [src]="
+                  <img
+                    [src]="
                       user.avatar ||
                       'https://api.multiavatar.com/' + user.username + '.png'
-                    " class="avatar" alt="Avatar" />
+                    "
+                    class="avatar"
+                    alt="Avatar"
+                  />
                   <span class="text-truncate">{{ user.username }}</span>
                 </a>
               </td>
               <td>{{ user.email }}</td>
               <td>
-                <span class="status {{
+                <span
+                  class="status {{
                     user.role === 'user'
                       ? 'text-success'
                       : 'bg-danger text-white'
-                  }}">{{ user.role === "user" ? "người dùng" : "admin" }}</span>
+                  }}"
+                  >{{ user.role === "user" ? "người dùng" : "admin" }}</span
+                >
               </td>
               <td>
-                <span [class]="
+                <span
+                  [class]="
                     user.is_active
                       ? 'status text-success'
                       : 'status text-white bg-danger'
-                  ">{{ user.is_active ? "Active" : "InActive" }}
+                  "
+                  >{{ user.is_active ? "Active" : "InActive" }}
                 </span>
               </td>
               <td>
-                <button class="text-primary">
-                  <i class="fa-solid fa-eye"></i>
-                </button>
-                <button class="settings text-primary" (click)="handleEdit({ name: 'dang tien hung', age: 20 })">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                </button>
-                <button class="delete text-danger" (click)="handleDelete(user._id!)">
+                <!-- <button class="text-primary">
+                  <a
+                    href="#myModal"
+                    role="button"
+                    class="d-block"
+                    data-bs-toggle="modal"
+                    (click)="handleGetDataById(user._id)"
+                  >
+                    <i class="fa-solid fa-eye"></i
+                  ></a>
+                </button> -->
+                <a routerLink="/admin/edit-user/{{ user._id }}">
+                  <button class="settings text-primary">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+                </a>
+                <button
+                  class="delete text-danger"
+                  (click)="handleDelete(user._id!)"
+                >
                   <i class="fa-sharp fa-solid fa-trash"></i>
                 </button>
               </td>
@@ -81,7 +103,10 @@
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
                 </a>
-                <button class="delete text-danger" (click)="handleDelete(category._id!)">
+                <button
+                  class="delete text-danger"
+                  (click)="handleDelete(category._id!)"
+                >
                   <i class="fa-sharp fa-solid fa-trash"></i>
                 </button>
               </td>
@@ -90,34 +115,70 @@
           <!-- Posts -->
 
           <tbody *ngIf="posts.length > 0">
-            <tr *ngFor="let post of posts; let i = index"
-              class="{{post.status === 'pending' ? 'bg-danger' : 'bg-red'}}">
+            <tr
+              *ngFor="let post of posts; let i = index"
+              class="{{ post.status === 'pending' ? 'bg-danger' : 'bg-red' }}"
+            >
               <td>{{ i + 1 }}</td>
+              <<<<<<< HEAD
+              <td>
+                <div class="post__image-group">
+                  <div class="post__image-wrapper">
+                    <img
+                      [src]="post.images[0].url"
+                      alt=""
+                      class="mb-1 post__image"
+                    />
+                  </div>
+                  {{ post.title }}
+                </div>
+              </td>
+              <td>{{ post.author.username }}</td>
+              =======
               <td>{{ post.title }}</td>
-              <td>{{ post?.author?.username || 'Người dùng không tồn tại' }}</td>
+              <td>
+                {{ post?.author?.username || "Người dùng không tồn tại" }}
+              </td>
+              >>>>>>> 1beaeba7e11cffe64e1f651a4fd666b18f5e2288
               <td>{{ post.category.name }}</td>
               <td>
-                <span class="text-light p-1 rounded {{
+                <span
+                  class="text-light p-1 rounded {{
                     post.is_active === true ? 'bg-success' : 'bg-danger'
-                  }}">
-                  {{ post.is_active ? 'public' : 'private' }}
+                  }}"
+                >
+                  {{ post.is_active ? "public" : "private" }}
                 </span>
               </td>
               <td>
-                <span>{{ post.status }}</span>
+                <!-- <span *ngFor="let tag of post.tags">{{ tag }}</span> -->
+                <span
+                  class="text-light p-1 rounded
+                  {{ post.status === 'pending' ? 'bg-warning' : 'bg-primary' }}
+                  {{ post.status === 'rejected' ? 'bg-dark text-white' : '' }}"
+                >
+                  {{ post.status }}
+                </span>
               </td>
               <td>{{ post.likes.toLocaleString() }}</td>
               <td>
-                <button class="text-warning" (click)="getPostById(post._id!)" data-toggle="modal"
-                  data-target="#exampleModal">
+                <button
+                  class="text-warning"
+                  (click)="getPostById(post._id!)"
+                  data-toggle="modal"
+                  data-target="#exampleModal"
+                >
                   <i class="fa-solid fa-eye"></i>
                 </button>
-                <a routerLink="/admin/post-edit/{{post._id}}">
+                <a routerLink="/admin/post-edit/{{ post._id }}">
                   <button class="settings text-primary">
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
                 </a>
-                <button class="delete text-danger" (click)="handleDelete(post._id!)">
+                <button
+                  class="delete text-danger"
+                  (click)="handleDelete(post._id!)"
+                >
                   <i class="fa-sharp fa-solid fa-trash"></i>
                 </button>
               </td>
@@ -137,7 +198,10 @@
                   </button>
                 </a>
                 <button class="delete text-danger">
-                  <i class="fa-sharp fa-solid fa-trash" (click)="handleDelete(tag._id!)"></i>
+                  <i
+                    class="fa-sharp fa-solid fa-trash"
+                    (click)="handleDelete(tag._id!)"
+                  ></i>
                 </button>
               </td>
             </tr>
@@ -147,17 +211,25 @@
           <tbody *ngIf="comments.length > 0">
             <tr *ngFor="let comment of comments; let i = index">
               <td>{{ i + 1 }}</td>
-              <td>{{comment.Post.title}}</td>
+              <td>{{ comment.Post.title }}</td>
               <td>
                 <a href="">
-                  <img [src]="
+                  <img
+                    [src]="
                       comment.Author.avatar ||
-                      'https://api.multiavatar.com/' + comment.Author.username + '.png'
-                    " class="avatar" alt="Avatar" />
-                  <span class="text-truncate">{{ comment.Author.username }}</span>
+                      'https://api.multiavatar.com/' +
+                        comment.Author.username +
+                        '.png'
+                    "
+                    class="avatar"
+                    alt="Avatar"
+                  />
+                  <span class="text-truncate">{{
+                    comment.Author.username
+                  }}</span>
                 </a>
               </td>
-              <td>{{comment.count}}</td>
+              <td>{{ comment.count }}</td>
               <td>
                 <a routerLink="/admin/view-comment/{{ comment.Post._id }}">
                   <button class="settings text-primary">
@@ -173,16 +245,27 @@
               <td>{{ i + 1 }}</td>
               <td>
                 <a href="">
-                  <img [src]="
-                  viewComment.userId.avatar ||
-                      'https://api.multiavatar.com/' + viewComment.userId.username + '.png'
-                    " class="avatar" alt="Avatar" />
-                  <span class="text-truncate">{{ viewComment.userId.username }}</span>
+                  <img
+                    [src]="
+                      viewComment.userId.avatar ||
+                      'https://api.multiavatar.com/' +
+                        viewComment.userId.username +
+                        '.png'
+                    "
+                    class="avatar"
+                    alt="Avatar"
+                  />
+                  <span class="text-truncate">{{
+                    viewComment.userId.username
+                  }}</span>
                 </a>
               </td>
-              <td>{{viewComment.content}}</td>
+              <td>{{ viewComment.content }}</td>
               <td>
-                <button class="delete text-danger" (click)="handleDelete(viewComment._id!)">
+                <button
+                  class="delete text-danger"
+                  (click)="handleDelete(viewComment._id!)"
+                >
                   <i class="fa-sharp fa-solid fa-trash"></i>
                 </button>
               </td>
@@ -215,13 +298,24 @@
   [postInfo]="postInfo"></app-layout-modal-admin> -->
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Thông tin bài viết</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -230,52 +324,71 @@
           <div class="row align-items-center mb-5">
             <div class="col-sm-12 col-lg-6">
               <div class="main-img">
-                <img [src]="postInfo.images[0].url" alt="{{postInfo.title}}" class="w-100 post__image-preview" />
+                <img
+                  [src]="postInfo.images[0].url"
+                  alt="{{ postInfo.title }}"
+                  class="w-100 post__image-preview"
+                />
               </div>
             </div>
             <div class="col-sm-12 col-lg-6">
               <div class="info">
                 <div class="tag mb-2">
                   <span
-                    class="d-inline-block font-600 bg-F3EDFF text-6B6B6B rounded-4 text-sm px-3">{{postInfo.category.name}}</span>
+                    class="d-inline-block font-600 bg-F3EDFF text-6B6B6B rounded-4 text-sm px-3"
+                    >{{ postInfo.category.name }}</span
+                  >
                 </div>
                 <div class="title mb-3">
                   <h1 class="text-23BB86 font-600">
-                    {{postInfo.title}}
+                    {{ postInfo.title }}
                   </h1>
                 </div>
                 <div class="d-flex align-items-center gap-3">
-                  <span class="text-6B6B6B text-sm font-600">{{handleFomatDate(postInfo.createdAt)}}</span>
-                  <span class="d-inline-block rounded-circle"
-                    style="width: 6px; height: 6px; background: #b1b5c3"></span>
-                  <span class="text-6B6B6B text-sm font-600">{{postInfo.author.username}}</span>
+                  <span class="text-6B6B6B text-sm font-600">{{
+                    handleFomatDate(postInfo.createdAt)
+                  }}</span>
+                  <span
+                    class="d-inline-block rounded-circle"
+                    style="width: 6px; height: 6px; background: #b1b5c3"
+                  ></span>
+                  <span class="text-6B6B6B text-sm font-600">{{
+                    postInfo.author.username
+                  }}</span>
                 </div>
               </div>
             </div>
           </div>
           <div class="content-posts mx-auto">
             <div class="content" [innerHTML]="postInfo.content">
-              <h2 class="text-2xl font-600 mb-3">{{postInfo.title}}</h2>
-              {{postInfo.content}}
+              <h2 class="text-2xl font-600 mb-3">{{ postInfo.title }}</h2>
+              {{ postInfo.content }}
             </div>
             <div class="author mt-5">
               <div class="row align-items-center">
                 <div class="col-sm-12 col-md-4 mb-4">
                   <div class="img">
-                    <img src="{{postInfo.author.avatar}}" alt="" class="mx-auto" />
+                    <img
+                      src="{{ postInfo.author.avatar }}"
+                      alt=""
+                      class="mx-auto"
+                    />
                   </div>
                 </div>
                 <div class="col-sm-12 col-md-8">
                   <div class="infomation">
                     <div class="name mb-3">
-                      <h3 class="text-23BB86 font-600 text-2xl">{{postInfo.author.username}}</h3>
+                      <h3 class="text-23BB86 font-600 text-2xl">
+                        {{ postInfo.author.username }}
+                      </h3>
                     </div>
                     <div class="quote">
                       <p>
-                        Gastronomy atmosphere set aside. Slice butternut cooking home.
-                        Delicious romantic undisturbed raw platter will meld. Thick
-                        Skewers skillet natural, smoker soy sauce wait roux. Gastronomy
-                        atmosphere set aside. Slice butternut cooking home.
+                        Gastronomy atmosphere set aside. Slice butternut cooking
+                        home. Delicious romantic undisturbed raw platter will
+                        meld. Thick Skewers skillet natural, smoker soy sauce
+                        wait roux. Gastronomy atmosphere set aside. Slice
+                        butternut cooking home.
                       </p>
                     </div>
                   </div>

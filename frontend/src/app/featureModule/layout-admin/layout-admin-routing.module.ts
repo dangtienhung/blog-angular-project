@@ -15,6 +15,8 @@ import { ManagerTagsComponent } from 'src/app/components/manager-tags/manager-ta
 import { ManagerTrashCanComponent } from 'src/app/components/manager-trash-can/manager-trash-can.component';
 import { NgModule } from '@angular/core';
 import { PostAddComponent } from 'src/app/modules/posts/post-add/post-add.component';
+import { EditUserComponent } from 'src/app/modules/user/edit-user/edit-user.component';
+
 import { PostEditComponent } from 'src/app/modules/posts/post-edit/post-edit.component';
 import { ViewCommentComponent } from 'src/app/components/manager-comments/view-comment/view-comment.component';
 
@@ -30,6 +32,7 @@ const routes: Routes = [
       },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'add-user', component: AddUserComponent },
+      { path: 'edit-user/:id', component: EditUserComponent },
       { path: 'manager-users', component: ManageUserComponent },
       { path: 'manager-posts', component: ManagePostsComponent },
       { path: 'post-add', component: PostAddComponent },

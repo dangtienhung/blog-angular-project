@@ -4,7 +4,6 @@ import { ICategory, IDocCategories } from 'src/app/interfaces/Category';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { baseURL } from 'src/app/utils/instance';
-import { IPosts } from 'src/app/interfaces/Posts';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -61,7 +60,12 @@ export class CategoryService {
       `${this.baseURL}/${id}`
     );
   }
-
+  /*get related posts by id category */
+  getRelatedPost(id: string) {
+    return this.http.get<{ message: string; data: ICategory }>(
+      `http://localhost:8080/api/v1/categories/posts/${id}`
+    );
+  }
   /*get posts by category id */
   getCategoryPostId(
     id: string

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
 import { IUser } from 'src/app/interfaces/User';
+import { UserService } from 'src/app/services/users/user.service';
+import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -16,15 +18,14 @@ export class UserInfoComponent {
     address: [''],
     phone: [''],
     password: ['', [Validators.required]],
-  })
-  constructor(private auth: AuthService, private formUserInfo : FormBuilder) {
+  });
+  constructor(private auth: AuthService, private formUserInfo: FormBuilder) {
     this.user = this.auth.getUserLogin();
     this.userInfo.patchValue({
       username: this.user.username,
       email: this.user.email,
       address: this.user.address,
       phone: this.user.phone,
-    })
+    });
   }
-  
 }

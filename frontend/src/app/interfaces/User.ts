@@ -45,3 +45,12 @@ export interface IUserRegister {
   password: string;
   confirmPassword: string;
 }
+
+export interface IUserRequest {
+  _id?: string;
+  username: string;
+  password?: string;
+  email: string;
+  avatar: string;
+  role: string;
+}

@@ -19,6 +19,7 @@ export class RequestInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     // generate global token when login
     const token = this.auth.getToken();
+
     if (token) {
       request = request.clone({
         headers: new HttpHeaders({

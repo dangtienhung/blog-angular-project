@@ -106,6 +106,10 @@ export const userController = {
     try {
       const { id } = req.params;
       const body = req.body;
+
+      /*get old password*/
+      const dataUser = await User.findById({ _id: id });
+      body.password = dataUser.password;
       /* validate */
       const { error } = userValidate.validate(body);
       if (error) {
@@ -113,6 +117,7 @@ export const userController = {
         return res.status(400).json({ msg: errors });
       }
       /* check user */
+
       const user = await User.findByIdAndUpdate({ _id: id }, body, { new: true });
       if (!user) {
         return res.status(404).json({ msg: 'User not found' });

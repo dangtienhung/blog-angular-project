@@ -1,4 +1,9 @@
-import { IUser, IUserDocs, IUserResponse } from 'src/app/interfaces/User';
+import {
+  IUser,
+  IUserDocs,
+  IUserRequest,
+  IUserResponse,
+} from 'src/app/interfaces/User';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -30,12 +35,12 @@ export class UserService {
     return this.http.get<IUserResponse>(`${this.baseURL}/${id}`);
   }
   /* create */
-  createUser(user: IUser) {
+  createUser(user: IUserRequest) {
     return this.http.post(`${this.baseURL}/create`, user);
   }
   /* update */
-  updateUser(user: IUser) {
-    return this.http.put(`${this.baseURL}/${user._id}`, user);
+  updateUser(id: string, user: IUserRequest) {
+    return this.http.put(`${this.baseURL}/${id}`, user);
   }
   /* delete fake */
   deleteUserFake(id: string) {
