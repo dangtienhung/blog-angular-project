@@ -19,6 +19,13 @@ export class UserService {
     return this.http.get<IUserDocs>(`${this.baseURL}?_page=1&&_limit=10`);
   }
 
+  /* getAllUserDeleted */
+  getAllUserDeleted(): Observable<Omit<IUserDocs, 'postList'>> {
+    return this.http.get<Omit<IUserDocs, 'postList'>>(
+      `${this.baseURL}/deleted/all?_page=1&&_limit=10`
+    );
+  }
+
   getUser(id: string): Observable<IUserResponse> {
     return this.http.get<IUserResponse>(`${this.baseURL}/${id}`);
   }

@@ -11,9 +11,10 @@ import { LayoutAdminComponent } from '../../layouts/layout-admin/layout-admin.co
 import { ManagePostsComponent } from 'src/app/components/manage-posts/manage-posts.component';
 import { ManageUserComponent } from 'src/app/components/manage-user/manage-user.component';
 import { ManagerCommentsComponent } from 'src/app/components/manager-comments/manager-comments.component';
+import { ManagerTagsComponent } from 'src/app/components/manager-tags/manager-tags.component';
+import { ManagerTrashCanComponent } from 'src/app/components/manager-trash-can/manager-trash-can.component';
 import { NgModule } from '@angular/core';
 import { PostAddComponent } from 'src/app/modules/posts/post-add/post-add.component';
-import { ManagerTagsComponent } from 'src/app/components/manager-tags/manager-tags.component';
 import { PostEditComponent } from 'src/app/modules/posts/post-edit/post-edit.component';
 
 const routes: Routes = [
@@ -39,6 +40,7 @@ const routes: Routes = [
       { path: 'manager-comments', component: ManagerCommentsComponent },
       { path: 'hash-tags-add', component: HashTagAddComponent },
       { path: 'hash-tags-edit/:id', component: HashTagEditComponent },
+      { path: 'trash-can', component: ManagerTrashCanComponent },
     ],
   },
 ];

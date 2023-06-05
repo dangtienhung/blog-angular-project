@@ -304,6 +304,194 @@ paths:
             properties:
               msg:
                 type: string
+  /users/counter/user-new:
+    get:
+      summary: Get count of new users
+      tags:
+        - Users
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                message:
+                  type: string
+                  description: The message describing the count
+                count:
+                  type: integer
+                  description: The count of new users
+  /users/deleted/all:
+    get:
+      summary: Get all deleted users
+      tags:
+        - Users
+      produces:
+        - application/json
+      parameters:
+        - name: _page
+          in: query
+          description: The page number for pagination
+          required: false
+          type: integer
+          format: int32
+        - name: _limit
+          in: query
+          description: The number of items per page for pagination
+          required: false
+          type: integer
+          format: int32
+        - name: q
+          in: query
+          description: The search query for username or email
+          required: false
+          type: string
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            $ref: "Users"
+      definitions:
+        UserPaginatedResponse:
+          type: object
+          properties:
+            docs:
+              type: array
+              items:
+                $ref: "User"
+            total:
+              type: integer
+              description: The total number of deleted users
+            limit:
+              type: integer
+              description: The limit of items per page
+            page:
+              type: integer
+              description: The current page number
+            pages:
+              type: integer
+              description: The total number of pages
+        User:
+          type: object
+          properties:
+            _id:
+              type: string
+              description: The unique identifier of the user
+            username:
+              type: string
+              description: The username of the user
+            email:
+              type: string
+              description: The email of the user
+            deleted:
+              type: boolean
+              description: Indicates if the user is deleted
+            createdAt:
+              type: string
+              format: date-time
+              description: The date and time when the user was created
+            updatedAt:
+              type: string
+              format: date-time
+              description: The date and time when the user was last updated
+  /users/posts/all/{id}:
+    get:
+      summary: Get all posts by user ID
+      tags:
+        - Users
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the user
+          required: true
+          type: string
+        - name: _page
+          in: query
+          description: The page number for pagination
+          required: false
+          type: integer
+          format: int32
+        - name: _limit
+          in: query
+          description: The number of items per page for pagination
+          required: false
+          type: integer
+          format: int32
+        - name: q
+          in: query
+          description: The search query for username or email
+          required: false
+          type: string
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            $ref: "Post"
+      definitions:
+        UserPostResponse:
+          type: object
+          properties:
+            message:
+              type: string
+              description: The response message
+            data:
+              $ref: "#/definitions/UserPost"
+        UserPost:
+          type: object
+          properties:
+            _id:
+              type: string
+              description: The unique identifier of the user
+            username:
+              type: string
+              description: The username of the user
+            email:
+              type: string
+              description: The email of the user
+            postList:
+              type: array
+              items:
+                $ref: "#/definitions/Post"
+        Post:
+          type: object
+          properties:
+            _id:
+              type: string
+              description: The unique identifier of the post
+            title:
+              type: string
+              description: The title of the post
+            author:
+              $ref: "#/definitions/UserSummary"
+            category:
+              $ref: "#/definitions/Category"
+        UserSummary:
+          type: object
+          properties:
+            _id:
+              type: string
+              description: The unique identifier of the user
+            username:
+              type: string
+              description: The username of the user
+            email:
+              type: string
+              description: The email of the user
+        Category:
+          type: object
+          properties:
+            _id:
+              type: string
+              description: The unique identifier of the category
+            name:
+              type: string
+              description: The name of the category
   /users/create:
     post:
       summary: Create a new user
@@ -575,47 +763,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Post'
-  /posts/delete-fake/{id}:
-    get:
-      tags:
-        - Post_blog
-      summary: get blog by id
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
-      responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Post'
-    put:
-      tags:
-        - Post_blog
-
-      summary: update blog by id
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Post'
-      responses:
-        200:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Post'
-
     delete:
       tags:
         - Post_blog
@@ -633,94 +780,184 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Post'
-  /post/approved:
-    get:
+  /posts/{id}:
+    put:
       tags:
         - Post_blog
-      summary: Get all approved posts
+      summary: Update post
       parameters:
-        - in: query
-          name: _page
-          schema:
-            type: integer
-            default: 1
-          description: The page number (optional)
-        - in: query
-          name: _limit
-          schema:
-            type: integer
-            default: 10
-          description: The number of posts per page (optional)
-        - in: query
-          name: category
+        - in: path
+          name: id
+          required: true
+          description: ID of the post
           schema:
             type: string
-          description: Filter posts by category (optional)
-        - in: query
-          name: q
+        - in: body
+          name: body
+          required: true
+          description: Updated post data
           schema:
-            type: string
-          description: Filter posts by keyword (optional)
+            $ref: '#/components/schemas/UpdatePostData'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  post:
+                    $ref: '#/components/schemas/Post'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    get:
+      summary: Get post by ID
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the post
+          required: true
+          type: string
       responses:
         200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: The response message
-                  posts:
-                    type: object
-                    description: The retrieved posts data
-                  example:
-                    message: Get all posts successfully
-                    posts:
-                      docs:
-                        - _id: 'post_id_1'
-                          title: 'Post title 1'
-                          content: 'Post content 1'
-                          author:
-                            _id: 'author_id_1'
-                            name: 'Author name 1'
-                          category:
-                            _id: 'category_id_1'
-                            name: 'Category name 1'
-                          tags:
-                            - _id: 'tag_id_1'
-                              name: 'Tag name 1'
-                            - _id: 'tag_id_2'
-                              name: 'Tag name 2'
-                      totalDocs: 20
-                      totalPages: 2
-                      page: 1
-                      limit: 10
-        400:
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: The error message
-                  example:
-                    message: Get all posts failed
-        500:
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: The error message
-                  example:
-                    message: Internal server error
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/PostResponse"
+      tags:
+        - Post_blog
+  /posts/approved:
+    get:
+      summary: Get all approved posts
+      produces:
+        - application/json
+      parameters:
+        - name: _page
+          in: query
+          description: The page number for pagination
+          required: false
+          type: integer
+          format: int32
+        - name: _limit
+          in: query
+          description: The number of items per page for pagination
+          required: false
+          type: integer
+          format: int32
+        - name: category
+          in: query
+          description: The category slug for filtering
+          required: false
+          type: string
+        - name: q
+          in: query
+          description: The search query for title or content
+          required: false
+          type: string
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            $ref: "#/components/schemas/Post"
+      tags:
+        - Post_blog
+      definitions:
+        PostPaginatedResponse:
+          type: object
+          properties:
+            message:
+              type: string
+              description: The response message
+            posts:
+              $ref: "#/components/schemas/Post"
+        PostPaginated:
+          type: object
+          properties:
+            docs:
+              type: array
+              items:
+                $ref: "#/components/schemas/Post"
+            total:
+              type: integer
+              description: The total number of approved posts
+            limit:
+              type: integer
+              description: The limit of items per page
+            page:
+              type: integer
+              description: The current page number
+            pages:
+              type: integer
+              description: The total number of pages
+        Post:
+          type: object
+          properties:
+            _id:
+              type: string
+              description: The unique identifier of the post
+            title:
+              type: string
+              description: The title of the post
+            content:
+              type: string
+              description: The content of the post
+            author:
+              $ref: "#/components/schemas/Users"
+            category:
+              $ref: "#/components/schemas/Category"
+            tags:
+              type: array
+              items:
+                $ref: "#/components/schemas/Tag"
+        UserSummary:
+          type: object
+          properties:
+            _id:
+              type: string
+              description: The unique identifier of the user
+            username:
+              type: string
+              description: The username of the user
+            email:
+              type: string
+              description: The email of the user
+        Category:
+          type: object
+          properties:
+            _id:
+              type: string
+              description: The unique identifier of the category
+            name:
+              type: string
+              description: The name of the category
+        Tag:
+          type: object
+          properties:
+            _id:
+              type: string
+              description: The unique identifier of the tag
+            name:
+              type: string
+              description: The name of the tag
   /delete-fake/{id}:
     put:
       tags:
@@ -860,47 +1097,153 @@ paths:
                 properties:
                   message:
                     type: string
-  /posts/{id}:
-    put:
+  /counter/post-new:
+    get:
+      summary: Lấy số lượng bài viết mới
       tags:
         - Post_blog
-      summary: Update post
-      parameters:
-        - in: path
-          name: id
-          required: true
-          description: ID of the post
-          schema:
-            type: string
-        - in: body
-          name: body
-          required: true
-          description: Updated post data
-          schema:
-            $ref: '#/components/schemas/UpdatePostData'
       responses:
         '200':
-          description: Successful operation
+          description: OK
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                  post:
-                    $ref: '#/components/schemas/Post'
-        '400':
-          description: Invalid request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                    count:
+                      type: integer
         '500':
-          description: Internal server error
+          description: Lỗi server
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /posts/pending/all:
+    get:
+      summary: Lấy danh sách bài viết chờ duyệt
+      tags:
+        - Post_blog
+      parameters:
+        - in: query
+          name: _page
+          schema:
+            type: integer
+            default: 1
+          description: Số trang hiện tại
+        - in: query
+          name: _limit
+          schema:
+            type: integer
+            default: 10
+          description: Số lượng bài viết trên mỗi trang
+        - in: query
+          name: q
+          schema:
+            type: string
+          description: Từ khóa tìm kiếm
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  posts:
+                    type: object
+                    properties:
+                      docs:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Post'
+                      totalDocs:
+                        type: integer
+                      limit:
+                        type: integer
+                      totalPages:
+                        type: integer
+                      page:
+                        type: integer
+                      pagingCounter:
+                        type: integer
+                      hasPrevPage:
+                        type: boolean
+                      hasNextPage:
+                        type: boolean
+        '500':
+          description: Lỗi server
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /deleted/all:
+    get:
+      summary: Lấy danh sách bài viết đã bị xóa
+      tags:
+        - Post_blog
+      parameters:
+        - in: query
+          name: _page
+          schema:
+            type: integer
+            default: 1
+          description: Số trang hiện tại
+        - in: query
+          name: _limit
+          schema:
+            type: integer
+            default: 10
+          description: Số lượng bài viết trên mỗi trang
+        - in: query
+          name: q
+          schema:
+            type: string
+          description: Từ khóa tìm kiếm
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  posts:
+                    type: object
+                    properties:
+                      docs:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Post'
+                      totalDocs:
+                        type: integer
+                      limit:
+                        type: integer
+                      totalPages:
+                        type: integer
+                      page:
+                        type: integer
+                      pagingCounter:
+                        type: integer
+                      hasPrevPage:
+                        type: boolean
+                      hasNextPage:
+                        type: boolean
+        '500':
+          description: Lỗi server
           content:
             application/json:
               schema:

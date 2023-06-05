@@ -1,3 +1,4 @@
+import Post from '../models/posts.model.js';
 import User from '../models/users.models.js';
 import bcrypt from 'bcrypt';
 import { userValidate } from '../validates/users.validate.js';
@@ -79,12 +80,21 @@ export const userController = {
   },
   /* delete real */
   deleteReal: async (req, res) => {
-    await userController.updateStatus(req, res, true);
     try {
       const { id } = req.params;
       const user = await User.findByIdAndDelete(id);
       if (!user) {
         return res.status(404).json({ msg: 'User not found' });
+      }
+      /* delete post id */
+      const postList = user.postList;
+      if (postList.length > 0) {
+        for (let i = 0; i < postList.length; i++) {
+          const post = await Post.findByIdAndDelete(postList[i]);
+          if (!post) {
+            return res.status(404).json({ msg: 'Post not found' });
+          }
+        }
       }
       return res.status(200).json({ msg: 'Delete user successfully' });
     } catch (error) {
@@ -167,6 +177,72 @@ export const userController = {
         { message: 'Số lượng người dùng được tạo trong ngày', count: countUserDay },
         { message: 'Số lượng người dùng được tạo mới trong tuần', count: countUserWeek },
       ]);
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
+  /* get users deleted */
+  getUserDeleted: async (req, res) => {
+    try {
+      const { _page = 1, _limit = 10, q } = req.query;
+      const options = {
+        page: _page,
+        limit: _limit,
+        sort: { createdAt: -1 },
+        populate: [{ path: 'postList', select: '_id title' }],
+      };
+      const query = q
+        ? {
+            $and: [
+              {
+                $or: [{ username: { $regex: q, $options: 'i' } }, { email: { $regex: q, $options: 'i' } }],
+              },
+              { deleted: true },
+            ],
+          }
+        : { deleted: true };
+      const users = await User.paginate(query, options);
+      if (!users) {
+        return res.status(400).json({ msg: 'Get all users failed' });
+      }
+      /* loại bỏ password */
+      users.docs = users.docs.map((user) => {
+        const { password, postList, ...other } = user._doc;
+        return other;
+      });
+      return res.status(200).json(users);
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
+  /* get all post by userId */
+  getAllPostByUserId: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { _page = 1, _limit = 10, q } = req.query;
+      const query = q
+        ? {
+            $and: [
+              {
+                $or: [{ username: { $regex: q, $options: 'i' } }, { email: { $regex: q, $options: 'i' } }],
+              },
+              { deleted: false },
+            ],
+          }
+        : { deleted: false };
+      const users = await User.findById(id).populate({
+        match: query,
+        path: 'postList',
+        populate: [
+          { path: 'author', select: '-postList -isVerified -role -password' },
+          { path: 'category', select: '-posts' },
+        ],
+      });
+      const { password, ...other } = users._doc;
+      if (!users) {
+        return res.status(400).json({ msg: 'Get all users failed' });
+      }
+      return res.status(200).send({ message: 'success', data: other });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
