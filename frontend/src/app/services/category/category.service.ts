@@ -1,19 +1,21 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ICategory, IDocCategories } from 'src/app/interfaces/Category';
 
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
 import { baseURL } from 'src/app/utils/instance';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategoryService {
   //Proxy rest_api at file proxy.conf.json
-  baseURL: string = '/api/v1/category';
+  baseURL: string = '';
   categories: ICategory[] = [];
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {
+    this.baseURL = `${baseURL}/category`;
+  }
   // getAccessToken() {
   //   const accessToken = JSON.parse(localStorage.getItem('accessToken') || '');
   //   if (!accessToken || accessToken === '') {
@@ -25,9 +27,12 @@ export class CategoryService {
   //   const options = { headers: headers };
   //   return options;
   // }
+  // baseURL: string = `${baseURL}/category`;
+  // categories: ICategory[] = [];
+  // constructor(private http: HttpClient) {}
   /* getAllCategories */
   getAllCategories(): Observable<IDocCategories> {
-    return this.http.get<IDocCategories>(`${this.baseURL}`);
+    return this.http.get<IDocCategories>(this.baseURL);
   }
   /* add new category */
   addNewCategory(category: ICategory): Observable<ICategory> {
@@ -57,6 +62,16 @@ export class CategoryService {
   }
   /*get related posts by id category */
   getRelatedPost(id: string) {
-    return this.http.get<any>(`/api/v1/categories/posts/${id}`);
+    return this.http.get<{ message: string; data: ICategory }>(
+      `http://localhost:8080/api/v1/categories/posts/${id}`
+    );
+  }
+  /*get posts by category id */
+  getCategoryPostId(
+    id: string
+  ): Observable<{ message: string; data: ICategory }> {
+    return this.http.get<{ message: string; data: ICategory }>(
+      `${baseURL}/categories/posts/${id}`
+    );
   }
 }

@@ -10,7 +10,6 @@ import { AvatarDirective } from './Directive/avatar.directive';
 import { BlogPageComponent } from './pages/blog-page/blog-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { CommonModule } from '@angular/common';
 import { ContentDetailPostsComponent } from './components/content-detail-posts/content-detail-posts.component';
@@ -45,12 +44,12 @@ import { PostListsComponent } from './pages/post-lists/post-lists.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { PostsDetailPageComponent } from './pages/posts-detail-page/posts-detail-page.component';
 import { RelatedPostsComponent } from './components/related-posts/related-posts.component';
-import { RequestInterceptor } from './request/request.interceptor';
 import { SidebarAdminComponent } from './components/sidebar-admin/sidebar-admin.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { SliderComponent } from './components/slider/slider.component';
 import { ToastrModule } from 'ngx-toastr';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { UserInfoComponent } from './pages/user-info/user-info.component';
 import { PreviewComponent } from './components/preview/preview.component';
 import { EditUserComponent } from './modules/user/edit-user/edit-user.component';
@@ -58,6 +57,11 @@ import { EditUserComponent } from './modules/user/edit-user/edit-user.component'
 // import } from 'ngx-toastr'
 
 // import { RequestInterceptor } from './request/request.interceptor';
+import { RequestInterceptor } from './request/request.interceptor';
+import { AddTagComponent } from './modules/tag/add-tag/add-tag.component';
+import { EditTagComponent } from './modules/tag/edit-tag/edit-tag.component';
+import { PostEditComponent } from './modules/posts/post-edit/post-edit.component';
+import { ViewCommentComponent } from './components/manager-comments/view-comment/view-comment.component';
 
 @NgModule({
   declarations: [
@@ -94,21 +98,26 @@ import { EditUserComponent } from './modules/user/edit-user/edit-user.component'
     EditCategoryComponent,
     PostListsComponent,
     AvatarDirective,
+    AddTagComponent,
+    EditTagComponent,
     PostAddComponent,
     HashTagAddComponent,
     HashTagEditComponent,
     BlogPageComponent,
     PreviewComponent,
     EditUserComponent,
+    PostEditComponent,
+    ViewCommentComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     CommonModule,
     BrowserAnimationsModule, // required animations module
-    FormsModule,
+    CKEditorModule,
     // Toi bi loi ToastrModule nay ko down dc ngx-toastr len phai comment lai!!
 
     ToastrModule.forRoot({

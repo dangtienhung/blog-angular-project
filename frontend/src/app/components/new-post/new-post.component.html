@@ -10,7 +10,7 @@
       >
         <div class="img mb-4" style="width: 600px">
           <img
-            *ngFor="let img of posts[0].images"
+            *ngFor="let img of posts[0]?.images"
             [src]="img.url"
             class="img-fluid"
             alt=""

@@ -1,9 +1,3 @@
-img {
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  object-fit: cover;
-}
 
 a {
   text-decoration: none;
@@ -17,82 +11,52 @@ a {
   align-items: stretch;
   background-color: transparent;
   border: 0;
-}
-
-.blog-style2,
-.blog-style3 {
   margin-bottom: 40px;
+
+  .image-frame {
+    overflow: hidden;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    -webkit-mask-image: -webkit-radial-gradient(circle, white, black);
+    img {
+      width: 100%;
+      height: 222px;
+      object-fit: cover;
+      transition: all 0.4s ease-in-out;
+      -webkit-transition: transform 0.5s ease;
+      -moz-transition: transform 0.5s ease;
+      -ms-transition: transform 0.5s ease;
+      -o-transition: transform 0.5s ease;
+      transition: transform 0.5s ease;
+    }
+  }
+
+  .avatar img {
+    width: 50%;
+    border-radius: 50%;
+  }
+
+  .card-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+  }
 }
 
 .blog-style2:hover {
   box-shadow: 0 1rem 3rem rgba(black, 0.175);
 }
 
-.avatar img {
-  border-radius: 50%;
-}
-
-.image-frame {
-  overflow: hidden;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
-  -webkit-mask-image: -webkit-radial-gradient(circle, white, black);
-}
-
-.image-frame img {
-  transition: all 0.4s ease-in-out;
-  -webkit-transition: transform 0.5s ease;
-  -moz-transition: transform 0.5s ease;
-  -ms-transition: transform 0.5s ease;
-  -o-transition: transform 0.5s ease;
-  transition: transform 0.5s ease;
-}
-
-.blog-style2:hover .image-frame img,
-.blog-style3:hover .image-frame img {
+.blog-style2:hover .image-frame img {
   -webkit-transform: scale(1.5); /* Safari and Chrome */
   -moz-transform: scale(1.5); /* Firefox */
   -ms-transform: scale(1.5); /* IE 9 */
   -o-transform: scale(1.5); /* Opera */
   transform: scale(1.1);
   border-radius: 10px;
-}
-
-.card-title {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: break-word;
-}
-
-.blog-style3 {
-  .image-frame {
-    img {
-      height: 500px;
-    }
-  }
-  .card-body {
-    border-radius: 10px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
-  }
-  .align-center{
-    padding-left: 12px;
-  }
-
-  .col-lg-1 {
-    padding: 0;
-  }
-
-  .col-lg-11 {
-    .text-light {
-      margin: 0;
-      padding-top: 15px;
-
-    }
-  }
-  
 }

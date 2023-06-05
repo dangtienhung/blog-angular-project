@@ -3,7 +3,6 @@ import { authValidate, loginValidate } from '../validates/auth.validate.js';
 import User from '../models/users.models.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import nodemailer from 'nodemailer';
 import { sendVerificationEmail } from '../config/nodemailler.js';
 
 export const authController = {

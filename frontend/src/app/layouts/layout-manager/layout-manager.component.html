@@ -163,7 +163,7 @@
                 >
                   <i class="fa-solid fa-eye"></i>
                 </button>
-                <a routerLink="/admin/edit-category/">
+                <a routerLink="/admin/post-edit/{{ post._id }}">
                   <button class="settings text-primary">
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
@@ -178,21 +178,86 @@
             </tr>
           </tbody>
 
-          <!-- hashtags -->
-          <tbody *ngIf="hashTags.length > 0">
-            <tr *ngFor="let hashTag of hashTags; let i = index">
+          <!-- Tag -->
+          <tbody *ngIf="tags.length > 0">
+            <tr *ngFor="let tag of tags; let i = index">
               <td>{{ i + 1 }}</td>
-              <td>{{ hashTag.title }}</td>
-              <td>{{ hashTag.slug }}</td>
+              <td>{{ tag.title }}</td>
+              <td>{{ tag.slug }}</td>
               <td>
-                <a routerLink="/admin/hash-tags-edit/{{ hashTag._id! }}">
+                <a routerLink="/admin/edit-tag/{{ tag._id }}">
                   <button class="settings text-primary">
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
                 </a>
+                <button class="delete text-danger">
+                  <i
+                    class="fa-sharp fa-solid fa-trash"
+                    (click)="handleDelete(tag._id!)"
+                  ></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+
+          <!-- Comment -->
+          <tbody *ngIf="comments.length > 0">
+            <tr *ngFor="let comment of comments; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ comment.Post.title }}</td>
+              <td>
+                <a href="">
+                  <img
+                    [src]="
+                      comment.Author.avatar ||
+                      'https://api.multiavatar.com/' +
+                        comment.Author.username +
+                        '.png'
+                    "
+                    class="avatar"
+                    alt="Avatar"
+                  />
+                  <span class="text-truncate">{{
+                    comment.Author.username
+                  }}</span>
+                </a>
+              </td>
+              <td>{{ comment.count }}</td>
+              <td>
+                <a routerLink="/admin/view-comment/{{ comment.Post._id }}">
+                  <button class="settings text-primary">
+                    <i class="fa-sharp fa-solid fa-chalkboard-user"></i>
+                  </button>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+          <!-- Comment Detail-->
+          <tbody *ngIf="viewComments.length > 0">
+            <tr *ngFor="let viewComment of viewComments; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>
+                <a href="">
+                  <img
+                    [src]="
+                      viewComment.userId.avatar ||
+                      'https://api.multiavatar.com/' +
+                        viewComment.userId.username +
+                        '.png'
+                    "
+                    class="avatar"
+                    alt="Avatar"
+                  />
+                  <span class="text-truncate">{{
+                    viewComment.userId.username
+                  }}</span>
+                </a>
+              </td>
+              <td>{{ viewComment.content }}</td>
+              <td>
                 <button
                   class="delete text-danger"
-                  (click)="handleDelete(hashTag._id!)"
+                  (click)="handleDelete(viewComment._id!)"
                 >
                   <i class="fa-sharp fa-solid fa-trash"></i>
                 </button>

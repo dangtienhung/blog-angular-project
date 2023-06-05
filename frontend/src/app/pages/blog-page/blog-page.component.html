@@ -1,280 +1,52 @@
-<div class="hero-area pt-3 pb-3  pt-lg-2 pb-lg-3">
-    <div class="container">
-        <div class="row pt-2">
-            <div class="col-md-6">
-                <article class="blog-style2 card">
-                    <div class="feature-image col-md-6">
-                        <div class="image-hover-style-1 image-frame">
-                            <a href="#">
-                                <img class=""
-                                    src="https://d33wubrfki0l68.cloudfront.net/6292b4ac5c060181f261e3abbe5d3d856c1f2da9/5e8fc/assets/images/home-4/blog-img1.jpg"
-                                    alt="image">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="card-body col-md-6 m-3">
-                        <div class="card-flex-content">
-                            <h4>
-                                <a class="card-title lh-base" href="#"> The best The best The best jackets to buy for
-                                    spring 2021 2021 2021 The best The best</a>
-                            </h4>
+<div class="container pt-3 pb-3  pt-lg-2 pb-lg-3">
+    <div class="row mt-3">
+        <div class="col-3 ">
+            <div>
+                <ul *ngFor="let category of categories" class=" p-2 list-group" style="cursor: pointer; border-radius: 16px">
+                    <li (click)="getPosts(category._id!)" class="list-group-item list-group-item-action">
+                        <a class="cate-post" style="cursor: pointer;" > {{category.name}}</a>
+                    </li>
+                </ul>
 
-                            <div class="row pt-3 align-center">
-                                <div class="col-lg-3">
-                                    <div class="author-block avatar ">
-                                        <img
-                                            src="https://d33wubrfki0l68.cloudfront.net/5761cb31d4865ac5eeb4cd56d41f774ce9fe4440/364a5/assets/images/author-img.jpg">
-                                    </div>
-                                </div>
-                                <div class="col-lg-9">
-                                    <div class="author-block pt-2">
-                                        <p>Nhung Lee</p>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </article>
             </div>
-
-            <div class="col-md-6">
-                <div class="blog-style2 card">
-                    <div class="feature-image col-md-6">
-                        <div class="image-hover-style-1 image-frame">
-                            <a href="#">
-                                <img class=""
-                                    src="https://d33wubrfki0l68.cloudfront.net/6292b4ac5c060181f261e3abbe5d3d856c1f2da9/5e8fc/assets/images/home-4/blog-img1.jpg"
-                                    alt="image">
-                            </a>
+        </div>
+        <div class="col-9">
+            <div *ngFor="let post of posts" class="row pt-2">
+                <div class="col">
+                    <article class="blog-style2 card">
+                        <div class="feature-image col-sm-4">
+                            <div class="image-hover-style-1 image-frame">
+                                <a href="#">
+                                    <img  class=""  [src]="post.images[0].url">
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body col-md-6 m-3">
-                        <div class="card-flex-content">
-                            <h4>
-                                <a class="card-title lh-base" href="#"> The best The best The best jackets to buy for
-                                    spring 2021 2021 2021 The best The best</a>
-                            </h4>
+                        <div class="card-body col-sm-8 m-3">
+                            <div class="card-flex-content">
+                                <h4>
+                                    <a class="card-title lh-base" href="#">{{post.content}}</a>
+                                </h4>
 
-                            <div class="row pt-3 align-center">
-                                <div class="col-lg-3">
-                                    <div class="author-block avatar ">
-                                        <img
-                                            src="https://d33wubrfki0l68.cloudfront.net/5761cb31d4865ac5eeb4cd56d41f774ce9fe4440/364a5/assets/images/author-img.jpg">
+                                <div class="row pt-3 align-center">
+                                    <div class="col-lg-3">
+                                        <div class="author-block avatar ">
+                                            <img [src]="post.author.avatar">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-9">
-                                    <div class="author-block pt-2">
-                                        <p>Nhung Lee</p>
+                                    <div class="col-lg-9">
+                                        <div class="author-block pt-2">
+                                            <p>{{post.author.username}}</p>
+                                        </div>
                                     </div>
+
                                 </div>
 
                             </div>
                         </div>
-                    </div>
+                    </article>
                 </div>
-            </div>
 
-            <div class="col-lg-6 col-md-12 ">
-                <article class="blog-style3 border-0 card  position-relative ">
-                    <div class="feature-image">
-                        <div class="image-frame image-hover-style-1">
-                            <a href="/"> <img class=" ls-is-cached lazyloaded"
-                                    src="https://d33wubrfki0l68.cloudfront.net/7489325c7d1dfb60b4f7fff33183a9edc902e08f/a6bf8/assets/images/home-4/blog-img4.jpg"
-                                    alt="image"></a>
-                        </div>
-                    </div>
-                    <div class="card-body position-absolute fixed-bottom">
-                        <h2 class="card-title text-light"><a class="text-light" href="/">Were in the if and keep paper
-                                was their to that to just paper was their to that to just attribute</a>
-                        </h2>
-                        <div class="row pt-1 align-center">
-                            <div class="col-lg-1">
-                                <div class="author-block avatar ">
-                                    <img class="w-100 "
-                                        src="https://d33wubrfki0l68.cloudfront.net/5761cb31d4865ac5eeb4cd56d41f774ce9fe4440/364a5/assets/images/author-img.jpg">
-                                </div>
-                            </div>
 
-                            <div class="col-lg-11">
-                                <div class="author-block">
-                                    <p class="text-light">Nhung Lee</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </article>
-            </div>
-
-            <div class="col-lg-6 col-md-12 ">
-                <article class="blog-style3 border-0 card  position-relative ">
-                    <div class="feature-image">
-                        <div class="image-frame image-hover-style-1">
-                            <a href="/"> <img class=" ls-is-cached lazyloaded"
-                                    src=" https://d33wubrfki0l68.cloudfront.net/395018c95e04a452d7f71b86feebe743682764ae/016e2/assets/images/home-4/blog-img3.jpg"
-                                    alt="image"></a>
-                        </div>
-                    </div>
-                    <div class="card-body position-absolute fixed-bottom">
-                        <h2 class="card-title text-light"><a class="text-light" href="/">Were in the if and keep paper
-                                was their to that to just paper was their to that to just attribute</a>
-                        </h2>
-                        <div class="row pt-1 align-center">
-                            <div class="col-lg-1">
-                                <div class="author-block avatar ">
-                                    <img class="w-100 "
-                                        src="https://d33wubrfki0l68.cloudfront.net/5761cb31d4865ac5eeb4cd56d41f774ce9fe4440/364a5/assets/images/author-img.jpg">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-11">
-                                <div class="author-block">
-                                    <p class="text-light">Nhung Lee</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </article>
-            </div>
-
-            <div class="col-md-6">
-                <div class="blog-style2 card">
-                    <div class="feature-image col-md-6">
-                        <div class="image-hover-style-1 image-frame">
-                            <a href="#">
-                                <img class=""
-                                    src="https://d33wubrfki0l68.cloudfront.net/6292b4ac5c060181f261e3abbe5d3d856c1f2da9/5e8fc/assets/images/home-4/blog-img1.jpg"
-                                    alt="image">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="card-body col-md-6 m-3">
-                        <div class="card-flex-content">
-                            <h4>
-                                <a class="card-title lh-base" href="#"> The best The best The best jackets to buy for
-                                    spring 2021 2021 2021 The best The best</a>
-                            </h4>
-
-                            <div class="row pt-3 align-center">
-                                <div class="col-lg-3">
-                                    <div class="author-block avatar ">
-                                        <img
-                                            src="https://d33wubrfki0l68.cloudfront.net/5761cb31d4865ac5eeb4cd56d41f774ce9fe4440/364a5/assets/images/author-img.jpg">
-                                    </div>
-                                </div>
-                                <div class="col-lg-9">
-                                    <div class="author-block pt-2">
-                                        <p>Nhung Lee</p>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="blog-style2 card ">
-                    <div class="feature-image col-md-6">
-                        <div class="image-hover-style-1 image-frame">
-                            <a href="#">
-                                <img class=""
-                                    src="https://d33wubrfki0l68.cloudfront.net/6292b4ac5c060181f261e3abbe5d3d856c1f2da9/5e8fc/assets/images/home-4/blog-img1.jpg"
-                                    alt="image">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="card-body col-md-6 m-3">
-                        <div class="card-flex-content">
-                            <h4>
-                                <a class="card-title lh-base" href="#"> The best The best The best jackets to buy for
-                                    spring 2021 2021 2021 The best The best</a>
-                            </h4>
-
-                            <div class="row pt-3 align-center">
-                                <div class="col-lg-3">
-                                    <div class="author-block avatar ">
-                                        <img
-                                            src="https://d33wubrfki0l68.cloudfront.net/5761cb31d4865ac5eeb4cd56d41f774ce9fe4440/364a5/assets/images/author-img.jpg">
-                                    </div>
-                                </div>
-                                <div class="col-lg-9">
-                                    <div class="author-block pt-2">
-                                        <p>Nhung Lee</p>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-6 col-md-12 ">
-                <article class="blog-style3 border-0 card  position-relative ">
-                    <div class="feature-image">
-                        <div class="image-frame image-hover-style-1">
-                            <a href="/"> <img class=" ls-is-cached lazyloaded"
-                                    src="https://d33wubrfki0l68.cloudfront.net/7489325c7d1dfb60b4f7fff33183a9edc902e08f/a6bf8/assets/images/home-4/blog-img4.jpg"
-                                    alt="image"></a>
-                        </div>
-                    </div>
-                    <div class="card-body position-absolute fixed-bottom">
-                        <h2 class="card-title text-light"><a class="text-light" href="/">Were in the if and keep paper
-                                was their to that to just paper was their to that to just attribute</a>
-                        </h2>
-                        <div class="row pt-1 align-center">
-                            <div class="col-lg-1">
-                                <div class="author-block avatar ">
-                                    <img class="w-100 "
-                                        src="https://d33wubrfki0l68.cloudfront.net/5761cb31d4865ac5eeb4cd56d41f774ce9fe4440/364a5/assets/images/author-img.jpg">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-11">
-                                <div class="author-block">
-                                    <p class="text-light">Nhung Lee</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </article>
-            </div>
-
-            <div class="col-lg-6 col-md-12 ">
-                <article class="blog-style3 border-0 card  position-relative ">
-                    <div class="feature-image">
-                        <div class="image-frame image-hover-style-1">
-                            <a href="/"> <img class=" ls-is-cached lazyloaded"
-                                    src=" https://d33wubrfki0l68.cloudfront.net/395018c95e04a452d7f71b86feebe743682764ae/016e2/assets/images/home-4/blog-img3.jpg"
-                                    alt="image"></a>
-                        </div>
-                    </div>
-                    <div class="card-body position-absolute fixed-bottom">
-                        <h2 class="card-title text-light"><a class="text-light" href="/">Were in the if and keep paper
-                                was their to that to just paper was their to that to just attribute</a>
-                        </h2>
-                        <div class="row pt-1 align-center">
-                            <div class="col-lg-1">
-                                <div class="author-block avatar ">
-                                    <img class="w-100 "
-                                        src="https://d33wubrfki0l68.cloudfront.net/5761cb31d4865ac5eeb4cd56d41f774ce9fe4440/364a5/assets/images/author-img.jpg">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-11">
-                                <div class="author-block">
-                                    <p class="text-light">Nhung Lee</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </article>
             </div>
         </div>
     </div>

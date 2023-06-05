@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row g-5">
+        <div class="col-6 text-capitalize">
+            <h2>Thêm Danh mục bài viết</h2>
+        </div>
+        <div class="col-6">
+            <div class="d-flex justify-content-end align-items-center">
+                <a routerLink="/admin/manager-tags">Quay lại</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form (submit)="handleEditTag()" [formGroup]="editTag" class="mt-5 form">
+                <div class="form-group mb-5 form-floating">
+                    <input type="text" placeholder="Tên danh mục" placeholder="Enter title tag" formControlName="title"
+                        class="form__input form-control" id="name">
+                    <label for="name">Title</label>
+                    <div *ngIf="checkTitle.invalid && (checkTitle.touched || checkTitle.dirty)">
+                        <span class="text-danger" *ngIf="checkTitle.errors?.['required']">Title is required</span>
+                    </div>
+                </div>
+                <div class="form-group mb-5 form-floating">
+                    <input type="text" placeholder="Tên danh mục" placeholder="Enter slug" formControlName="slug"
+                        class="form__input form-control">
+                    <label for="slug">Slug</label>
+                    <div *ngIf="checkSlug.invalid && (checkSlug.touched || checkSlug.dirty)">
+                        <span class="text-danger" *ngIf="checkSlug.errors?.['required']">Slug is required</span>
+                    </div>
+                </div>
+                <button type="submit" [disabled]="!editTag.valid"
+                    class="btn btn-primary d-flex justify-content-between align-items-center">
+                    <i class="fa-solid fa-save me-3"></i>
+                    <span>Sửa</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

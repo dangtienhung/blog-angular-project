@@ -30,8 +30,12 @@ export class AuthService {
     localStorage.removeItem(this.TOKEN_USER);
   }
 
-  getToken() {
-    return JSON.parse(localStorage.getItem(this.TOKEN_KEY)!);
+  getToken(): string {
+    return JSON.parse(localStorage.getItem(this.TOKEN_KEY)!) as string;
+  }
+
+  getUserLogin() {
+    return JSON.parse(localStorage.getItem(this.TOKEN_USER)!);
   }
 
   isAuthenticated(): boolean {

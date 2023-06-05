@@ -31,7 +31,7 @@ export class PostsDetailPageComponent {
           this.cateService
             .getRelatedPost(data.post.category._id)
             .subscribe(({ data }) => {
-              this.relatedPosts = data.posts;
+              this.relatedPosts = data.posts!;
               // console.log(data.posts);
             });
         },

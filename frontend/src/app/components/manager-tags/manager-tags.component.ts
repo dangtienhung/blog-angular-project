@@ -1,38 +1,40 @@
-import { Component } from '@angular/core';
-import { ExcelServiceService } from 'src/app/services/excelService/excel-service.service';
-import { HashtagsService } from 'src/app/services/hashtags/hashtags.service';
-import { IHashTags } from 'src/app/interfaces/Tags';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ITag, ITagDocs } from 'src/app/interfaces/ITag';
+import { TagsService } from 'src/app/services/tags/tags.service';
 
 @Component({
   selector: 'app-manager-tags',
   templateUrl: './manager-tags.component.html',
   styleUrls: ['./manager-tags.component.scss'],
 })
-export class ManagerTagsComponent {
-  hashTags: IHashTags[] = [];
-  title: string = 'Quản lý các tags';
-  theadTable: string[] = ['STT', 'Tên tag', 'Slug', 'Action'];
-  linkActive: string = '/admin/hash-tags-add';
-  constructor(
-    private hashTagsService: HashtagsService,
-    private excelServices: ExcelServiceService
-  ) {
-    this.getAllHashTags();
+export class ManagerTagsComponent implements OnInit {
+  title: string = 'Quản lý Tag bài viết';
+  titleModal: string = 'Thêm Tag bài viết';
+  theadTable: string[] = ['STT', 'Title', 'Slug', 'Action'];
+  tagList: ITag[] = [];
+  routerLink = '/admin/hash-tags-add';
+  constructor(private tagService: TagsService, private fb: FormBuilder) {}
+  tagForm = this.fb.group({
+    title: ['', [Validators.required]],
+    slug: ['', [Validators.required]],
+  });
+
+  ngOnInit(): void {
+    this.getAllTags();
   }
-  // getAllHashTags
-  getAllHashTags() {
-    this.hashTagsService.getAllHashTags().subscribe((hashTags) => {
-      this.hashTags = hashTags.data;
+
+  getAllTags() {
+    this.tagService.getAllTags().subscribe((data) => {
+      this.tagList = data.data;
     });
   }
-  /* deleteHashtag */
-  deleteHashTag(id: string) {
-    this.hashTagsService.deleteHashTag(id).subscribe(() => {
-      this.getAllHashTags();
-    });
+
+  deleteTag(id: string) {
+    this.tagService.deleteTag(id).subscribe(() => this.getAllTags());
   }
-  /* export to excel */
-  exportToExcel() {
-    this.excelServices.exportToExcel(this.hashTags, 'HashTags');
+
+  editTag(id: string) {
+    this.tagService.deleteTag(id).subscribe((data) => console.log(data));
   }
 }

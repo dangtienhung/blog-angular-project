@@ -141,7 +141,7 @@ export const userController = {
       /* create user */
       const data = {
         ...body,
-        // avatar,
+        avatar,
         password: hashedPassword,
       };
       const newUser = await User.create(data);
@@ -149,6 +149,29 @@ export const userController = {
         return res.status(400).json({ msg: 'Create user failed' });
       }
       return res.status(200).json({ msg: 'Create user successfully', user: newUser });
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
+  /* count new user */
+  countNewUser: async (req, res) => {
+    try {
+      /* get new user one day */
+      let today = new Date();
+      today.setHours(0, 0, 0, 0); // Đặt giờ về 00:00:00.000
+      const tomorrow = new Date(today);
+      tomorrow.setDate(today.getDate() + 1); // Tăng ngày lên 1 để lấy đến 23:59:59.999
+      const countUserDay = await User.countDocuments({ createdAt: { $gte: today, $lt: tomorrow } });
+      /* get new user one week */
+      today = new Date();
+      today.setHours(23, 59, 59, 999); // Đặt giờ về 00:00:00.000
+      const oneWeekAgo = new Date(today);
+      oneWeekAgo.setDate(today.getDate() - 7); // Giảm ngày đi 7 để lấy từ ngày trước đó
+      const countUserWeek = await User.countDocuments({ createdAt: { $gte: oneWeekAgo, $lt: today } });
+      return res.status(200).json([
+        { message: 'Số lượng người dùng được tạo trong ngày', count: countUserDay },
+        { message: 'Số lượng người dùng được tạo mới trong tuần', count: countUserWeek },
+      ]);
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }

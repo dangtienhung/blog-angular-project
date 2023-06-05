@@ -10,10 +10,7 @@
           <!-- Profile picture image-->
           <img
             class="img-account-profile rounded-circle mb-2 m-auto"
-            [src]="
-              user.avatar ||
-              'https://api.multiavatar.com/' + user.username + '.png'
-            "
+            [src]="user.avatar"
             alt=""
           />
           <!-- Profile picture upload button-->
@@ -28,7 +25,7 @@
       <div class="card mb-4">
         <div class="card-header">Account Details</div>
         <div class="card-body">
-          <form>
+          <form [formGroup]="userInfo">
             <!-- Form Group (username)-->
             <div class="mb-3">
               <label class="small mb-1" for="inputUsername">Username</label>
@@ -37,37 +34,23 @@
                 id="inputUsername"
                 type="text"
                 placeholder="Enter your username"
-                [value]="user.username"
-                [readOnly]="true"
+                value="username"
+                formControlName="username"
               />
             </div>
             <!-- Form Row-->
-            <div class="row gx-3 mb-3">
-              <!-- Form Group (first name)-->
-              <div class="col-md-6">
-                <label class="small mb-1" for="inputFirstName"
-                  >First name</label
-                >
-                <input
-                  class="form-control"
-                  id="inputFirstName"
-                  type="text"
-                  placeholder="Enter your first name"
-                  value="Valerie"
-                />
-              </div>
-              <!-- Form Group (last name)-->
-              <div class="col-md-6">
-                <label class="small mb-1" for="inputLastName">Last name</label>
-                <input
-                  class="form-control"
-                  id="inputLastName"
-                  type="text"
-                  placeholder="Enter your last name"
-                  value="Luna"
-                />
-              </div>
-            </div>
+            <!-- <div class="row gx-3 mb-3">
+                            Form Group (first name)
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputFirstName">First name</label>
+                                <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="Valerie">
+                            </div>
+                            Form Group (last name)
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputLastName">Last name</label>
+                                <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Luna">
+                            </div>
+                        </div> -->
 
             <!-- Form Group (email address)-->
             <div class="mb-3">
@@ -79,33 +62,33 @@
                 id="inputEmailAddress"
                 type="email"
                 placeholder="Enter your email address"
-                [value]="user.email"
-                [readOnly]="true"
+                value="name@example.com"
+                formControlName="email"
               />
             </div>
             <!-- Form Row-->
             <div class="row gx-3 mb-3">
               <!-- Form Group (phone number)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputPhone">Phone number</label>
+                <label class="small mb-1" for="inputPhone">Address</label>
                 <input
                   class="form-control"
-                  id="inputPhone"
-                  type="tel"
-                  placeholder="Enter your phone number"
-                  value="555-123-4567"
+                  type="string"
+                  placeholder="Enter your address"
+                  formControlName="address"
                 />
               </div>
               <!-- Form Group (birthday)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputBirthday">Birthday</label>
+                <label class="small mb-1" for="inputBirthday"
+                  >Phone number</label
+                >
                 <input
                   class="form-control"
                   id="inputBirthday"
                   type="text"
-                  name="birthday"
-                  placeholder="Enter your birthday"
-                  value="06/10/1988"
+                  placeholder="Enter your phone number"
+                  formControlName="phone"
                 />
               </div>
             </div>
@@ -116,6 +99,98 @@
           </form>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+<div class="col-xl-8">
+  <!-- Account details card-->
+  <div class="card mb-4">
+    <div class="card-header">Account Details</div>
+    <div class="card-body">
+      <form>
+        <!-- Form Group (username)-->
+        <div class="mb-3">
+          <label class="small mb-1" for="inputUsername">Username</label>
+          <input
+            class="form-control"
+            id="inputUsername"
+            type="text"
+            placeholder="Enter your username"
+            [value]="user.username"
+            [readOnly]="true"
+          />
+        </div>
+        <!-- Form Row-->
+        <div class="row gx-3 mb-3">
+          <!-- Form Group (first name)-->
+          <div class="col-md-6">
+            <label class="small mb-1" for="inputFirstName">First name</label>
+            <input
+              class="form-control"
+              id="inputFirstName"
+              type="text"
+              placeholder="Enter your first name"
+              value="Valerie"
+            />
+          </div>
+          <!-- Form Group (last name)-->
+          <div class="col-md-6">
+            <label class="small mb-1" for="inputLastName">Last name</label>
+            <input
+              class="form-control"
+              id="inputLastName"
+              type="text"
+              placeholder="Enter your last name"
+              value="Luna"
+            />
+          </div>
+        </div>
+
+        <!-- Form Group (email address)-->
+        <div class="mb-3">
+          <label class="small mb-1" for="inputEmailAddress"
+            >Email address</label
+          >
+          <input
+            class="form-control"
+            id="inputEmailAddress"
+            type="email"
+            placeholder="Enter your email address"
+            [value]="user.email"
+            [readOnly]="true"
+          />
+        </div>
+        <!-- Form Row-->
+        <div class="row gx-3 mb-3">
+          <!-- Form Group (phone number)-->
+          <div class="col-md-6">
+            <label class="small mb-1" for="inputPhone">Phone number</label>
+            <input
+              class="form-control"
+              id="inputPhone"
+              type="tel"
+              placeholder="Enter your phone number"
+              value="555-123-4567"
+            />
+          </div>
+          <!-- Form Group (birthday)-->
+          <div class="col-md-6">
+            <label class="small mb-1" for="inputBirthday">Birthday</label>
+            <input
+              class="form-control"
+              id="inputBirthday"
+              type="text"
+              name="birthday"
+              placeholder="Enter your birthday"
+              value="06/10/1988"
+            />
+          </div>
+        </div>
+        <!-- Save changes button-->
+        <button class="btn btn-upload-img text-light" type="button">
+          Save changes
+        </button>
+      </form>
     </div>
   </div>
 </div>

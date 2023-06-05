@@ -10,11 +10,8 @@ import { PostsService } from './../../../services/posts/posts.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UploadImageService } from './../../../services/uploadImage/upload-image.service';
-
-interface ImagePreview {
-  url: string;
-  public_id: string;
-}
+import { MyUploadAdapter } from '../myuploadAdapter';
+import { ImagePreview } from 'src/app/interfaces/Image';
 
 @Component({
   selector: 'app-post-add',
@@ -121,6 +118,8 @@ export class PostAddComponent {
           : false,
       status: this.postForm.value.status,
     };
+    // console.log(this.postForm.value.content);
+
     this.postsService.createPost(post).subscribe(
       () => {
         this.toastr.success('Đăng bài thành công');
@@ -132,4 +131,12 @@ export class PostAddComponent {
       }
     );
   }
+
+  onEditorReady = (editor: any) => {
+    editor.plugins.get('FileRepository').createUploadAdapter = (
+      loader: any
+    ) => {
+      return new MyUploadAdapter(loader, this.http);
+    };
+  };
 }

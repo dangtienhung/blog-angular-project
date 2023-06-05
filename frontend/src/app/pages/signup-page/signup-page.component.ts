@@ -9,6 +9,7 @@ import {
 import { Router } from '@angular/router';
 import { IUserRegister } from 'src/app/interfaces/User';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup-page',
@@ -19,7 +20,8 @@ export class SignupPageComponent {
   constructor(
     private authService: AuthService,
     private formSignup: FormBuilder,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.formSignup.group({});
   }
@@ -36,9 +38,9 @@ export class SignupPageComponent {
     }
   );
 
-  get f() {
-    return this.signUpForm.controls;
-  }
+  // get f() {
+  //   return this.signUpForm.controls;
+  // }
 
   checkPasswords(form: FormGroup) {
     const password = form.get('password')?.value;
@@ -57,15 +59,11 @@ export class SignupPageComponent {
 
     this.authService.signUpUser(user).subscribe(
       (user) => {
-        alert('Successful account registration');
-        // console.log(user);
+        this.toastr.success('Successful account registration');
+        console.log(user);
         this.router.navigate(['/login']);
       },
       (error) => console.log(error.message)
     );
   }
-
-  // get checkConfirmPassword() {
-  //   return this.SignUp.get('confirmpassword') as FormControl;
-  // }
 }

@@ -34,8 +34,6 @@ export class CategoriesComponent {
   }
   /* handle delete user */
   handleDeleteCategory(id: string) {
-    console.log(id);
-
     this.categoryService
       .deleteCategory(id)
       .subscribe(() => this.getAllCategories());
