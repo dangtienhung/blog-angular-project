@@ -1,7 +1,6 @@
-import commentsModel from '../models/comments.model.js';
+import CommentValidate from '../validates/comment.validate.js';
 import Post from '../models/posts.model.js';
 import User from '../models/users.models.js';
-import CommentValidate from '../validates/comment.validate.js';
 
 export const getComments = async (req, res) => {
   try {
