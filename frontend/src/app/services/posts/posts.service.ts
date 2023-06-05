@@ -60,4 +60,18 @@ export class PostsService {
   searchPost(keyword: string): Observable<IPosts[]> {
     return this.http.get<IPosts[]>(`${baseURL}/posts?q=${keyword}`);
   }
+  /* get post with delete: true */
+  getPostDeleted(): Observable<IDocPosts> {
+    return this.http.get<IDocPosts>(
+      `${baseURL}/posts/deleted/all?_limit=10&_page=1`
+    );
+  }
+  /* undo delete post */
+  undoDeletePost(id: string): Observable<IPosts> {
+    return this.http.put<IPosts>(`${this.baseURL}/posts/restore/${id}`, {});
+  }
+  /* delete post */
+  deletePost(id: string): Observable<IPosts> {
+    return this.http.delete<IPosts>(`${this.baseURL}/posts/${id}`);
+  }
 }

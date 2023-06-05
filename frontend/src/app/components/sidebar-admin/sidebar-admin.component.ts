@@ -50,6 +50,12 @@ export class SidebarAdminComponent {
       icon: 'fa-solid fa-tag',
       isActive: false,
     },
+    {
+      routerLink: 'trash-can',
+      label: 'Trash can',
+      icon: 'fa-solid fa-trash',
+      isActive: false,
+    },
   ];
   constructor(
     private location: Location,

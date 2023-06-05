@@ -55,7 +55,6 @@ export class ManagePostsComponent {
 
   /* handle delete post */
   handleDeletePost(id: string) {
-    console.log(id);
     this.postsService.deleteFakePost(id).subscribe(
       () => {
         this.getAllPost();

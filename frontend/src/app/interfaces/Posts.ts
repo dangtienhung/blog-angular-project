@@ -1,12 +1,18 @@
 import { ICategory } from './Category';
 import { IUser } from './User';
 
+interface IImage {
+  _id: string;
+  url: string;
+  public_id: string;
+}
+
 export interface IPosts {
   _id: string;
   title: string;
   author: IUser;
   content: string;
-  images: any[];
+  images: IImage[];
   likes: number | string;
   tags: any[];
   category: ICategory;

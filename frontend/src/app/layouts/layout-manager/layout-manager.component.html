@@ -120,6 +120,7 @@
               class="{{ post.status === 'pending' ? 'bg-danger' : 'bg-red' }}"
             >
               <td>{{ i + 1 }}</td>
+              <<<<<<< HEAD
               <td>
                 <div class="post__image-group">
                   <div class="post__image-wrapper">
@@ -133,6 +134,12 @@
                 </div>
               </td>
               <td>{{ post.author.username }}</td>
+              =======
+              <td>{{ post.title }}</td>
+              <td>
+                {{ post?.author?.username || "Người dùng không tồn tại" }}
+              </td>
+              >>>>>>> 1beaeba7e11cffe64e1f651a4fd666b18f5e2288
               <td>{{ post.category.name }}</td>
               <td>
                 <span
