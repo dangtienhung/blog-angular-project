@@ -16,6 +16,7 @@ import { ManagerTrashCanComponent } from 'src/app/components/manager-trash-can/m
 import { NgModule } from '@angular/core';
 import { PostAddComponent } from 'src/app/modules/posts/post-add/post-add.component';
 import { PostEditComponent } from 'src/app/modules/posts/post-edit/post-edit.component';
+import { ViewCommentComponent } from 'src/app/components/manager-comments/view-comment/view-comment.component';
 
 const routes: Routes = [
   {
@@ -37,7 +38,14 @@ const routes: Routes = [
       { path: 'add-category', component: AddCategoryComponent },
       { path: 'edit-category/:id', component: EditCategoryComponent },
       { path: 'manager-tags', component: ManagerTagsComponent },
-      { path: 'manager-comments', component: ManagerCommentsComponent },
+      {
+        path: 'manager-comments',
+        component: ManagerCommentsComponent,
+      },
+      {
+        path: 'view-comment/:id',
+        component: ViewCommentComponent,
+      },
       { path: 'hash-tags-add', component: HashTagAddComponent },
       { path: 'hash-tags-edit/:id', component: HashTagEditComponent },
       { path: 'trash-can', component: ManagerTrashCanComponent },

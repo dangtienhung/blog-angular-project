@@ -54,7 +54,7 @@ ConnectDB();
 app.use('/api/v1', CatRoute);
 
 /* router comment*/
-app.use('/api/v1/comments', commentRouter);
+app.use('/api/v1', commentRouter);
 
 /* router tag*/
 app.use('/api/v1/tag', tagRouter);

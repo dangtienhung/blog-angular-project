@@ -186,6 +186,7 @@ export const postController = {
   deletePost: async (req, res) => {
     try {
       const { id } = req.params;
+      // console.log(id);
       const post = await Post.findByIdAndRemove(id);
       if (!post) {
         return res.status(400).json({ message: 'Delete post failed' });

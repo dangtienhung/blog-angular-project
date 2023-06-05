@@ -56,9 +56,10 @@ import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { SliderComponent } from './components/slider/slider.component';
 import { ToastrModule } from 'ngx-toastr';
-import { UserInfoComponent } from './pages/user-info/user-info.component';
 import { TrashCanPostComponent } from './modules/trash-can/trash-can-post/trash-can-post.component';
 import { TrashCanUserComponent } from './modules/trash-can/trash-can-user/trash-can-user.component';
+import { UserInfoComponent } from './pages/user-info/user-info.component';
+import { ViewCommentComponent } from './components/manager-comments/view-comment/view-comment.component';
 
 @NgModule({
   declarations: [
@@ -105,6 +106,7 @@ import { TrashCanUserComponent } from './modules/trash-can/trash-can-user/trash-
     ManagerTrashCanComponent,
     TrashCanPostComponent,
     TrashCanUserComponent,
+    ViewCommentComponent,
   ],
   imports: [
     BrowserModule,

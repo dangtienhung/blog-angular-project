@@ -1343,7 +1343,7 @@ paths:
               schema:
                 $ref: '#components/schemas/Comments'
 
-  /comments/countComment:
+  /countcommentPosts:
     get:
       tags:
         - Comment_blog
@@ -1352,9 +1352,28 @@ paths:
         200:
           description: Success
           content:
-            schema:
-              type: string
-              # properties:
+            application/json:
+              schema:
+                type: object
+                # properties:
+  /commentPosts/{id}:
+    get:
+      tags:
+        - Comment_blog
+      summary: get amount comment by Post
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
 
   /tag:
     get:
