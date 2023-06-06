@@ -32,6 +32,9 @@ export class PostsService {
   getAllPosts(): Observable<IDocPosts> {
     return this.http.get<IDocPosts>(`${baseURL}/posts`);
   }
+  getPostsApporved(): Observable<IDocPosts> {
+    return this.http.get<IDocPosts>(`${baseURL}/posts/approved`);
+  }
   getPost(id: number | string): Observable<any> {
     return this.http.get<any>(`${baseURL}/posts/${id}`);
   }
@@ -57,8 +60,8 @@ export class PostsService {
   }
 
   /*Search posts by title */
-  searchPost(keyword: string): Observable<IPosts[]> {
-    return this.http.get<IPosts[]>(`${baseURL}/posts?q=${keyword}`);
+  searchPost(keyword: string): Observable<IDocPosts> {
+    return this.http.get<IDocPosts>(`${baseURL}/posts/approved?q=${keyword}`);
   }
   /* get post with delete: true */
   getPostDeleted(): Observable<IDocPosts> {

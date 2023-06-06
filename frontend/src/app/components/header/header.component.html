@@ -31,13 +31,23 @@
       <div class="position-relative">
         <input
           type="text"
+          [value]="searchValue"
           class="search-input ps-4 py-3 border border-2 rounded text-medium text-gray"
           placeholder="Search posts..."
+          (input)="onInputChange($event)"
         />
+
         <i
-          class="fa-solid fa-magnifying-glass position-absolute top-50 translate-middle-y text-gray text-medium"
+          (click)="handleClear()"
+          class="fa-solid {{
+            searchValue ? 'fa-xmark' : 'fa-magnifying-glass'
+          }}  position-absolute top-50 translate-middle-y text-gray text-medium"
           style="right: 16px"
         ></i>
+        <app-search-result
+          [searchResult]="searchResult"
+          [isShowSearch]="isShowSearch"
+        ></app-search-result>
       </div>
     </div>
     <!-- <div class="col-1 d-flex justify-content-end">
@@ -79,9 +89,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item" routerLink="/" (click)="handleLogout()"
-                >Logout</a
-              >
+              <a class="dropdown-item" (click)="handleLogout()">Logout</a>
             </li>
           </ul>
         </div>

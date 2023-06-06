@@ -5,12 +5,13 @@
   <div class="row justify-content-center gx-5" style="height: 600px">
     <div class="post-left col-sm-12 col-lg-6 mb-5 h-100">
       <a
-        routerLink="/posts/{{ posts[0]._id }}"
+        *ngIf="newPost && newPost._id"
+        routerLink="/posts/{{ newPost._id }}"
         class="text-decoration-none text-black"
       >
         <div class="img mb-4" style="width: 600px">
           <img
-            *ngFor="let img of posts[0]?.images"
+            *ngFor="let img of newPost?.images"
             [src]="img.url"
             class="img-fluid"
             alt=""
@@ -29,25 +30,30 @@
           <div class="tag mb-2">
             <span
               class="d-inline-block font-600 bg-F3EDFF text-6B6B6B rounded-4 text-sm px-3"
-              >{{ posts[0].category.name }}</span
+              *ngIf="newPost && newPost.category.name"
+              >{{ newPost.category.name }}</span
             >
           </div>
           <div class="new-post-item-title">
-            <h3>{{ posts[0].title }}</h3>
+            <h3 *ngIf="newPost && newPost.title">{{ newPost.title }}</h3>
           </div>
         </div>
         <div class="post-left-bottom">
           <div class="info d-flex align-items-center gap-3">
-            <span class="text-6B6B6B text-sm font-600">{{
-              posts[0].createdAt
-            }}</span>
+            <span
+              class="text-6B6B6B text-sm font-600"
+              *ngIf="newPost && newPost.createdAt"
+              >{{ newPost.createdAt }}</span
+            >
             <span
               class="d-inline-block rounded-circle"
               style="width: 6px; height: 6px; background: #b1b5c3"
             ></span>
-            <span class="text-6B6B6B text-sm font-600">{{
-              posts[0].author.username
-            }}</span>
+            <span
+              class="text-6B6B6B text-sm font-600"
+              *ngIf="newPost && newPost.author; username"
+              >{{ newPost.author.username }}</span
+            >
           </div>
         </div>
       </div>

@@ -32,17 +32,15 @@
             <tr *ngFor="let user of dataTbody; let i = index">
               <td>{{ i + 1 }}</td>
               <td>
-                <a routerLink="/">
-                  <img
-                    [src]="
-                      user.avatar ||
-                      'https://api.multiavatar.com/' + user.username + '.png'
-                    "
-                    class="avatar"
-                    alt="Avatar"
-                  />
-                  <span class="text-truncate">{{ user.username }}</span>
-                </a>
+                <img
+                  [src]="
+                    user.avatar ||
+                    'https://api.multiavatar.com/' + user.username + '.png'
+                  "
+                  class="avatar"
+                  alt="Avatar"
+                />
+                <span class="text-truncate">{{ user.username }}</span>
               </td>
               <td>{{ user.email }}</td>
               <td>
@@ -117,10 +115,10 @@
           <tbody *ngIf="posts.length > 0">
             <tr
               *ngFor="let post of posts; let i = index"
-              class="{{ post.status === 'pending' ? 'bg-danger' : 'bg-red' }}"
+              class="{{ post.status === 'pending' ? 'bg-FFAF40' : 'bg-red' }}"
             >
               <td>{{ i + 1 }}</td>
-              <<<<<<< HEAD
+
               <td>
                 <div class="post__image-group">
                   <div class="post__image-wrapper">
@@ -133,14 +131,14 @@
                   {{ post.title }}
                 </div>
               </td>
-              <td>{{ post.author.username }}</td>
-              =======
-              <td>{{ post.title }}</td>
-              <td>
-                {{ post?.author?.username || "Người dùng không tồn tại" }}
-              </td>
-              >>>>>>> 1beaeba7e11cffe64e1f651a4fd666b18f5e2288
+              <td>{{ post.author.username || "Người dùng không tồn tại" }}</td>
+
+              <!-- <td>{{ post.title }}</td> -->
               <td>{{ post.category.name }}</td>
+              <!-- <td>
+                {{ post?.author?.username || "Người dùng không tồn tại" }}
+              </td> -->
+
               <td>
                 <span
                   class="text-light p-1 rounded {{
@@ -163,7 +161,7 @@
               <td>{{ post.likes.toLocaleString() }}</td>
               <td>
                 <button
-                  class="text-warning"
+                  class="text-23BB86"
                   (click)="getPostById(post._id!)"
                   data-toggle="modal"
                   data-target="#exampleModal"
@@ -369,7 +367,13 @@
                 <div class="col-sm-12 col-md-4 mb-4">
                   <div class="img">
                     <img
-                      src="{{ postInfo.author.avatar }}"
+                      [width]="100"
+                      src="{{
+                        postInfo.author.avatar ||
+                          'https://api.multiavatar.com/' +
+                            postInfo.author.username +
+                            '.png'
+                      }}"
                       alt=""
                       class="mx-auto"
                     />

@@ -1,53 +1,64 @@
-<div class="container pt-3 pb-3  pt-lg-2 pb-lg-3">
-    <div class="row mt-3">
-        <div class="col-3 ">
-            <div>
-                <ul *ngFor="let category of categories" class=" p-2 list-group" style="cursor: pointer; border-radius: 16px">
-                    <li (click)="getPosts(category._id!)" class="list-group-item list-group-item-action">
-                        <a class="cate-post" style="cursor: pointer;" > {{category.name}}</a>
-                    </li>
-                </ul>
-
-            </div>
-        </div>
-        <div class="col-9">
-            <div *ngFor="let post of posts" class="row pt-2">
-                <div class="col">
-                    <article class="blog-style2 card">
-                        <div class="feature-image col-sm-4">
-                            <div class="image-hover-style-1 image-frame">
-                                <a href="#">
-                                    <img  class=""  [src]="post.images[0].url">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="card-body col-sm-8 m-3">
-                            <div class="card-flex-content">
-                                <h4>
-                                    <a class="card-title lh-base" href="#">{{post.content}}</a>
-                                </h4>
-
-                                <div class="row pt-3 align-center">
-                                    <div class="col-lg-3">
-                                        <div class="author-block avatar ">
-                                            <img [src]="post.author.avatar">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-9">
-                                        <div class="author-block pt-2">
-                                            <p>{{post.author.username}}</p>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </article>
-                </div>
-
-
-            </div>
-        </div>
+<div class="container pt-3 pb-3 pt-lg-2 pb-lg-3">
+  <div class="row mt-3">
+    <div class="col-3">
+      <div>
+        <ul
+          *ngFor="let category of categories"
+          class="p-2 list-group"
+          style="cursor: pointer; border-radius: 16px"
+        >
+          <li
+            (click)="getPosts(category._id!)"
+            class="list-group-item list-group-item-action"
+          >
+            <a class="cate-post" style="cursor: pointer">
+              {{ category.name }}</a
+            >
+          </li>
+        </ul>
+      </div>
     </div>
+    <div class="col-9">
+      <div *ngFor="let post of posts" class="row pt-2">
+        <div class="col">
+          <article class="blog-style2 card">
+            <div class="feature-image col-sm-4">
+              <div class="image-hover-style-1 image-frame">
+                <a href="#">
+                  <img class="" [src]="post.images[0].url" />
+                </a>
+              </div>
+            </div>
+            <div class="card-body col-sm-8 m-3">
+              <div class="card-flex-content">
+                <h4>
+                  <a class="card-title lh-base" href="#">{{ post.title }}</a>
+                </h4>
+
+                <div class="row pt-3 align-center">
+                  <div class="col-lg-3">
+                    <div class="author-block avatar">
+                      <img
+                        [src]="
+                          post.author.avatar ||
+                          'https://api.multiavatar.com/' +
+                            post.author.username +
+                            '.png'
+                        "
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-9">
+                    <div class="author-block pt-2">
+                      <p>{{ post.author.username }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
