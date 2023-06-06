@@ -10,13 +10,7 @@ import { CommentService } from 'src/app/services/comment/comment.service';
 })
 export class ViewCommentComponent {
   title: string = 'Chi tiết bình luận';
-  theadTable: string[] = [
-    'STT',
-    'Tác giả',
-    'Nội dung',
-    // 'Trạng thái',
-    'Action',
-  ];
+  theadTable: string[] = ['STT', 'Tác giả', 'Nội dung', 'Ngày Tạo', 'Action'];
   viewCommentsList: IResViewComment[] = [];
   constructor(
     private commentService: CommentService,
