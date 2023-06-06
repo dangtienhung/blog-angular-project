@@ -70,6 +70,7 @@ import { EditUserComponent } from './modules/user/edit-user/edit-user.component'
 // import { EditTagComponent } from './modules/tag/edit-tag/edit-tag.component';
 // import { PostEditComponent } from './modules/posts/post-edit/post-edit.component';
 import { ViewCommentComponent } from './components/manager-comments/view-comment/view-comment.component';
+import { SearchResultComponent } from './components/search-result/search-result.component';
 
 @NgModule({
   declarations: [
@@ -119,6 +120,7 @@ import { ViewCommentComponent } from './components/manager-comments/view-comment
     TrashCanPostComponent,
     TrashCanUserComponent,
     ViewCommentComponent,
+    SearchResultComponent,
   ],
   imports: [
     BrowserModule,
