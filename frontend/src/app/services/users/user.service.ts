@@ -58,4 +58,17 @@ export class UserService {
   deleteUserReal(id: string) {
     return this.http.delete(`${this.baseURL}/delete/${id}`);
   }
+  /* update user */
+  updateUserInfo(
+    id: string,
+    user: {
+      username: string;
+      email: string;
+      password?: string;
+      address: string;
+      phone: string;
+    }
+  ): Observable<IUser> {
+    return this.http.put<IUser>(`${this.baseURL}/${id}`, user);
+  }
 }

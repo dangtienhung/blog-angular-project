@@ -1,9 +1,10 @@
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { Component } from '@angular/core';
 import { IUser } from 'src/app/interfaces/User';
-import { AuthService } from 'src/app/services/auth/auth.service';
-// import { UserService } from 'src/app/services/users/user.service';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
+
+// import { UserService } from 'src/app/services/users/user.service';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,9 @@ export class HeaderComponent {
   isLogin: boolean = localStorage.getItem('accessToken') ? true : false;
   isHidden: boolean = true;
   userInfo: IUser = JSON.parse(localStorage.getItem('user')!);
-  constructor(private auth: AuthService, private toastr: ToastrService) {}
+  constructor(private auth: AuthService, private toastr: ToastrService) {
+    console.log(this.userInfo);
+  }
 
   handleLogout() {
     Swal.fire({

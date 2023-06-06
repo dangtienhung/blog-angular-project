@@ -8,11 +8,7 @@
         <div class="card-header">Profile Picture</div>
         <div class="card-body text-center">
           <!-- Profile picture image-->
-          <img
-            class="img-account-profile rounded-circle mb-2 m-auto"
-            [src]="user.avatar"
-            alt=""
-          />
+          <img class="img-account-profile rounded-circle mb-2 m-auto" [src]="user.avatar" alt="" />
           <!-- Profile picture upload button-->
           <button class="btn btn-upload-img text-light" type="button">
             Upload new image
@@ -25,18 +21,25 @@
       <div class="card mb-4">
         <div class="card-header">Account Details</div>
         <div class="card-body">
-          <form [formGroup]="userInfo">
+          <form [formGroup]="userInfo" (submit)="handleSubmitForm()" autocomplete="off">
             <!-- Form Group (username)-->
             <div class="mb-3">
               <label class="small mb-1" for="inputUsername">Username</label>
-              <input
-                class="form-control"
-                id="inputUsername"
-                type="text"
-                placeholder="Enter your username"
-                value="username"
-                formControlName="username"
-              />
+              <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username"
+                value="username" formControlName="username" />
+              <div
+                *ngIf="userInfo.get('username')?.invalid && (userInfo.get('username')?.dirty || userInfo.get('username')?.touched)"
+                class="text-danger">
+                <div *ngIf="userInfo.get('username')?.errors?.['required']">
+                  Name is required.
+                </div>
+                <div *ngIf="userInfo.get('username')?.errors?.['minlength']">
+                  Name must be at least 3 characters long.
+                </div>
+                <div *ngIf="userInfo.get('username')?.errors?.['forbiddenName']">
+                  Name cannot be Bob.
+                </div>
+              </div>
             </div>
             <!-- Form Row-->
             <!-- <div class="row gx-3 mb-3">
@@ -51,49 +54,42 @@
                                 <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Luna">
                             </div>
                         </div> -->
-
             <!-- Form Group (email address)-->
             <div class="mb-3">
-              <label class="small mb-1" for="inputEmailAddress"
-                >Email address</label
-              >
-              <input
-                class="form-control"
-                id="inputEmailAddress"
-                type="email"
-                placeholder="Enter your email address"
-                value="name@example.com"
-                formControlName="email"
-              />
+              <label class="small mb-1" for="inputEmailAddress">Email address</label>
+              <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address"
+                value="name@example.com" formControlName="email" />
+              <div
+                *ngIf="userInfo.get('email')?.invalid && (userInfo.get('email')?.dirty || userInfo.get('email')?.touched)"
+                class="text-danger">
+                <div *ngIf="userInfo.get('email')?.errors?.['required']">
+                  Email is required.
+                </div>
+              </div>
             </div>
             <!-- Form Row-->
-            <div class="row gx-3 mb-3">
+            <div class=" row gx-3 mb-3">
               <!-- Form Group (phone number)-->
               <div class="col-md-6">
                 <label class="small mb-1" for="inputPhone">Address</label>
-                <input
-                  class="form-control"
-                  type="string"
-                  placeholder="Enter your address"
-                  formControlName="address"
-                />
+                <input class="form-control" type="text" placeholder="Enter your address" formControlName="address" />
               </div>
               <!-- Form Group (birthday)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputBirthday"
-                  >Phone number</label
-                >
-                <input
-                  class="form-control"
-                  id="inputBirthday"
-                  type="text"
-                  placeholder="Enter your phone number"
-                  formControlName="phone"
-                />
+                <label class="small mb-1" for="inputBirthday">Phone number</label>
+                <input class="form-control" id="inputBirthday" type="text" placeholder="Enter your phone number"
+                  formControlName="phone" />
+                <div
+                  *ngIf="userInfo.get('phone')?.invalid && (userInfo.get('phone')?.dirty || userInfo.get('phone')?.touched)"
+                  class="text-danger">
+                  <div *ngIf="userInfo.get('phone')?.errors?.['required']">
+                    Phone is required.
+                  </div>
+                </div>
               </div>
             </div>
             <!-- Save changes button-->
-            <button class="btn btn-upload-img text-light" type="button">
+            <button class="btn btn-upload-img text-light" type="submit" [disabled]="!userInfo.valid">
               Save changes
             </button>
           </form>
@@ -102,95 +98,49 @@
     </div>
   </div>
 </div>
-<div class="col-xl-8">
-  <!-- Account details card-->
+<!-- <div class="col-xl-8">
   <div class="card mb-4">
     <div class="card-header">Account Details</div>
     <div class="card-body">
       <form>
-        <!-- Form Group (username)-->
         <div class="mb-3">
           <label class="small mb-1" for="inputUsername">Username</label>
-          <input
-            class="form-control"
-            id="inputUsername"
-            type="text"
-            placeholder="Enter your username"
-            [value]="user.username"
-            [readOnly]="true"
-          />
+          <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username"
+            [value]="user.username" [readOnly]="true" />
         </div>
-        <!-- Form Row-->
         <div class="row gx-3 mb-3">
-          <!-- Form Group (first name)-->
           <div class="col-md-6">
             <label class="small mb-1" for="inputFirstName">First name</label>
-            <input
-              class="form-control"
-              id="inputFirstName"
-              type="text"
-              placeholder="Enter your first name"
-              value="Valerie"
-            />
+            <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name"
+              value="Valerie" />
           </div>
-          <!-- Form Group (last name)-->
           <div class="col-md-6">
             <label class="small mb-1" for="inputLastName">Last name</label>
-            <input
-              class="form-control"
-              id="inputLastName"
-              type="text"
-              placeholder="Enter your last name"
-              value="Luna"
-            />
+            <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name"
+              value="Luna" />
           </div>
         </div>
-
-        <!-- Form Group (email address)-->
         <div class="mb-3">
-          <label class="small mb-1" for="inputEmailAddress"
-            >Email address</label
-          >
-          <input
-            class="form-control"
-            id="inputEmailAddress"
-            type="email"
-            placeholder="Enter your email address"
-            [value]="user.email"
-            [readOnly]="true"
-          />
+          <label class="small mb-1" for="inputEmailAddress">Email address</label>
+          <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address"
+            [value]="user.email" [readOnly]="true" />
         </div>
-        <!-- Form Row-->
         <div class="row gx-3 mb-3">
-          <!-- Form Group (phone number)-->
           <div class="col-md-6">
             <label class="small mb-1" for="inputPhone">Phone number</label>
-            <input
-              class="form-control"
-              id="inputPhone"
-              type="tel"
-              placeholder="Enter your phone number"
-              value="555-123-4567"
-            />
+            <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number"
+              value="555-123-4567" />
           </div>
-          <!-- Form Group (birthday)-->
           <div class="col-md-6">
             <label class="small mb-1" for="inputBirthday">Birthday</label>
-            <input
-              class="form-control"
-              id="inputBirthday"
-              type="text"
-              name="birthday"
-              placeholder="Enter your birthday"
-              value="06/10/1988"
-            />
+            <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday"
+              value="06/10/1988" />
           </div>
         </div>
-        <!-- Save changes button-->
         <button class="btn btn-upload-img text-light" type="button">
           Save changes
         </button>
       </form>
     </div>
   </div>
-</div>
+</div> -->
