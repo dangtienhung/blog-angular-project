@@ -117,7 +117,7 @@ $frontend-theme: mat.define-light-theme(
   color: #000000;
 }
 .text-white {
-  color: #ffffff;
+  color: #ffffff !important;
 }
 .text-23BB86 {
   color: #23bb86;
@@ -129,12 +129,18 @@ $frontend-theme: mat.define-light-theme(
 .bg-F3EDFF {
   background: #f3edff;
 }
+.bg-FFAF40 {
+  background: #ffaf40 !important;
+}
 
 .noPadding {
   padding: 0 !important;
   margin: 0 !important;
 }
-
+.noMarginX {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
 .slick-track {
   padding: 26px 0px !important;
 }

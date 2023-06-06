@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { baseURL } from 'src/app/utils/instance';
+import { IUser } from 'src/app/interfaces/User';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +33,9 @@ export class PostsService {
   getAllPosts(): Observable<IDocPosts> {
     return this.http.get<IDocPosts>(`${baseURL}/posts`);
   }
+  getPostsApporved(): Observable<IDocPosts> {
+    return this.http.get<IDocPosts>(`${baseURL}/posts/approved`);
+  }
   getPost(id: number | string): Observable<any> {
     return this.http.get<any>(`${baseURL}/posts/${id}`);
   }
@@ -49,6 +53,7 @@ export class PostsService {
     // const options = this.getAccessToken();
     return this.http.put(`${baseURL}/posts/${id}`, post);
   }
+
   /* get post by id */
   getPostById(id: string): Observable<{ message: string; post: IPosts }> {
     return this.http.get<{ message: string; post: IPosts }>(
@@ -56,9 +61,16 @@ export class PostsService {
     );
   }
 
+  /* get posts by id user */
+  getPostByIdUser(id: string): Observable<{ message: string; data: IUser }> {
+    return this.http.get<{ message: string; data: IUser }>(
+      `${this.baseURL}/users/posts/all/${id}`
+    );
+  }
+
   /*Search posts by title */
-  searchPost(keyword: string): Observable<IPosts[]> {
-    return this.http.get<IPosts[]>(`${baseURL}/posts?q=${keyword}`);
+  searchPost(keyword: string): Observable<IDocPosts> {
+    return this.http.get<IDocPosts>(`${baseURL}/posts/approved?q=${keyword}`);
   }
   /* get post with delete: true */
   getPostDeleted(): Observable<IDocPosts> {

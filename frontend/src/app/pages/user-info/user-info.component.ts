@@ -1,10 +1,9 @@
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { IUser, IUserRequest } from 'src/app/interfaces/User';
 
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { Component } from '@angular/core';
-import { IUser } from 'src/app/interfaces/User';
-import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/services/users/user.service';
 
 @Component({
@@ -13,21 +12,23 @@ import { UserService } from 'src/app/services/users/user.service';
   styleUrls: ['./user-info.component.scss'],
 })
 export class UserInfoComponent {
-  user!: IUser;
+  user!: IUserRequest;
   userInfo = this.formUserInfo.group({
     username: ['', [Validators.required, Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
-    address: [''],
-    phone: [''],
+
+    address: ['', [Validators.required]],
+    phone: ['', [Validators.required]],
+    // password: ['', [Validators.required]],
   });
+
   constructor(
+    private profile: UserService,
     private auth: AuthService,
-    private formUserInfo: FormBuilder,
-    private userService: UserService,
-    private route: ActivatedRoute,
-    private toastr: ToastrService
+    private formUserInfo: FormBuilder
   ) {
     this.user = this.auth.getUserLogin();
+
     this.userInfo.patchValue({
       username: this.user.username,
       email: this.user.email,
@@ -35,25 +36,34 @@ export class UserInfoComponent {
       phone: this.user.phone,
     });
   }
-  /* add form */
-  handleSubmitForm() {
-    if (this.userInfo.invalid) return;
-    const userInfo = {
-      username: this.userInfo.value.username!,
-      email: this.userInfo.value.email!,
+
+  get checkUsername() {
+    return this.userInfo.get('username') as FormControl;
+  }
+
+  get checkEmail() {
+    return this.userInfo.get('email') as FormControl;
+  }
+
+  get checkAddress() {
+    return this.userInfo.get('address') as FormControl;
+  }
+
+  get checkPhone() {
+    return this.userInfo.get('phone') as FormControl;
+  }
+
+  onEdit() {
+    const editProfile: IUserRequest = {
+      username: this.userInfo.value.username || '',
+      email: this.userInfo.value.email || '',
       address: this.userInfo.value.address || '',
       phone: this.userInfo.value.phone || '',
     };
-    console.log(
-      '🚀 ~ file: user-info.component.ts:47 ~ UserInfoComponent ~ handleSubmitForm ~ userInfo:',
-      userInfo
-    );
-    this.route.paramMap.subscribe((params) => {
-      const id = params.get('id');
-      if (!id) return;
-      this.userService.updateUserInfo(id, userInfo).subscribe(() => {
-        this.toastr.success('Update user info success');
-      });
+
+    this.profile.updateUser(this.user._id, editProfile).subscribe((data) => {
+      console.log(data);
+      localStorage.setItem(this.auth.TOKEN_USER, JSON.stringify(data.user));
     });
   }
 }

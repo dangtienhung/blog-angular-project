@@ -17,12 +17,16 @@ export class NewPostComponent {
     vertical: true,
     dots: false,
   };
-  posts: IPosts[] = [];
+  posts!: IPosts[];
+  newPost!: IPosts;
 
   constructor(private postService: PostsService) {
-    this.postService.getAllPosts().subscribe((data) => {
+    this.postService.getPostsApporved().subscribe((data) => {
       // console.log(data.posts.docs);
       this.posts = data.posts.docs;
+      this.newPost = this.posts[0];
+
+      // console.log(this.posts);
     });
   }
 }
