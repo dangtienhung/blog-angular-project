@@ -32,8 +32,10 @@ export class PostsService {
   getAllPosts(): Observable<IDocPosts> {
     return this.http.get<IDocPosts>(`${baseURL}/posts`);
   }
-
-  deleteFakePost(id: string) {
+  getPost(id: number | string): Observable<any> {
+    return this.http.get<any>(`${baseURL}/posts/${id}`);
+  }
+  deleteFakePost(id: number | string) {
     return this.http.put(`${baseURL}/posts/delete-fake/${id}`, {
       deleted: true,
     });
@@ -52,5 +54,24 @@ export class PostsService {
     return this.http.get<{ message: string; post: IPosts }>(
       `${this.baseURL}/posts/${id}`
     );
+  }
+
+  /*Search posts by title */
+  searchPost(keyword: string): Observable<IPosts[]> {
+    return this.http.get<IPosts[]>(`${baseURL}/posts?q=${keyword}`);
+  }
+  /* get post with delete: true */
+  getPostDeleted(): Observable<IDocPosts> {
+    return this.http.get<IDocPosts>(
+      `${baseURL}/posts/deleted/all?_limit=10&_page=1`
+    );
+  }
+  /* undo delete post */
+  undoDeletePost(id: string): Observable<IPosts> {
+    return this.http.put<IPosts>(`${this.baseURL}/posts/restore/${id}`, {});
+  }
+  /* delete post */
+  deletePost(id: string): Observable<IPosts> {
+    return this.http.delete<IPosts>(`${this.baseURL}/posts/${id}`);
   }
 }

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { IPosts } from 'src/app/interfaces/Posts';
+import { PostsService } from 'src/app/services/posts/posts.service';
 
 @Component({
   selector: 'app-new-post',
@@ -15,55 +17,12 @@ export class NewPostComponent {
     vertical: true,
     dots: false,
   };
-  posts: any[] = [
-    {
-      image:
-        'https://staticg.sportskeeda.com/editor/2022/02/acf7d-16444269659011-1920.jpg',
-      category: 'Kiến thức',
-      date: 'Mar 23',
-      author: 'Andiez Le',
-      title: 'Hướng dẫn setup phòng cực chill dành cho người mới toàn tập',
-    },
-    {
-      image:
-        'https://staticg.sportskeeda.com/editor/2022/02/acf7d-16444269659011-1920.jpg',
-      category: 'Kiến thức',
-      date: 'Mar 23',
-      author: 'Andiez Le',
-      title:
-        'Hướng dẫn setup phòng cực chill dành cho người mới toàn tập Hướng dẫn setup phòng cực chill dành cho người mới toàn tập',
-    },
-    {
-      image:
-        'https://staticg.sportskeeda.com/editor/2022/02/acf7d-16444269659011-1920.jpg',
-      category: 'Kiến thức',
-      date: 'Mar 23',
-      author: 'Andiez Le',
-      title: 'Hướng dẫn setup phòng cực chill dành cho người mới toàn tập',
-    },
-    {
-      image:
-        'https://staticg.sportskeeda.com/editor/2022/02/acf7d-16444269659011-1920.jpg',
-      category: 'Kiến thức',
-      date: 'Mar 23',
-      author: 'Andiez Le',
-      title: 'Hướng dẫn setup',
-    },
-    {
-      image:
-        'https://staticg.sportskeeda.com/editor/2022/02/acf7d-16444269659011-1920.jpg',
-      category: 'Kiến thức',
-      date: 'Mar 23',
-      author: 'Andiez Le',
-      title: 'Hướng dẫn setup',
-    },
-    {
-      image:
-        'https://staticg.sportskeeda.com/editor/2022/02/acf7d-16444269659011-1920.jpg',
-      category: 'Kiến thức',
-      date: 'Mar 23',
-      author: 'Andiez Le',
-      title: 'Hướng dẫn setup',
-    },
-  ];
+  posts: IPosts[] = [];
+
+  constructor(private postService: PostsService) {
+    this.postService.getAllPosts().subscribe((data) => {
+      // console.log(data.posts.docs);
+      this.posts = data.posts.docs;
+    });
+  }
 }

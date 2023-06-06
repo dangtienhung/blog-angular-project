@@ -4,6 +4,7 @@ import { LayoutClientComponent } from '../../layouts/layout-client/layout-client
 import { HomepageComponent } from '../../pages/homepage/homepage.component';
 import { UserInfoComponent } from '../../pages/user-info/user-info.component';
 import { PostsComponent } from '../../components/posts/posts.component';
+import { PostsDetailPageComponent } from 'src/app/pages/posts-detail-page/posts-detail-page.component';
 import { BlogPageComponent } from 'src/app/pages/blog-page/blog-page.component';
 
 const routes: Routes = [
@@ -16,17 +17,17 @@ const routes: Routes = [
         component: HomepageComponent,
       },
       {
-        path: 'user-info',
+        path: 'user-info/:id',
         component: UserInfoComponent,
       },
       {
-        path: 'post/:id',
-        component: PostsComponent,
+        path: 'posts/:id',
+        component: PostsDetailPageComponent,
       },
       {
         path: 'blog',
-        component: BlogPageComponent
-      }
+        component: BlogPageComponent,
+      },
     ],
   },
 ];
