@@ -171,4 +171,37 @@ export const userController = {
       return res.status(500).json({ msg: error.message });
     }
   },
+
+  /* get all post by userId */
+  getAllPostByUserId: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { _page = 1, _limit = 10, q } = req.query;
+      const query = q
+        ? {
+            $and: [
+              {
+                $or: [{ username: { $regex: q, $options: 'i' } }, { email: { $regex: q, $options: 'i' } }],
+              },
+              { deleted: false },
+            ],
+          }
+        : { deleted: false };
+      const users = await User.findById(id).populate({
+        match: query,
+        path: 'postList',
+        populate: [
+          { path: 'author', select: '-postList -isVerified -role -password' },
+          { path: 'category', select: '-posts' },
+        ],
+      });
+      const { password, ...other } = users._doc;
+      if (!users) {
+        return res.status(400).json({ msg: 'Get all users failed' });
+      }
+      return res.status(200).send({ message: 'success', data: other });
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
 };

@@ -11,5 +11,5 @@ router.delete('/users/delete/:id', userController.deleteReal);
 router.put('/users/:id', userController.updateUser);
 router.post('/users/create', userController.createUser);
 router.get('/users/counter/user-new', userController.countNewUser);
-
+router.get('/users/posts/all/:id', userController.getAllPostByUserId);
 export default router;

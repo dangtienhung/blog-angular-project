@@ -41,7 +41,7 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
             <li><a routerLink="user-info" class="dropdown-item" style="cursor: pointer;">My profile</a></li>
-            <li><a class="dropdown-item" style="cursor: pointer;">History blog</a></li>
+            <li><a routerLink="history-blog" class="dropdown-item" style="cursor: pointer;">History blog</a></li>
             <li><a class="dropdown-item" style="cursor: pointer;" (click)="logOut()">Logout</a></li>
           </ul>
         </li>
@@ -52,10 +52,10 @@
     </div>
     <div *ngIf="!user" class="col-2 d-flex justify-content-end">
       <a routerLink="login"
-        class="d-inline-block text-center hoverBtn btn-signin text-decoration-none text-white rounded text-xl font-600">Log
-        out</a>
+        class="d-inline-block text-center hoverBtn btn-signin text-decoration-none text-white rounded text-xl font-600">Log in
+      </a>
     </div>
-    <ng-template #login class="col-2 d-flex justify-content-end gap-2">
+    <!-- <ng-template #login class="col-2 d-flex justify-content-end gap-2">
       <div class="col-2 d-flex justify-content-end gap-2">
         <a routerLink="login"
           class="d-inline-block text-center hoverBtn btn-signin text-decoration-none text-white rounded text-xl font-600">Log
@@ -64,6 +64,6 @@
           class=" d-inline-block text-center hoverBtn btn-signup text-decoration-none rounded text-xl font-600">Register
         </a>
       </div>
-    </ng-template>
+    </ng-template> -->
   </div>
 </header>

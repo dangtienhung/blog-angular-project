@@ -56,6 +56,7 @@ import { AddTagComponent } from './modules/tag/add-tag/add-tag.component';
 import { EditTagComponent } from './modules/tag/edit-tag/edit-tag.component';
 import { PostEditComponent } from './modules/posts/post-edit/post-edit.component';
 import { ViewCommentComponent } from './components/manager-comments/view-comment/view-comment.component';
+import { HistoryBlogComponent } from './pages/history-blog/history-blog.component';
 
 @NgModule({
   declarations: [
@@ -100,6 +101,7 @@ import { ViewCommentComponent } from './components/manager-comments/view-comment
     BlogPageComponent,
     PostEditComponent,
     ViewCommentComponent,
+    HistoryBlogComponent,
   ],
   imports: [
     BrowserModule,
