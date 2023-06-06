@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { baseURL } from 'src/app/utils/instance';
+import { IUser } from 'src/app/interfaces/User';
 
 @Injectable({
   providedIn: 'root',
@@ -52,10 +53,18 @@ export class PostsService {
     // const options = this.getAccessToken();
     return this.http.put(`${baseURL}/posts/${id}`, post);
   }
+
   /* get post by id */
   getPostById(id: string): Observable<{ message: string; post: IPosts }> {
     return this.http.get<{ message: string; post: IPosts }>(
       `${this.baseURL}/posts/${id}`
+    );
+  }
+
+  /* get posts by id user */
+  getPostByIdUser(id: string): Observable<{ message: string; data: IUser }> {
+    return this.http.get<{ message: string; data: IUser }>(
+      `${this.baseURL}/users/posts/all/${id}`
     );
   }
 

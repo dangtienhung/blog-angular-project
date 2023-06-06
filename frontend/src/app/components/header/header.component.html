@@ -74,6 +74,15 @@
               [alt]="userInfo.username"
             />
           </a>
+          <!-- <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+            <li><a routerLink="user-info" class="dropdown-item" style="cursor: pointer;">My profile</a></li>
+            <li><a routerLink="history-blog" class="dropdown-item" style="cursor: pointer;">History blog</a></li>
+            <li><a class="dropdown-item" style="cursor: pointer;" (click)="logOut()">Logout</a></li>
+          </ul> -->
+        </li>
+      </ul>
+      <!-- <button (click)="logOut()"
+        class="d-block text-center btn-signup text-decoration-none text-white rounded text-xl font-600">Log out</button> -->
           <ul
             class="dropdown-menu dropdown-menu-end {{
               isHidden ? 'd-none' : 'd-block'
@@ -106,6 +115,9 @@
     </div>
     <!-- <div *ngIf="!user" class="col-2 d-flex justify-content-end">
       <a routerLink="login"
+        class="d-inline-block text-center hoverBtn btn-signin text-decoration-none text-white rounded text-xl font-600">Log in
+      </a>
+    </div>
         class="d-inline-block text-center hoverBtn btn-signin text-decoration-none text-white rounded text-xl font-600">Log
         out</a>
     </div> -->

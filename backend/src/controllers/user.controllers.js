@@ -186,6 +186,7 @@ export const userController = {
       return res.status(500).json({ msg: error.message });
     }
   },
+
   /* get users deleted */
   getUserDeleted: async (req, res) => {
     try {
