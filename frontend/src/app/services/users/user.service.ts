@@ -39,8 +39,8 @@ export class UserService {
     return this.http.post(`${this.baseURL}/create`, user);
   }
   /* update */
-  updateUser(id: string, user: IUserRequest) {
-    return this.http.put(`${this.baseURL}/${id}`, user);
+  updateUser(id: string | undefined, user: IUserRequest) {
+    return this.http.put<any>(`${this.baseURL}/${id}`, user);
   }
   /* delete fake */
   deleteUserFake(id: string) {

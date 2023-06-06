@@ -48,9 +48,11 @@ export interface IUserRegister {
 
 export interface IUserRequest {
   _id?: string;
-  username: string;
+  username?: string;
   password?: string;
-  email: string;
-  avatar: string;
-  role: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  avatar?: string;
+  role?: string;
 }

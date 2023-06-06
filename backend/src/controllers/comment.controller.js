@@ -1,6 +1,7 @@
 import CommentValidate from '../validates/comment.validate.js';
 import Post from '../models/posts.model.js';
 import User from '../models/users.models.js';
+import commentsModel from '../models/comments.model.js';
 
 export const getComments = async (req, res) => {
   try {
@@ -12,8 +13,9 @@ export const getComments = async (req, res) => {
       sort: { createAt: -1 },
       populate: [
         { path: 'userId', select: '_id username' },
-        { path: 'postId', select: '_id title' },
+        { path: 'postId', select: '_id title deleted' },
       ],
+      // query: { deleted: true },
     };
     const comment = await commentsModel.paginate({}, options);
     if (!comment) {
@@ -54,6 +56,13 @@ export const countCommentPost = async (req, res) => {
           from: 'User',
           localField: 'Post.author',
           foreignField: '_id',
+          // pipeline: [
+          //   {
+          //     $match: {
+          //       'Post.deleted': false,
+          //     },
+          //   },
+          // ],
           as: 'Author',
         },
       },
@@ -72,6 +81,7 @@ export const countCommentPost = async (req, res) => {
             title: 1,
             author: 1,
             content: 1,
+            deleted: 1,
             createdAt: 1,
           },
           Author: {
@@ -84,6 +94,11 @@ export const countCommentPost = async (req, res) => {
       {
         $sort: {
           createAt: -1,
+        },
+      },
+      {
+        $match: {
+          'Post.deleted': false,
         },
       },
     ]);
@@ -167,7 +182,6 @@ export const sendComment = async (req, res) => {
 export const deleteComment = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
     //delete Comment
     const comment = await commentsModel.findByIdAndRemove(id);
     console.log(comment);

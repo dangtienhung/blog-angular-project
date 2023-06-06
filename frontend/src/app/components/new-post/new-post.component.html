@@ -51,7 +51,7 @@
             ></span>
             <span
               class="text-6B6B6B text-sm font-600"
-              *ngIf="newPost && newPost.author; username"
+              *ngIf="newPost && newPost.author"
               >{{ newPost.author.username }}</span
             >
           </div>
@@ -67,18 +67,25 @@
         >
           <div ngxSlickItem class="slide" *ngFor="let post of posts">
             <a
+              *ngIf="post && post._id"
               routerLink="/posts/{{ post._id }}"
               class="text-decoration-none text-black"
             >
               <div class="row post-item">
                 <div class="col-4">
                   <div class="img">
-                    <img [src]="post.images[0].url" class="img-fluid" alt="" />
+                    <img
+                      *ngIf="post && post.images[0].url"
+                      [src]="post.images[0].url"
+                      class="img-fluid"
+                      alt=""
+                    />
                   </div>
                 </div>
                 <div class="col-8">
                   <div class="tag mb-2">
                     <span
+                      *ngIf="post && post.category.name"
                       class="d-inline-block font-600 bg-light text-6B6B6B rounded-3 text-sm px-3"
                       >{{ post.category.name }}</span
                     >
@@ -87,16 +94,20 @@
                     <h4 class="text-xl">{{ post.title }}</h4>
                   </div>
                   <div class="info d-flex align-items-center gap-3">
-                    <span class="text-6B6B6B text-sm font-600">{{
-                      post.createdAt
-                    }}</span>
+                    <span
+                      *ngIf="post && post.createdAt"
+                      class="text-6B6B6B text-sm font-600"
+                      >{{ post.createdAt }}</span
+                    >
                     <span
                       class="d-inline-block rounded-circle"
                       style="width: 6px; height: 6px; background: #b1b5c3"
                     ></span>
-                    <span class="text-6B6B6B text-sm font-600">{{
-                      post.author.username
-                    }}</span>
+                    <span
+                      *ngIf="post && post.author"
+                      class="text-6B6B6B text-sm font-600"
+                      >{{ post.author.username }}</span
+                    >
                   </div>
                 </div>
               </div>
