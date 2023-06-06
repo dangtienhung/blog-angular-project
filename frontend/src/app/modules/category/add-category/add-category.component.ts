@@ -5,6 +5,7 @@ import { CategoryService } from './../../../services/category/category.service';
 import { Component } from '@angular/core';
 import { ICategory } from 'src/app/interfaces/Category';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 // import { ToastrService } from 'ngx-toastr';
 
@@ -21,7 +22,8 @@ export class AddCategoryComponent {
   constructor(
     private builder: FormBuilder,
     private categoryService: CategoryService,
-    private router: Router // private toastr: ToastrService
+    private router: Router, // private toastr: ToastrService
+    private toastr: ToastrService
   ) {
     this.categoryService.getAllCategories().subscribe((categoriesData) => {
       this.categories = categoriesData.data;
@@ -46,6 +48,7 @@ export class AddCategoryComponent {
 
     this.categoryService.addNewCategory(category).subscribe(() => {
       this.router.navigate(['/admin/manager-categories']);
+      this.toastr.success('Add category successfully');
     });
   }
 }

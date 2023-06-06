@@ -51,15 +51,30 @@
                                         </div>
                                     </div>
 
-                                </div>
-
-                            </div>
-                        </div>
-                    </article>
+                <div class="row pt-3 align-center">
+                  <div class="col-lg-3">
+                    <div class="author-block avatar">
+                      <img
+                        [src]="
+                          post.author.avatar ||
+                          'https://api.multiavatar.com/' +
+                            post.author.username +
+                            '.png'
+                        "
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-9">
+                    <div class="author-block pt-2">
+                      <p>{{ post.author.username }}</p>
+                    </div>
+                  </div>
                 </div>
-
-
+              </div>
             </div>
+          </article>
         </div>
+      </div>
     </div>
+  </div>
 </div>

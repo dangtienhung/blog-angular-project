@@ -14,11 +14,12 @@ export class ManagerCommentsComponent implements OnInit {
     'Tên bài đăng',
     'Tác giả',
     'SL Comment',
-    // 'Trạng thái',
     'Action',
   ];
   commentList: IResCountComment[] = [];
-  constructor(private commentService: CommentService) {}
+  constructor(private commentService: CommentService) {
+    console.log(this.commentList);
+  }
 
   ngOnInit(): void {
     this.getAllCommentRefPost();
