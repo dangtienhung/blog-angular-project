@@ -28,10 +28,16 @@
         </div>
         <div class="post-left-bottom">
           <div class="info d-flex align-items-center gap-3">
-            <span class="text-6B6B6B text-sm font-600" *ngIf="newPost && newPost.createdAt">{{ newPost.createdAt
+            <!-- <span class="text-6B6B6B text-sm font-600" *ngIf="newPost && newPost.createdAt">{{ newPost.createdAt
               }}</span>
             <span class="d-inline-block rounded-circle" style="width: 6px; height: 6px; background: #b1b5c3"></span>
             <span class="text-6B6B6B text-sm font-600" *ngIf="newPost && newPost.author">{{ newPost.author.username
+              }}</span> -->
+            <span class="text-6B6B6B text-sm font-600" *ngIf="newPost && newPost.createdAt">{{ newPost.createdAt
+              }}</span>
+            <span class="d-inline-block rounded-circle" style="width: 6px; height: 6px; background: #b1b5c3"></span>
+            <span class="text-6B6B6B text-sm font-600" *ngIf="newPost">{{
+              newPost.author ? newPost.author.username : "anonymous"
               }}</span>
           </div>
         </div>
@@ -58,11 +64,18 @@
                     <h4 class="text-xl">{{ post.title }}</h4>
                   </div>
                   <div class="info d-flex align-items-center gap-3">
-                    <span *ngIf="post && post.createdAt" class="text-6B6B6B text-sm font-600">{{ post.createdAt
+                    <!-- <span *ngIf="post && post.createdAt" class="text-6B6B6B text-sm font-600">{{ post.createdAt
                       }}</span>
                     <span class="d-inline-block rounded-circle"
                       style="width: 6px; height: 6px; background: #b1b5c3"></span>
                     <span *ngIf="post && post.author" class="text-6B6B6B text-sm font-600">{{ post.author.username
+                      }}</span> -->
+                    <span *ngIf="post && post.createdAt" class="text-6B6B6B text-sm font-600">{{ post.createdAt
+                      }}</span>
+                    <span class="d-inline-block rounded-circle"
+                      style="width: 6px; height: 6px; background: #b1b5c3"></span>
+                    <span class="text-6B6B6B text-sm font-600" *ngIf="post">{{
+                      post.author ? post.author.username : "anonymous"
                       }}</span>
                   </div>
                 </div>

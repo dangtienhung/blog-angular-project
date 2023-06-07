@@ -21,14 +21,14 @@
           <article class="blog-style2 card">
             <div class="feature-image col-sm-4">
               <div class="image-hover-style-1 image-frame">
-                <a href="#">
+                <a routerLink="/posts/{{post._id}}">
                   <img class="" [src]="post.images[0].url">
                 </a>
               </div>
             </div>
             <div class="card-body col-sm-8">
               <div class="card-flex-content">
-                <h6 class="label label-info mb-3"><span> {{post?.category?.name}}</span></h6>
+                <!-- <h6 class="label label-info mb-3"><span> {{post?.category?.name}}</span></h6>
 
                 <h5>
                   <a class="card-title lh-base" href="#">{{post.title}}</a>
@@ -40,9 +40,7 @@
 
                 <div class="user-info row pt-2 align-center">
                   <div class="col-lg-1 p-0 ps-3">
-                    <!-- <div class="author-block avatar "> -->
                     <img [src]="post?.author?.avatar" alt="avata image" style="width: 56px; height: 56px;">
-                    <!-- </div> -->
                   </div>
                   <div class="col-lg-11 p-0">
                     <div class="author-block pt-2 ps-3">
@@ -66,7 +64,48 @@
                         <p>{{ post?.author?.username || 'Người dùng blog' }}</p>
                       </div>
                     </div>
+                  </div> -->
+                <h6 class="label label-info mb-3"><span> {{post.category.name}}</span></h6>
+                <h5>
+                  <a class="card-title lh-base" href="#">{{post.title}}</a>
+                </h5>
+                <div class="demo-content">
+                  {{post.content}}
+                </div>
+                <div class="user-info row pt-2 align-center">
+                  <div class="col-lg-1 p-0 ps-3">
+                    <!-- <div class="author-block avatar "> -->
+                    <img [src]="
+                                            post.author.avatar ||
+                                            'https://api.multiavatar.com/' +
+                                              post.author.username +
+                                              '.png'
+                                          " />
+                    <!-- </div> -->
                   </div>
+                  <div class="col-lg-11 p-0">
+                    <div class="author-block pt-2 ps-3">
+                      <p>{{post.author?.username || 'Người dùng blog'}}</p>
+                    </div>
+                  </div>
+
+                  <!-- <div class="row pt-3 align-center">
+                                        <div class="col-lg-3">
+                                            <div class="author-block avatar">
+                                                <img [src]="
+                          post.author.avatar ||
+                          'https://api.multiavatar.com/' +
+                            post.author.username +
+                            '.png'
+                        " />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div class="author-block pt-2">
+                                                <p>{{ post.author.username }}</p>
+                                            </div>
+                                        </div>
+                                    </div> -->
                 </div>
               </div>
             </div>

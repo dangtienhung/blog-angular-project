@@ -1,6 +1,7 @@
 import {
   IUser,
   IUserDocs,
+  IUserPosts,
   IUserRequest,
   IUserResponse,
 } from 'src/app/interfaces/User';
@@ -70,5 +71,9 @@ export class UserService {
     }
   ): Observable<IUser> {
     return this.http.put<IUser>(`${this.baseURL}/${id}`, user);
+  }
+  /*get list user posts */
+  getUserPosts(id: string) {
+    return this.http.get<IUserPosts>(`${this.baseURL}/posts/all/${id}`);
   }
 }

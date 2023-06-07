@@ -4,6 +4,7 @@ import { IUser, IUserRequest } from 'src/app/interfaces/User';
 
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { IPosts } from 'src/app/interfaces/Posts';
 import { UserService } from 'src/app/services/users/user.service';
 
 @Component({
@@ -13,6 +14,7 @@ import { UserService } from 'src/app/services/users/user.service';
 })
 export class UserInfoComponent {
   user!: IUserRequest;
+  listUserPosts!: IPosts[];
   userInfo = this.formUserInfo.group({
     username: ['', [Validators.required, Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
@@ -25,7 +27,8 @@ export class UserInfoComponent {
   constructor(
     private profile: UserService,
     private auth: AuthService,
-    private formUserInfo: FormBuilder
+    private formUserInfo: FormBuilder,
+    private router: ActivatedRoute
   ) {
     this.user = this.auth.getUserLogin();
 
@@ -34,6 +37,20 @@ export class UserInfoComponent {
       email: this.user.email,
       address: this.user.address,
       phone: this.user.phone,
+    });
+
+    this.router.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      this.profile.getUserPosts(id!).subscribe(
+        ({ data }) => {
+          if (data.postList) {
+            this.listUserPosts = data.postList;
+          }
+        },
+        (err) => {
+          console.log(err.message);
+        }
+      );
     });
   }
 

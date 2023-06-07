@@ -36,7 +36,11 @@ export class HeaderComponent {
     private toastr: ToastrService,
     private redirect: Router,
     private postsService: PostsService
-  ) {}
+  ) {
+    if (!this.userInfo) {
+      this.redirect.navigate(['/']);
+    }
+  }
 
   handleLogout() {
     Swal.fire({
