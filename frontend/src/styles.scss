@@ -120,10 +120,14 @@ $frontend-theme: mat.define-light-theme(
   color: #ffffff !important;
 }
 .text-23BB86 {
-  color: #23bb86;
+  color: #23bb86 !important;
 }
 .text-3A1097 {
   color: #3a1097;
+}
+
+.bg-black {
+  background: #000;
 }
 
 .bg-F3EDFF {
@@ -131,6 +135,9 @@ $frontend-theme: mat.define-light-theme(
 }
 .bg-FFAF40 {
   background: #ffaf40 !important;
+}
+.bg-e74c3c {
+  background: #e74c3c !important;
 }
 
 .noPadding {

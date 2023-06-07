@@ -71,6 +71,7 @@ import { EditUserComponent } from './modules/user/edit-user/edit-user.component'
 // import { PostEditComponent } from './modules/posts/post-edit/post-edit.component';
 import { ViewCommentComponent } from './components/manager-comments/view-comment/view-comment.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
+import { ListUserPostsComponent } from './components/list-user-posts/list-user-posts.component';
 
 @NgModule({
   declarations: [
@@ -121,6 +122,7 @@ import { SearchResultComponent } from './components/search-result/search-result.
     TrashCanUserComponent,
     ViewCommentComponent,
     SearchResultComponent,
+    ListUserPostsComponent,
   ],
   imports: [
     BrowserModule,
