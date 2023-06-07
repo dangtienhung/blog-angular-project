@@ -19,6 +19,10 @@ export class CommentService {
     return this.http.post<IComment>(`${baseURL}/comments`, comment);
   }
 
+  getDetailComment(id: string): Observable<{message: 'Success'; data: IComment}> {
+    return this.http.get<{message: 'Success'; data: IComment}>(`${baseURL}/comments/${id}`);
+  }
+
   deleteComment(id: string): Observable<IComment> {
     return this.http.delete<IComment>(`${baseURL}/comments/${id}`);
   }
