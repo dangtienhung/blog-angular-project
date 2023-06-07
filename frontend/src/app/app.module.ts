@@ -73,6 +73,7 @@ import { ViewCommentComponent } from './components/manager-comments/view-comment
 import { HistoryBlogComponent } from './pages/history-blog/history-blog.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
 import { CommentsPostComponent } from './components/comments-post/comments-post.component';
+import { ListUserPostsComponent } from './components/list-user-posts/list-user-posts.component';
 
 @NgModule({
   declarations: [
@@ -125,6 +126,7 @@ import { CommentsPostComponent } from './components/comments-post/comments-post.
     HistoryBlogComponent,
     SearchResultComponent,
     CommentsPostComponent,
+    ListUserPostsComponent,
   ],
   imports: [
     BrowserModule,
