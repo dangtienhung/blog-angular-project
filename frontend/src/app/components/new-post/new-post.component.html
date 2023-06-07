@@ -5,12 +5,12 @@
   <div class="row justify-content-center gx-5" style="height: 600px">
     <div class="post-left col-sm-12 col-lg-6 mb-5 h-100">
 
-      <a *ngIf="newPost && newPost._id" routerLink="/posts/{{ newPost._id }}" class="text-decoration-none text-black">
-        <div class="img mb-4" style="width: 600px">
+      <a *ngIf="newPost && newPost._id" routerLink="/posts/{{ newPost._id }}"
+        class="text-decoration-none text-black d-inline-block">
+        <div class="img mb-4">
           <img *ngFor="let img of newPost?.images" [src]="img.url" class="img-fluid" alt="" style="
               object-fit: cover;
               width: 100%;
-              max-width: 600px;
               height: 500px;
             " />
         </div>

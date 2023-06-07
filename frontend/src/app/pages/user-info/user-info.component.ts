@@ -17,8 +17,8 @@ export class UserInfoComponent {
     username: ['', [Validators.required, Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
 
-    address: ['', [Validators.required]],
-    phone: ['', [Validators.required]],
+    address: [''],
+    phone: [''],
     // password: ['', [Validators.required]],
   });
 
