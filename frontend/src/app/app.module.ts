@@ -61,6 +61,7 @@ import { TrashCanUserComponent } from './modules/trash-can/trash-can-user/trash-
 import { UserInfoComponent } from './pages/user-info/user-info.component';
 import { PreviewComponent } from './components/preview/preview.component';
 import { EditUserComponent } from './modules/user/edit-user/edit-user.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 // import } from 'ngx-toastr'
 
@@ -129,7 +130,6 @@ import { ViewCommentComponent } from './components/manager-comments/view-comment
     CommonModule,
     BrowserAnimationsModule, // required animations module
     CKEditorModule,
-    // Toi bi loi ToastrModule nay ko down dc ngx-toastr len phai comment lai!!
 
     ToastrModule.forRoot({
       timeOut: 10000,
@@ -143,6 +143,7 @@ import { ViewCommentComponent } from './components/manager-comments/view-comment
     MatSelectModule,
     MatRadioModule,
     MatTabsModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     {

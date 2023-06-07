@@ -7,16 +7,19 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 import { AuthService } from '../services/auth/auth.service';
+import { LoaderService } from '../services/loader/loader.service';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, public loader: LoaderService) {}
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
+    this.loader.isLoading.next(true);
     // generate global token when login
     const token = this.auth.getToken();
 
@@ -27,6 +30,10 @@ export class RequestInterceptor implements HttpInterceptor {
         }),
       });
     }
-    return next.handle(request);
+    return next.handle(request).pipe(
+      finalize(() => {
+        this.loader.isLoading.next(false);
+      })
+    );
   }
 }

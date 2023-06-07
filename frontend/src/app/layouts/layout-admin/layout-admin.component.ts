@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
+import { LoaderService } from 'src/app/services/loader/loader.service';
 
 @Component({
   selector: 'app-layout-admin',
@@ -8,7 +9,7 @@ import jwt_decode from 'jwt-decode';
   styleUrls: ['./layout-admin.component.scss'],
 })
 export class LayoutAdminComponent {
-  constructor(private router: Router) {
+  constructor(private router: Router ,public loader: LoaderService) {
     if (localStorage.getItem('accessToken')) {
       const accessToken = JSON.stringify(
         localStorage.getItem('accessToken') || ''
