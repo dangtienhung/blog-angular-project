@@ -72,6 +72,7 @@ import { EditUserComponent } from './modules/user/edit-user/edit-user.component'
 import { ViewCommentComponent } from './components/manager-comments/view-comment/view-comment.component';
 import { HistoryBlogComponent } from './pages/history-blog/history-blog.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
+import { CommentsPostComponent } from './components/comments-post/comments-post.component';
 import { ListUserPostsComponent } from './components/list-user-posts/list-user-posts.component';
 
 @NgModule({
@@ -124,6 +125,7 @@ import { ListUserPostsComponent } from './components/list-user-posts/list-user-p
     ViewCommentComponent,
     HistoryBlogComponent,
     SearchResultComponent,
+    CommentsPostComponent,
     ListUserPostsComponent,
   ],
   imports: [
