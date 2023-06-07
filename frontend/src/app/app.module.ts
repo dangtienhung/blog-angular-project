@@ -70,6 +70,7 @@ import { EditUserComponent } from './modules/user/edit-user/edit-user.component'
 // import { EditTagComponent } from './modules/tag/edit-tag/edit-tag.component';
 // import { PostEditComponent } from './modules/posts/post-edit/post-edit.component';
 import { ViewCommentComponent } from './components/manager-comments/view-comment/view-comment.component';
+import { HistoryBlogComponent } from './pages/history-blog/history-blog.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
 import { ListUserPostsComponent } from './components/list-user-posts/list-user-posts.component';
 
@@ -121,6 +122,7 @@ import { ListUserPostsComponent } from './components/list-user-posts/list-user-p
     TrashCanPostComponent,
     TrashCanUserComponent,
     ViewCommentComponent,
+    HistoryBlogComponent,
     SearchResultComponent,
     ListUserPostsComponent,
   ],
