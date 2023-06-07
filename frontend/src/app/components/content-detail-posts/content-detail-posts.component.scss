@@ -2,6 +2,11 @@
   .content-posts {
     width: 70%;
   }
+  .avatar {
+    max-height: 100px;
+    object-fit: cover;
+    border-radius: 100%;
+  }
 }
 
 @media (max-width: 768px) {

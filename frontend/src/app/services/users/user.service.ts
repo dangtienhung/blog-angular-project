@@ -1,6 +1,7 @@
 import {
   IUser,
   IUserDocs,
+  IUserPosts,
   IUserRequest,
   IUserResponse,
 } from 'src/app/interfaces/User';
@@ -57,5 +58,10 @@ export class UserService {
   /* delete real */
   deleteUserReal(id: string) {
     return this.http.delete(`${this.baseURL}/delete/${id}`);
+  }
+
+  /*get list user posts */
+  getUserPosts(id: string) {
+    return this.http.get<IUserPosts>(`${this.baseURL}/posts/all/${id}`);
   }
 }
