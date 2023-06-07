@@ -1,4 +1,3 @@
-
 a {
   text-decoration: none;
   color: black;
@@ -33,48 +32,18 @@ a {
     }
   }
 
-  .user-info img {
-    // width: 50%;
+  .avatar img {
+    width: 50%;
     border-radius: 50%;
   }
 
-  .user-info {
-    display: flex;
-  }
-
-  .label span {
-    background-color: #5bc0de;
-    color: #fff;
-    padding: 3px 10px;
-    border-radius: 5px;
-    font-size: 14px;
-  }
-
   .card-title {
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-break: break-word;
-  }
-
-  .demo-content {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-word;
-  }
-
-  .card-flex-content {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .user-info {
-    flex: 1;
   }
 }
 

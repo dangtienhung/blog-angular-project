@@ -63,6 +63,7 @@ export class LoginPageComponent {
         //   JSON.stringify(data.accessToken)
         // );
         localStorage.setItem(this.login.TOKEN_USER, JSON.stringify(data.user));
+        this.redirect(data.user);
       });
   }
 

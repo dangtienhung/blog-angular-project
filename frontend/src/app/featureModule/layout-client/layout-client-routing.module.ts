@@ -6,6 +6,7 @@ import { UserInfoComponent } from '../../pages/user-info/user-info.component';
 import { PostsComponent } from '../../components/posts/posts.component';
 import { PostsDetailPageComponent } from 'src/app/pages/posts-detail-page/posts-detail-page.component';
 import { BlogPageComponent } from 'src/app/pages/blog-page/blog-page.component';
+import { HistoryBlogComponent } from 'src/app/pages/history-blog/history-blog.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
       {
         path: 'blog',
         component: BlogPageComponent,
+      },
+      {
+        path: 'history-blog',
+        component: HistoryBlogComponent,
       },
     ],
   },

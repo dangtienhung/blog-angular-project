@@ -16,7 +16,7 @@ export class PostsComponent {
   };
   posts: IPosts[] = [];
   constructor(private postService: PostsService) {
-    this.postService.getAllPosts().subscribe((data) => {
+    this.postService.getPostsApporved().subscribe((data) => {
       this.posts = data.posts.docs;
     });
   }
