@@ -14,7 +14,7 @@
       <div class="info">
         <div class="tag mb-2">
           <span
-            *ngIf="post && post.category.name"
+            *ngIf="post && post?.category?.name"
             class="d-inline-block font-600 bg-F3EDFF text-6B6B6B rounded-4 text-sm px-3"
             >{{ post.category.name }}</span
           >
@@ -101,22 +101,25 @@
         <div class="col-sm-12 col-md-4 mb-4">
           <div class="img">
             <img
-              *ngIf="post && post?.author"
+              *ngIf="post && post.author"
               [src]="
                 post.author.avatar ||
                 'https://api.multiavatar.com/' + post.author.username + '.png'
               "
               alt=""
               height="100"
-              class="avatar mx-auto"
+              class="mx-auto"
             />
           </div>
         </div>
         <div class="col-sm-12 col-md-8">
           <div class="infomation">
             <div class="name mb-3">
-              <h3 class="text-23BB86 font-600 text-2xl" *ngIf="post">
-                {{ post.author ? post.author.username : "anonymous" }}
+              <h3
+                class="text-23BB86 font-600 text-2xl"
+                *ngIf="post && post?.author?.username"
+              >
+                {{ post.author.username || "Người dùng blog" }}
               </h3>
             </div>
             <div class="quote">
@@ -125,7 +128,7 @@
                 Delicious romantic undisturbed raw platter will meld. Thick
                 Skewers skillet natural, smoker soy sauce wait roux. Gastronomy
                 atmosphere set aside. Slice butternut cooking home. -->
-                {{ post.author.email }}
+                {{ post.author.email || "Người dùng blog" }}
               </p>
             </div>
           </div>

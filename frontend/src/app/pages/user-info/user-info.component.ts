@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser, IUserRequest } from 'src/app/interfaces/User';
-import { UserService } from 'src/app/services/users/user.service';
-import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { IUser, IUserRequest } from 'src/app/interfaces/User';
+
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { IPosts } from 'src/app/interfaces/Posts';
+import { UserService } from 'src/app/services/users/user.service';
 
 @Component({
   selector: 'app-user-info',
@@ -18,8 +19,9 @@ export class UserInfoComponent {
   userInfo = this.formUserInfo.group({
     username: ['', [Validators.required, Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
-    address: ['', [Validators.required]],
-    phone: ['', [Validators.required]],
+
+    address: [''],
+    phone: [''],
     // password: ['', [Validators.required]],
   });
 
