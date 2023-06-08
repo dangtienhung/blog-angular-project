@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
-import { PostsService } from 'src/app/services/posts/posts.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IPosts } from 'src/app/interfaces/Posts';
-import { ToastrService } from 'ngx-toastr';
-import { CategoryService } from 'src/app/services/category/category.service';
 import { IComment, IResViewComment } from 'src/app/interfaces/comment';
+
+import { CategoryService } from 'src/app/services/category/category.service';
 import { CommentService } from 'src/app/services/comment/comment.service';
+import { Component } from '@angular/core';
+import { IPosts } from 'src/app/interfaces/Posts';
+import { PostsService } from 'src/app/services/posts/posts.service';
+import { Socket } from 'ngx-socket-io';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-posts-detail-page',
@@ -23,7 +25,8 @@ export class PostsDetailPageComponent {
     private router: ActivatedRoute,
     private redirect: Router,
     private toastr: ToastrService,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private socket: Socket
   ) {
     this.router.paramMap.subscribe((params) => {
       const id = params.get('id');
@@ -31,10 +34,17 @@ export class PostsDetailPageComponent {
 
       this.idPost = id || '';
 
-      this.commentService.getViewComment(this.idPost).subscribe((comment)=> {
-        this.comments = comment.data;
-        // console.log(this.comments);
-      })
+      // this.commentService.getViewComment(this.idPost).subscribe((comment) => {
+      //   this.comments = comment.data;
+      //   console.log(this.comments);
+      // });
+      if (this.idPost) {
+        /* get all comment by id with socket */
+        this.socket.emit('getDocs', this.idPost);
+        this.socket.on('comments', (data: any) => {
+          this.comments = data;
+        });
+      }
 
       this.postService.getPost(id!).subscribe(
         (data) => {

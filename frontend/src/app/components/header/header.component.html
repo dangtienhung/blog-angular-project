@@ -19,6 +19,7 @@
 
     <div class="col-4">
       <div class="position-relative">
+
         <input type="text" [value]="searchValue"
           class="search-input ps-4 py-3 border border-2 rounded text-medium text-gray" placeholder="Search posts..."
           (input)="onInputChange($event)" />
@@ -40,7 +41,7 @@
             <img [src]="
                 userInfo.avatar ||
                 'https://api.multiavatar.com/' + userInfo.username + '.png'
-              " class="rounded-circle" style="object-fit: cover" width="60" height="60" [alt]="userInfo.username" />
+          " class="rounded-circle" style="object-fit: cover" width="60" height="60" [alt]="userInfo.username" />
           </a>
           <!-- <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
             <li><a routerLink="user-info" class="dropdown-item" style="cursor: pointer;">My profile</a></li>
@@ -49,20 +50,19 @@
           </ul> -->
           <!-- </li> -->
           <!-- </ul> -->
-
           <ul class="dropdown-menu dropdown-menu-end {{
               isHidden ? 'd-none' : 'd-block'
             }}">
             <li>
               <a class="dropdown-item" routerLink="/user-info/{{ userInfo._id }}">My profile</a>
             </li>
-            
+
             <li *ngIf="userInfo.role === 'admin'">
               <a class="dropdown-item" routerLink="/admin">Admin</a>
             </li>
 
             <li>
-              <a class="dropdown-item" (click)="handleLogout()">Logout</a>
+              <a class="dropdown-item" routerLink="/" (click)="handleLogout()">Logout</a>
             </li>
           </ul>
         </div>
