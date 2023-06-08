@@ -2,15 +2,22 @@
   <div class="row align-items-center mb-5">
     <div class="col-sm-12 col-lg-6">
       <div class="main-img">
-        <img *ngIf="post && post.images[0].url" [src]="post.images[0].url" alt="" style="width: 100%" />
+        <img
+          *ngIf="post && post.images[0].url"
+          [src]="post.images[0].url"
+          alt=""
+          style="width: 100%"
+        />
       </div>
     </div>
     <div class="col-sm-12 col-lg-6">
       <div class="info">
         <div class="tag mb-2">
-          <span *ngIf="post && post?.category?.name"
-            class="d-inline-block font-600 bg-F3EDFF text-6B6B6B rounded-4 text-sm px-3">{{ post?.category?.name
-            }}</span>
+          <span
+            *ngIf="post && post?.category?.name"
+            class="d-inline-block font-600 bg-F3EDFF text-6B6B6B rounded-4 text-sm px-3"
+            >{{ post.category.name }}</span
+          >
         </div>
         <div class="title mb-3">
           <h1 *ngIf="post && post.title" class="text-23BB86 font-600">
@@ -18,17 +25,34 @@
           </h1>
         </div>
         <div class="d-flex align-items-center gap-3">
-          <span class="text-6B6B6B text-sm font-600" *ngIf="post && post.createdAt">{{ post.createdAt }}</span>
-          <span class="d-inline-block rounded-circle" style="width: 6px; height: 6px; background: #b1b5c3"></span>
-          <span class="text-6B6B6B text-sm font-600" *ngIf="post">{{
-            post.author ? post.author.username : "anonymous"
+          <span
+            class="text-6B6B6B text-sm font-600"
+            *ngIf="post && post.createdAt"
+            >{{ post.createdAt }}</span
+          >
+          <span
+            class="d-inline-block rounded-circle"
+            style="width: 6px; height: 6px; background: #b1b5c3"
+          ></span>
+          <a
+            class="text-decoration-none"
+            *ngIf="post"
+            routerLink="/user-info/{{ post.author._id }}"
+          >
+            <span class="text-6B6B6B text-sm font-600" *ngIf="post">{{
+              post.author ? post.author.username : "anonymous"
             }}</span>
+          </a>
         </div>
       </div>
     </div>
   </div>
   <div class="content-posts mx-auto">
-    <div class="content mb-5" *ngIf="post && post.content" [innerHTML]="post.content">
+    <div
+      class="content mb-5"
+      *ngIf="post && post.content"
+      [innerHTML]="post.content"
+    >
       <!-- <h2 class="text-2xl font-600 mb-3">Chương 1</h2>
       <p class="text-xl font-500">
         Gastronomy atmosphere set aside. Slice butternut cooking home. Delicious
@@ -76,17 +100,26 @@
       <div class="row align-items-center">
         <div class="col-sm-12 col-md-4 mb-4">
           <div class="img">
-            <img *ngIf="post && post.author" [src]="
-                post?.author?.avatar ||
-                'https://api.multiavatar.com/' + post?.author?.username + '.png'
-              " alt="" height="100" class="mx-auto" />
+            <img
+              *ngIf="post && post.author"
+              [src]="
+                post.author.avatar ||
+                'https://api.multiavatar.com/' + post.author.username + '.png'
+              "
+              alt=""
+              height="100"
+              class="mx-auto"
+            />
           </div>
         </div>
         <div class="col-sm-12 col-md-8">
           <div class="infomation">
             <div class="name mb-3">
-              <h3 class="text-23BB86 font-600 text-2xl" *ngIf="post && post?.author?.username">
-                {{ post?.author?.username || 'Người dùng blog' }}
+              <h3
+                class="text-23BB86 font-600 text-2xl"
+                *ngIf="post && post?.author?.username"
+              >
+                {{ post.author.username || "Người dùng blog" }}
               </h3>
             </div>
             <div class="quote">
@@ -95,7 +128,7 @@
                 Delicious romantic undisturbed raw platter will meld. Thick
                 Skewers skillet natural, smoker soy sauce wait roux. Gastronomy
                 atmosphere set aside. Slice butternut cooking home. -->
-                {{ post?.author?.email || 'Người dùng blog' }}
+                {{ post.author.email || "Người dùng blog" }}
               </p>
             </div>
           </div>

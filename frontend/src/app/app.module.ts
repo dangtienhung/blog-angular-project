@@ -54,7 +54,7 @@ import { PostEditComponent } from './modules/posts/post-edit/post-edit.component
 import { PostListsComponent } from './pages/post-lists/post-lists.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { PostsDetailPageComponent } from './pages/posts-detail-page/posts-detail-page.component';
-import { PreviewComponent } from './components/preview/preview.component';
+// import { PreviewComponent } from './components/preview/preview.component';
 import { RelatedPostsComponent } from './components/related-posts/related-posts.component';
 import { RequestInterceptor } from './request/request.interceptor';
 import { SearchResultComponent } from './components/search-result/search-result.component';
@@ -66,7 +66,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { TrashCanPostComponent } from './modules/trash-can/trash-can-post/trash-can-post.component';
 import { TrashCanUserComponent } from './modules/trash-can/trash-can-user/trash-can-user.component';
 import { UserInfoComponent } from './pages/user-info/user-info.component';
-import { ViewCommentComponent } from './components/manager-comments/view-comment/view-comment.component';
 
 // import } from 'ngx-toastr'
 
@@ -75,6 +74,9 @@ import { ViewCommentComponent } from './components/manager-comments/view-comment
 // import { AddTagComponent } from './modules/tag/add-tag/add-tag.component';
 // import { EditTagComponent } from './modules/tag/edit-tag/edit-tag.component';
 // import { PostEditComponent } from './modules/posts/post-edit/post-edit.component';
+import { ViewCommentComponent } from './components/manager-comments/view-comment/view-comment.component';
+
+import { ModalAddPostComponent } from './components/modal-add-post/modal-add-post.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
 @NgModule({
@@ -118,7 +120,7 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     HashTagAddComponent,
     HashTagEditComponent,
     BlogPageComponent,
-    PreviewComponent,
+
     EditUserComponent,
     PostEditComponent,
     ManagerTrashCanComponent,
@@ -129,6 +131,7 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     SearchResultComponent,
     CommentsPostComponent,
     ListUserPostsComponent,
+    ModalAddPostComponent,
   ],
   imports: [
     BrowserModule,

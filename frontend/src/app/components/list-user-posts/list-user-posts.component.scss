@@ -10,7 +10,7 @@ a {
   align-items: stretch;
   background-color: transparent;
   border: 0;
-  margin-bottom: 40px;
+  margin: 20px 0;
 
   .image-frame {
     overflow: hidden;
@@ -33,7 +33,10 @@ a {
   }
 
   .avatar img {
-    width: 50%;
+    // width: 50%;
+    width: 50px;
+    height: 50px;
+    max-width: 50px;
     border-radius: 50%;
   }
 
@@ -58,4 +61,66 @@ a {
   -o-transform: scale(1.5); /* Opera */
   transform: scale(1.1);
   border-radius: 10px;
+}
+
+.list-user-post {
+  height: 70vh;
+  max-height: 70vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.list-user-post::-webkit-scrollbar {
+  // display: none !important;
+  width: 5px;
+}
+.list-user-post::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+.list-user-post::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(to bottom, #ffa400, #f44336, #00aefd);
+  border-radius: 10px;
+}
+
+:host ::ng-deep .ck-editor__editable_inline {
+  min-height: 300px;
+}
+.image-preview {
+  margin-top: 20px;
+  display: grid;
+  gap: 50px;
+  grid-template-columns: repeat(5, 1fr);
+  margin-bottom: 50px;
+  .preview-container {
+    position: relative;
+    .preview-remove {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: rgb(255, 150, 150);
+      color: white;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 100%;
+      cursor: pointer;
+    }
+    .preview-image {
+      width: 160px;
+      height: 160px;
+      border-radius: 100%;
+      object-fit: cover;
+    }
+  }
+}
+.modal-body::-webkit-scrollbar {
+  width: 10px !important;
+}
+.modal-body::-webkit-scrollbar-track {
+  border-radius: 10px !important;
+}
+.modal-body::-webkit-scrollbar-thumb {
+  background: #d9d9d9;
+  border-radius: 10px !important;
 }
