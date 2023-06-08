@@ -73,12 +73,15 @@ export class PostEditComponent implements AfterViewInit {
       this.imagePreviews = data.post.images;
       this.tempFile = data.post.images;
 
+      console.log(data);
+
       this.EditForm.patchValue({
         title: data.post.title,
         content: data.post.content,
         category: data.post.category._id,
         is_active: data.post.is_active ? 'public' : 'private',
         status: data.post.status,
+        author: data.post.author._id,
       });
     });
   }
@@ -127,18 +130,18 @@ export class PostEditComponent implements AfterViewInit {
       return;
     }
     /* lấy ra thông tin người dùng */
-    const userId = user._id;
+    // const userId = user._id;
     const post = {
       title: this.EditForm.value.title,
       content: this.EditForm.value.content,
       category: this.EditForm.value.category,
       images: this.urls.length <= 0 ? this.tempFile : this.urls,
-      author: userId,
+      author: this.EditForm.value.author,
       is_active: this.EditForm.value.is_active === 'public' ? true : false,
       status: this.EditForm.value.status,
     };
 
-    console.log(post);
+    // console.log(post);
 
     this.postsService.updatePost(post, id).subscribe(
       () => {

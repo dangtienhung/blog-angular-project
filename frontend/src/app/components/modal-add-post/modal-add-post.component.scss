@@ -1,0 +1,43 @@
+:host ::ng-deep .ck-editor__editable_inline {
+  min-height: 300px;
+}
+.image-preview {
+  display: grid;
+  gap: 50px;
+  grid-template-columns: repeat(5, 1fr);
+  margin-bottom: 50px;
+  .preview-container {
+    position: relative;
+    .preview-remove {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: rgb(255, 150, 150);
+      color: white;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 100%;
+      cursor: pointer;
+    }
+    .preview-image {
+      width: 160px;
+      height: 160px;
+      border-radius: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.modal-body::-webkit-scrollbar {
+  width: 10px !important;
+}
+.modal-body::-webkit-scrollbar-track {
+  border-radius: 10px !important;
+}
+.modal-body::-webkit-scrollbar-thumb {
+  background: #d9d9d9;
+  border-radius: 10px !important;
+}

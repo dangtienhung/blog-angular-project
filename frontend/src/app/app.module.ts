@@ -59,7 +59,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { TrashCanPostComponent } from './modules/trash-can/trash-can-post/trash-can-post.component';
 import { TrashCanUserComponent } from './modules/trash-can/trash-can-user/trash-can-user.component';
 import { UserInfoComponent } from './pages/user-info/user-info.component';
-import { PreviewComponent } from './components/preview/preview.component';
 import { EditUserComponent } from './modules/user/edit-user/edit-user.component';
 
 // import } from 'ngx-toastr'
@@ -73,6 +72,7 @@ import { ViewCommentComponent } from './components/manager-comments/view-comment
 import { HistoryBlogComponent } from './pages/history-blog/history-blog.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
 import { ListUserPostsComponent } from './components/list-user-posts/list-user-posts.component';
+import { ModalAddPostComponent } from './components/modal-add-post/modal-add-post.component';
 
 @NgModule({
   declarations: [
@@ -115,7 +115,7 @@ import { ListUserPostsComponent } from './components/list-user-posts/list-user-p
     HashTagAddComponent,
     HashTagEditComponent,
     BlogPageComponent,
-    PreviewComponent,
+
     EditUserComponent,
     PostEditComponent,
     ManagerTrashCanComponent,
@@ -125,6 +125,7 @@ import { ListUserPostsComponent } from './components/list-user-posts/list-user-p
     HistoryBlogComponent,
     SearchResultComponent,
     ListUserPostsComponent,
+    ModalAddPostComponent,
   ],
   imports: [
     BrowserModule,

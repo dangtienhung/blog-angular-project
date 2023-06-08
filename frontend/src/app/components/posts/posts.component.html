@@ -10,12 +10,12 @@
         class="slide card col-sm-6 col-md-4 col-lg-3 mx-2"
         *ngFor="let post of posts"
       >
-        <a
-          *ngIf="post && post._id"
-          routerLink="/posts/{{ post._id }}"
-          class="text-decoration-none text-black"
-        >
-          <div class="p-2 card-container">
+        <div class="p-2 card-container">
+          <a
+            *ngIf="post && post._id"
+            routerLink="/posts/{{ post._id }}"
+            class="text-decoration-none text-black"
+          >
             <div class="img" *ngIf="post && post.images">
               <img
                 *ngFor="let img of post.images"
@@ -24,40 +24,54 @@
                 class="img-fluid mx-auto"
               />
             </div>
-            <div class="card-body">
-              <div class="card-top">
-                <div
-                  class="d-inline-block font-600 bg-F3EDFF text-6B6B6B rounded-4 text-sm px-3 mb-3"
-                >
-                  <span *ngIf="post && post.category.name">{{
-                    post.category.name
-                  }}</span>
-                </div>
+          </a>
+          <div class="card-body">
+            <div class="card-top">
+              <div
+                class="d-inline-block font-600 bg-F3EDFF text-6B6B6B rounded-4 text-sm px-3 mb-3"
+              >
+                <span *ngIf="post && post.category.name">{{
+                  post.category.name
+                }}</span>
+              </div>
+              <a
+                *ngIf="post && post._id"
+                routerLink="/posts/{{ post._id }}"
+                class="text-decoration-none text-black"
+              >
                 <div class="posts-title">
                   <h4 class="text-xl font-600" *ngIf="post && post.title">
                     {{ post.title }}
                   </h4>
                 </div>
-              </div>
-              <div class="card-bottom">
-                <div class="info d-flex align-items-center gap-3">
-                  <span
-                    class="text-6B6B6B text-sm font-600"
-                    *ngIf="post && post.createdAt"
-                    >{{ post.createdAt }}</span
-                  >
-                  <span
-                    class="d-inline-block rounded-circle"
-                    style="width: 6px; height: 6px; background: #b1b5c3"
-                  ></span>
-                  <span class="text-6B6B6B text-sm font-600" *ngIf="post">{{
+              </a>
+            </div>
+
+            <div class="card-bottom">
+              <div class="info d-flex align-items-center gap-3">
+                <span
+                  class="text-6B6B6B text-sm font-600"
+                  *ngIf="post && post.createdAt"
+                  >{{ post.createdAt }}</span
+                >
+                <span
+                  class="d-inline-block rounded-circle"
+                  style="width: 6px; height: 6px; background: #b1b5c3"
+                ></span>
+
+                <a
+                  class="text-decoration-none"
+                  *ngIf="post"
+                  routerLink="/user-info/{{ post.author._id }}"
+                >
+                  <span class="text-6B6B6B text-sm font-600">{{
                     post.author ? post.author.username : "anonymous"
                   }}</span>
-                </div>
+                </a>
               </div>
             </div>
           </div>
-        </a>
+        </div>
       </div>
     </ngx-slick-carousel>
   </section>
