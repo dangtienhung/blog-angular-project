@@ -78,6 +78,13 @@ a {
 
   .user-info {
     flex: 1;
+    .author-block {
+      p {
+        margin-bottom: 0;
+        font-size: 20px;
+        font-weight: 600;
+      }
+    }
   }
 }
 

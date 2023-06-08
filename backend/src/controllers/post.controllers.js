@@ -232,9 +232,17 @@ export const postController = {
       const oneWeekAgo = new Date(today);
       oneWeekAgo.setDate(today.getDate() - 7); // Giảm ngày đi 7 để lấy từ ngày trước đó
       const countPostWeek = await Post.countDocuments({ createdAt: { $gte: oneWeekAgo, $lt: today } });
+      /* get all post  */
+      const countAllPostApproved = await Post.countDocuments({ status: 'approved' });
+      const countAllPostPending = await Post.countDocuments({ status: 'pending' });
+      const countAllPost = countAllPostApproved + countAllPostPending;
+      console.log(countAllPostApproved, countAllPostPending, countAllPost);
       return res.status(200).json([
         { message: 'Số lượng bài post được tạo trong ngày', count: countPostDay },
         { message: 'Số lượng bài post được tạo mới trong tuần', count: countPostWeek },
+        { message: 'Tổng số lượng bài post', count: countAllPost },
+        { message: 'Số lượng bài post đã được duyệt', count: countAllPostApproved },
+        { message: 'Số lượng bài post đang chờ duyệt', count: countAllPostPending },
       ]);
     } catch (err) {
       console.error('Lỗi khi đếm số lượng bài post:', err);
@@ -306,5 +314,30 @@ export const postController = {
     } catch (error) {
       return res.status(500).json({ message: 'Server Error' });
     }
+  },
+  /* update status post */
+  updateStatus: async (req, res, status) => {
+    try {
+      const id = req.params.id;
+      const post = await Post.findByIdAndUpdate(id, { status }, { new: true });
+      if (!post) {
+        return res.status(400).json({ message: `Update status ${status} failed` });
+      }
+      return res.status(200).json({ message: `Update status ${status} successfully`, post });
+    } catch (error) {
+      return res.status(500).json({ message: 'Server Error' });
+    }
+  },
+  /* update status approved */
+  updateStatusApproved: async (req, res) => {
+    await postController.updateStatus(req, res, 'approved');
+  },
+  /* update status rejected */
+  updateStatusRejected: async (req, res) => {
+    await postController.updateStatus(req, res, 'rejected');
+  },
+  /* update status pending */
+  updateStatusPending: async (req, res) => {
+    await postController.updateStatus(req, res, 'pending');
   },
 };
