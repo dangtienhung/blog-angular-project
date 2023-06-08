@@ -4,17 +4,12 @@
   </div>
   <div class="row justify-content-center gx-5" style="height: 600px">
     <div class="post-left col-sm-12 col-lg-6 mb-5 h-100">
-
-      <a *ngIf="newPost && newPost._id" routerLink="/posts/{{ newPost._id }}"
-        class="text-decoration-none text-black d-inline-block">
-        <div class="img mb-4">
-          <img *ngFor="let img of newPost?.images" [src]="img.url" class="img-fluid" alt="" style="
-              object-fit: cover;
-              width: 100%;
-              height: 500px;
-            " />
-        </div>
-      </a>
+      <div class="img mb-4">
+        <a *ngIf="newPost && newPost._id" routerLink="/posts/{{ newPost._id }}" class="text-decoration-none text-black">
+          <img *ngFor="let img of newPost?.images" [src]="img.url" class="img-fluid" alt=""
+            style="object-fit: cover; width: 100%; height: 500px" />
+        </a>
+      </div>
 
       <div class="post-left-content">
         <div class="post-left-top">
@@ -28,17 +23,15 @@
         </div>
         <div class="post-left-bottom">
           <div class="info d-flex align-items-center gap-3">
-            <!-- <span class="text-6B6B6B text-sm font-600" *ngIf="newPost && newPost.createdAt">{{ newPost.createdAt
+            <span class="text-6B6B6B text-sm font-600" *ngIf="newPost && newPost.createdAt">{{
+              handleFomatDate(newPost.createdAt)
               }}</span>
             <span class="d-inline-block rounded-circle" style="width: 6px; height: 6px; background: #b1b5c3"></span>
-            <span class="text-6B6B6B text-sm font-600" *ngIf="newPost && newPost.author">{{ newPost.author.username
-              }}</span> -->
-            <span class="text-6B6B6B text-sm font-600" *ngIf="newPost && newPost.createdAt">{{ newPost.createdAt
-              }}</span>
-            <span class="d-inline-block rounded-circle" style="width: 6px; height: 6px; background: #b1b5c3"></span>
-            <span class="text-6B6B6B text-sm font-600" *ngIf="newPost">{{
-              newPost.author ? newPost.author.username : "anonymous"
-              }}</span>
+            <a class="text-decoration-none" *ngIf="newPost" routerLink="/user-info/{{ newPost.author._id }}">
+              <span class="text-6B6B6B text-sm font-600">{{
+                newPost.author ? newPost.author.username : "anonymous"
+                }}</span>
+            </a>
           </div>
         </div>
       </div>
@@ -47,40 +40,39 @@
       <div class="post-lists">
         <ngx-slick-carousel class="carousel" [config]="slideConfig" #slickModal="slick-carousel">
           <div ngxSlickItem class="slide" *ngFor="let post of posts">
-            <a *ngIf="post && post._id" routerLink="/posts/{{ post._id }}" class="text-decoration-none text-black">
-              <div class="row post-item">
-                <div class="col-4">
+            <div class="row post-item">
+              <div class="col-4">
+                <a *ngIf="post && post._id" routerLink="/posts/{{ post._id }}" class="text-decoration-none text-black">
                   <div class="img">
                     <img *ngIf="post && post.images[0].url" [src]="post.images[0].url" class="img-fluid" alt="" />
                   </div>
+                </a>
+              </div>
+              <div class="col-8">
+                <div class="tag mb-2">
+                  <span *ngIf="post && post.category.name"
+                    class="d-inline-block font-600 bg-light text-6B6B6B rounded-3 text-sm px-3">{{ post.category.name
+                    }}</span>
                 </div>
-                <div class="col-8">
-                  <div class="tag mb-2">
-                    <span *ngIf="post && post.category.name"
-                      class="d-inline-block font-600 bg-light text-6B6B6B rounded-3 text-sm px-3">{{ post.category.name
-                      }}</span>
-                  </div>
-                  <div class="post-item-title mb-3">
+                <div class="post-item-title mb-3">
+                  <a *ngIf="post && post._id" routerLink="/posts/{{ post._id }}"
+                    class="text-decoration-none text-black">
                     <h4 class="text-xl">{{ post.title }}</h4>
-                  </div>
-                  <div class="info d-flex align-items-center gap-3">
-                    <!-- <span *ngIf="post && post.createdAt" class="text-6B6B6B text-sm font-600">{{ post.createdAt
-                      }}</span>
-                    <span class="d-inline-block rounded-circle"
-                      style="width: 6px; height: 6px; background: #b1b5c3"></span>
-                    <span *ngIf="post && post.author" class="text-6B6B6B text-sm font-600">{{ post.author.username
-                      }}</span> -->
-                    <span *ngIf="post && post.createdAt" class="text-6B6B6B text-sm font-600">{{ post.createdAt
-                      }}</span>
-                    <span class="d-inline-block rounded-circle"
-                      style="width: 6px; height: 6px; background: #b1b5c3"></span>
-                    <span class="text-6B6B6B text-sm font-600" *ngIf="post">{{
+                  </a>
+                </div>
+                <div class="info d-flex align-items-center gap-3">
+                  <span *ngIf="post && post.createdAt" class="text-6B6B6B text-sm font-600">{{
+                    handleFomatDate(post.createdAt) }}</span>
+                  <span class="d-inline-block rounded-circle"
+                    style="width: 6px; height: 6px; background: #b1b5c3"></span>
+                  <a class="text-decoration-none" *ngIf="post" routerLink="/user-info/{{ post?.author?._id }}">
+                    <span class="text-6B6B6B text-sm font-600">{{
                       post.author ? post.author.username : "anonymous"
                       }}</span>
-                  </div>
+                  </a>
                 </div>
               </div>
-            </a>
+            </div>
           </div>
         </ngx-slick-carousel>
       </div>

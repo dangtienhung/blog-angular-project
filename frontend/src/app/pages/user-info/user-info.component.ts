@@ -14,6 +14,7 @@ import { UserService } from 'src/app/services/users/user.service';
 })
 export class UserInfoComponent {
   user!: IUserRequest;
+  userLocal: IUser = JSON.parse(localStorage.getItem('user') || '{}');
   listUserPosts!: IPosts[];
   userInfo = this.formUserInfo.group({
     username: ['', [Validators.required, Validators.minLength(3)]],
@@ -28,19 +29,20 @@ export class UserInfoComponent {
     private profile: UserService,
     private auth: AuthService,
     private formUserInfo: FormBuilder,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private userService: UserService
   ) {
-    this.user = this.auth.getUserLogin();
-
-    this.userInfo.patchValue({
-      username: this.user.username,
-      email: this.user.email,
-      address: this.user.address,
-      phone: this.user.phone,
-    });
-
     this.router.paramMap.subscribe((params) => {
       const id = params.get('id');
+      this.userService.getUser(id!).subscribe(({ user }) => {
+        this.user = user;
+        this.userInfo.patchValue({
+          username: user.username,
+          email: user.email,
+          address: user.address,
+          phone: user.phone,
+        });
+      });
       this.profile.getUserPosts(id!).subscribe(
         ({ data }) => {
           if (data.postList) {

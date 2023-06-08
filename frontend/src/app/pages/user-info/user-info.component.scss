@@ -4,10 +4,9 @@ body {
   color: #69707a;
 }
 .img-account-profile {
-  height: 10rem;
-  width: 10rem;
-  border-radius: 100%;
-  object-fit: cover;
+  height: 200px;
+  width: 200px;
+  max-height: 200px;
 }
 .rounded-circle {
   border-radius: 50% !important;

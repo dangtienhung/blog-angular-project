@@ -3,6 +3,17 @@ import { IPosts } from 'src/app/interfaces/Posts';
 import { PostsService } from 'src/app/services/posts/posts.service';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
+import { FormBuilder, Validators } from '@angular/forms';
+import { UploadImageService } from 'src/app/services/uploadImage/upload-image.service';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { CategoryService } from 'src/app/services/category/category.service';
+import { HashtagsService } from 'src/app/services/hashtags/hashtags.service';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { ICategory } from 'src/app/interfaces/Category';
+import { ImagePreview } from 'src/app/interfaces/Image';
+import { MyUploadAdapter } from 'src/app/modules/posts/myuploadAdapter';
+import { IUser, IUserRegister, IUserRequest } from 'src/app/interfaces/User';
 
 @Component({
   selector: 'app-list-user-posts',
@@ -11,11 +22,42 @@ import Swal from 'sweetalert2';
 })
 export class ListUserPostsComponent {
   @Input() listUserPosts!: IPosts[];
+  @Input() user!: IUserRequest;
+  @Input() userLocal!: IUser;
+  tempFile!: any;
+  // postData!: IPosts;
+  public Editor = ClassicEditor;
+  public editorContent = '';
+
+  categories!: ICategory[];
+  hashTagLists!: string[];
+  urlImage: any[] = [];
+  idPost!: string;
+
+  postForm = this.fb.group({
+    title: ['', [Validators.required, Validators.minLength(4)]],
+    content: ['', [Validators.required]],
+    hashTags: [''],
+    images: [[''], [Validators.required]],
+    author: [''],
+    category: ['', [Validators.required]],
+    is_active: ['public', [Validators.required]],
+    status: ['pending'],
+  });
 
   constructor(
     private postsService: PostsService,
-    private toastr: ToastrService
-  ) {}
+    private toastr: ToastrService,
+    private fb: FormBuilder,
+    private imageService: UploadImageService,
+    private http: HttpClient,
+    private redirect: Router,
+    private categoryService: CategoryService,
+    private hashTagService: HashtagsService
+  ) {
+    this.getAllCategories();
+    this.getAllHashTag();
+  }
 
   handleDeletePost(id: string) {
     Swal.fire({
@@ -46,6 +88,106 @@ export class ListUserPostsComponent {
         );
       }
     });
-    return;
+  }
+
+  onEditorReady(editor: any) {
+    editor.plugins.get('FileRepository').createUploadAdapter = (
+      loader: any
+    ) => {
+      return new MyUploadAdapter(loader, this.http);
+    };
+  }
+
+  handleFileInput(event: any) {
+    const files = event.target.files;
+    this.imageService.uploadImage(files).subscribe((res) => {
+      this.urlImage = res.urls;
+      console.log(this.urlImage);
+      this.toastr.success('Uploaded');
+    });
+  }
+  handleRemoveImage(public_id: string) {
+    // console.log(public_id);
+    if (!public_id) return;
+    this.imageService.deleteImage(public_id).subscribe(() => {
+      this.urlImage = this.urlImage.filter(
+        (image) => image.public_id !== public_id
+      );
+    });
+  }
+
+  handleGetPostById(id: string) {
+    this.postsService.getPostById(id).subscribe(
+      ({ post }) => {
+        this.urlImage = post.images;
+        this.tempFile = post.images;
+        this.idPost = post._id;
+        // this.postData = post;
+        this.postForm.patchValue({
+          title: post.title,
+          content: post.content,
+          category: post.category._id,
+          is_active: post.is_active ? 'public' : 'private',
+          status: post.status,
+          author: post.author._id,
+          // hashTags: post.tags,
+        });
+      },
+      (err) => {
+        console.log(err.message);
+      }
+    );
+  }
+
+  getAllCategories() {
+    this.categoryService.getAllCategories().subscribe(({ data }) => {
+      // console.log(data);
+      this.categories = data;
+      // console.log(this.categories);
+    });
+  }
+
+  getAllHashTag() {
+    this.hashTagService.getAllHashTags().subscribe((tags) => {
+      this.hashTagLists = tags.data.map((tag) => tag.title);
+    });
+  }
+  onHandleSubmit() {
+    console.log('submited');
+    if (this.postForm.invalid) return;
+    /* lấy ra thông tin người dùng */
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (!user) {
+      this.toastr.error('Bạn chưa đăng nhập');
+      return;
+    }
+    const post = {
+      title: this.postForm.value.title,
+      content: this.postForm.value.content,
+      category: this.postForm.value.category,
+      images: this.urlImage.length <= 0 ? this.tempFile : this.urlImage,
+      author: this.postForm.value.author,
+      is_active: this.postForm.value.is_active === 'public' ? true : false,
+      status: this.postForm.value.status,
+    };
+
+    console.log(this.idPost);
+
+    this.postsService.updatePost(post, this.idPost).subscribe(
+      (data) => {
+        console.log(data);
+        this.postsService.getPostByIdUser(user._id).subscribe(({ data }) => {
+          if (data.postList) {
+            this.listUserPosts = data.postList;
+          }
+        });
+
+        this.postForm.reset();
+        this.toastr.success('Chỉnh sửa thành công.');
+      },
+      () => {
+        this.toastr.error('Chỉnh sửa thất bại');
+      }
+    );
   }
 }
