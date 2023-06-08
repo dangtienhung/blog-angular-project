@@ -1004,7 +1004,124 @@ paths:
                   message:
                     type: string
                     example: Internal server error
+  /posts/approved/{id}:
+    put:
+      tags:
+        - Post_blog
+      summary: Update status to 'approved'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: ID của bài đăng
+      responses:
+        '200':
+          description: Thành công
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Thông báo thành công
+              post:
+                type: object
+                description: Bài đăng đã được cập nhật
+        '400':
+          description: Lỗi không tìm thấy bài đăng
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Thông báo lỗi
+        '500':
+          description: Lỗi máy chủ
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Thông báo lỗi máy chủ
+  /posts/rejected/{id}:
+    put:
+      tags:
+        - Post_blog
+      summary: Update status to 'rejected'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: ID của bài đăng
+      responses:
+        '200':
+          description: Thành công
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Thông báo thành công
+              post:
+                type: object
+                description: Bài đăng đã được cập nhật
+        '400':
+          description: Lỗi không tìm thấy bài đăng
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Thông báo lỗi
+        '500':
+          description: Lỗi máy chủ
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Thông báo lỗi máy chủ
 
+  /posts/pending/{id}:
+    put:
+      tags:
+        - Post_blog
+      summary: Update status to 'pending'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: ID của bài đăng
+      responses:
+        '200':
+          description: Thành công
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Thông báo thành công
+              post:
+                type: object
+                description: Bài đăng đã được cập nhật
+        '400':
+          description: Lỗi không tìm thấy bài đăng
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Thông báo lỗi
+        '500':
+          description: Lỗi máy chủ
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Thông báo lỗi máy chủ
   /restore/{id}:
     put:
       tags:

@@ -1,11 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { IDocPosts, IPosts } from 'src/app/interfaces/Posts';
+import { IDocPosts, IPostAnalytics, IPosts } from 'src/app/interfaces/Posts';
 
+import { IUser } from 'src/app/interfaces/User';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { baseURL } from 'src/app/utils/instance';
-import { IUser } from 'src/app/interfaces/User';
 
 @Injectable({
   providedIn: 'root',
@@ -85,5 +85,23 @@ export class PostsService {
   /* delete post */
   deletePost(id: string): Observable<IPosts> {
     return this.http.delete<IPosts>(`${this.baseURL}/posts/${id}`);
+  }
+  /* lấy số liệu người dùng được tạo ra trong 1 ngày/ 1 tuần */
+  getPostByDate(): Observable<IPostAnalytics[]> {
+    return this.http.get<IPostAnalytics[]>(
+      `${this.baseURL}/posts/counter/post-new`
+    );
+  }
+  /* lấy ra các bài viết trạng thái pending */
+  getPostPending(): Observable<IDocPosts> {
+    return this.http.get<IDocPosts>(`${this.baseURL}/posts/pending/all`);
+  }
+  /* update status approved */
+  updateApprovedPost(id: string): Observable<IPosts> {
+    return this.http.put<IPosts>(`${this.baseURL}/posts/approved/${id}`, {});
+  }
+  /* update status pending */
+  updatePendingPost(id: string): Observable<IPosts> {
+    return this.http.put<IPosts>(`${this.baseURL}/posts/pending/${id}`, {});
   }
 }

@@ -41,3 +41,8 @@ interface IDocs {
   prevPage?: null | number;
   nextPage?: null | number;
 }
+
+export interface IPostAnalytics {
+  message: string;
+  count: number;
+}

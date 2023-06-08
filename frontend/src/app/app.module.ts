@@ -1,7 +1,15 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { Image, ImageUpload } from '@ckeditor/ckeditor5-image';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 import { AddCategoryComponent } from './modules/category/add-category/add-category.component';
 import { AddTagComponent } from './modules/tag/add-tag/add-tag.component';
@@ -40,12 +48,17 @@ import { ManageUserComponent } from './components/manage-user/manage-user.compon
 import { ManagerCommentsComponent } from './components/manager-comments/manager-comments.component';
 import { ManagerTagsComponent } from './components/manager-tags/manager-tags.component';
 import { ManagerTrashCanComponent } from './components/manager-trash-can/manager-trash-can.component';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NewPostComponent } from './components/new-post/new-post.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 import { NgModule } from '@angular/core';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
@@ -154,6 +167,11 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     MatRadioModule,
     MatTabsModule,
     SocketIoModule.forRoot(config),
+    NgApexchartsModule,
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule,
+    MatPaginatorModule,
   ],
   providers: [
     {
