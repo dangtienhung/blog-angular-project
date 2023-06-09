@@ -61,7 +61,7 @@
 
                 <a
                   class="text-decoration-none"
-                  *ngIf="post"
+                  *ngIf="post && post.author"
                   routerLink="/user-info/{{ post.author._id }}"
                 >
                   <span class="text-6B6B6B text-sm font-600">{{

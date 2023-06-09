@@ -1,5 +1,9 @@
 <div class="layout-container">
-  <h3 class="mb-3 text-xl">Your posts</h3>
+  <h3 class="mb-3 text-xl">
+    {{
+      user && userLocal && user._id === userLocal._id ? "Your posts" : "Posts"
+    }}
+  </h3>
   <div
     class="row text-center py-5"
     *ngIf="listUserPosts && listUserPosts.length === 0"
