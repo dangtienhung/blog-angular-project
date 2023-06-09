@@ -93,7 +93,6 @@ export class CommentsPostComponent {
 
   getDetailComment(id: string) {
     this.idComment = id;
-    console.log(id);
     this.commentService.getDetailComment(id).subscribe((comment) => {
       this.formEditComment.patchValue({
         content: comment.data.content,
