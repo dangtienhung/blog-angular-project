@@ -42,7 +42,7 @@ export class AddUserComponent {
         this.toastr.success('Uploaded avatar');
       },
       () => {
-        this.toastr.error('Upload avatar faile');
+        this.toastr.error('Upload avatar failed');
       }
     );
   }

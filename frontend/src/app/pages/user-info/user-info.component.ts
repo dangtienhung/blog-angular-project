@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser, IUserRequest } from 'src/app/interfaces/User';
-import { UserService } from 'src/app/services/users/user.service';
-import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { IUser, IUserRequest } from 'src/app/interfaces/User';
+
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { IPosts } from 'src/app/interfaces/Posts';
+import { UserService } from 'src/app/services/users/user.service';
 
 @Component({
   selector: 'app-user-info',
@@ -12,26 +14,45 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class UserInfoComponent {
   user!: IUserRequest;
+  userLocal: IUser = JSON.parse(localStorage.getItem('user') || '{}');
+  listUserPosts!: IPosts[];
   userInfo = this.formUserInfo.group({
     username: ['', [Validators.required, Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
-    address: ['', [Validators.required]],
-    phone: ['', [Validators.required]],
+
+    address: [''],
+    phone: [''],
     // password: ['', [Validators.required]],
   });
 
   constructor(
     private profile: UserService,
     private auth: AuthService,
-    private formUserInfo: FormBuilder
+    private formUserInfo: FormBuilder,
+    private router: ActivatedRoute,
+    private userService: UserService
   ) {
-    this.user = this.auth.getUserLogin();
-
-    this.userInfo.patchValue({
-      username: this.user.username,
-      email: this.user.email,
-      address: this.user.address,
-      phone: this.user.phone,
+    this.router.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      this.userService.getUser(id!).subscribe(({ user }) => {
+        this.user = user;
+        this.userInfo.patchValue({
+          username: user.username,
+          email: user.email,
+          address: user.address,
+          phone: user.phone,
+        });
+      });
+      this.profile.getUserPosts(id!).subscribe(
+        ({ data }) => {
+          if (data.postList) {
+            this.listUserPosts = data.postList;
+          }
+        },
+        (err) => {
+          console.log(err.message);
+        }
+      );
     });
   }
 

@@ -19,10 +19,15 @@
 
     <div class="col-4">
       <div class="position-relative">
-        <input type="text" class="search-input ps-4 py-3 border border-2 rounded text-medium text-gray"
-          placeholder="Search posts..." />
-        <i class="fa-solid fa-magnifying-glass position-absolute top-50 translate-middle-y text-gray text-medium"
-          style="right: 16px"></i>
+
+        <input type="text" [value]="searchValue"
+          class="search-input ps-4 py-3 border border-2 rounded text-medium text-gray" placeholder="Search posts..."
+          (input)="onInputChange($event)" />
+
+        <i (click)="handleClear()" class="fa-solid {{
+            searchValue ? 'fa-xmark' : 'fa-magnifying-glass'
+          }}  position-absolute top-50 translate-middle-y text-gray text-medium" style="right: 16px"></i>
+        <app-search-result [searchResult]="searchResult" [isShowSearch]="isShowSearch"></app-search-result>
       </div>
     </div>
     <!-- <div class="col-1 d-flex justify-content-end">
@@ -36,14 +41,22 @@
             <img [src]="
                 userInfo.avatar ||
                 'https://api.multiavatar.com/' + userInfo.username + '.png'
-              " class="rounded-circle" style="object-fit: cover;" width="60" height="60" [alt]="userInfo.username" />
+          " class="rounded-circle" style="object-fit: cover" width="60" height="60" [alt]="userInfo.username" />
           </a>
+          <!-- <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+            <li><a routerLink="user-info" class="dropdown-item" style="cursor: pointer;">My profile</a></li>
+            <li><a routerLink="history-blog" class="dropdown-item" style="cursor: pointer;">History blog</a></li>
+            <li><a class="dropdown-item" style="cursor: pointer;" (click)="logOut()">Logout</a></li>
+          </ul> -->
+          <!-- </li> -->
+          <!-- </ul> -->
           <ul class="dropdown-menu dropdown-menu-end {{
               isHidden ? 'd-none' : 'd-block'
             }}">
             <li>
               <a class="dropdown-item" routerLink="/user-info/{{ userInfo._id }}">My profile</a>
             </li>
+
             <li *ngIf="userInfo.role === 'admin'">
               <a class="dropdown-item" routerLink="/admin">Admin</a>
             </li>
@@ -62,6 +75,9 @@
     </div>
     <!-- <div *ngIf="!user" class="col-2 d-flex justify-content-end">
       <a routerLink="login"
+        class="d-inline-block text-center hoverBtn btn-signin text-decoration-none text-white rounded text-xl font-600">Log in
+      </a>
+    </div>
         class="d-inline-block text-center hoverBtn btn-signin text-decoration-none text-white rounded text-xl font-600">Log
         out</a>
     </div> -->

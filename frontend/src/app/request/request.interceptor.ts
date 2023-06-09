@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { AfterViewInit, Injectable } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
@@ -19,7 +19,7 @@ export class RequestInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    this.loader.isLoading.next(true);
+    Promise.resolve().then(() => this.loader.isLoading.next(true));
     // generate global token when login
     const token = this.auth.getToken();
 

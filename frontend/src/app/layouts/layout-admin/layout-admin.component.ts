@@ -9,7 +9,7 @@ import { LoaderService } from 'src/app/services/loader/loader.service';
   styleUrls: ['./layout-admin.component.scss'],
 })
 export class LayoutAdminComponent {
-  constructor(private router: Router ,public loader: LoaderService) {
+  constructor(private router: Router, public loader: LoaderService) {
     if (localStorage.getItem('accessToken')) {
       const accessToken = JSON.stringify(
         localStorage.getItem('accessToken') || ''

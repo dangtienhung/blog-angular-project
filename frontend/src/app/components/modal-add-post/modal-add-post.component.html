@@ -1,0 +1,261 @@
+<div id="myModalAdd" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-5xl">Write new post</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body form-group">
+        <div class="container">
+          <div class="row p-2">
+            <div class="col">
+              <form
+                class="mt-5 form"
+                [formGroup]="postForm"
+                (ngSubmit)="onHandleSubmit()"
+              >
+                <div class="row g-5">
+                  <div class="col-6">
+                    <!-- <mat-form-field class="form__field">
+                      <mat-label>Tiêu đề bài post</mat-label>
+                      <input type="text" matInput formControlName="title" />
+                    </mat-form-field> -->
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label"
+                        >Title</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="exampleFormControlInput1"
+                        placeholder="Title post"
+                        formControlName="title"
+                      />
+                    </div>
+                    <div
+                      *ngIf="
+                        postForm.get('title')?.invalid &&
+                        (postForm.get('title')?.dirty ||
+                          postForm.get('title')?.touched)
+                      "
+                      class="text-danger"
+                    >
+                      <div *ngIf="postForm.get('title')?.errors?.['required']">
+                        Title is required.
+                      </div>
+                      <div *ngIf="postForm.get('title')?.errors?.['minlength']">
+                        Title must be at least 4 characters long.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <!-- <mat-form-field class="form__field">
+                      <mat-label>Danh mục bài viết</mat-label>
+                      <mat-select formControlName="category">
+                        <mat-option
+                          *ngFor="let category of categories"
+                          [value]="category._id"
+                          >{{ category.name }}</mat-option
+                        >
+                      </mat-select>
+                    </mat-form-field> -->
+                    <label class="d-block mb-2">Danh mục bài viết</label>
+                    <select
+                      class="form-select"
+                      aria-label="Default select example"
+                      formControlName="category"
+                    >
+                      <option
+                        *ngFor="let category of categories"
+                        [value]="category._id"
+                      >
+                        {{ category.name }}
+                      </option>
+                    </select>
+                    <div
+                      *ngIf="
+                        postForm.get('category')?.invalid &&
+                        (postForm.get('category')?.dirty ||
+                          postForm.get('category')?.touched)
+                      "
+                      class="text-danger"
+                    >
+                      <div
+                        *ngIf="postForm.get('category')?.errors?.['required']"
+                      >
+                        Danh mục is required.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <!-- <mat-form-field class="form__field">
+                      <mat-label>Hashtag</mat-label>
+                      <mat-select formControlName="hashTags" multiple>
+                        <mat-option
+                          *ngFor="let hashTag of hashTags"
+                          [value]="hashTag.title"
+                          >{{ hashTag.title }}</mat-option
+                        >
+                      </mat-select>
+                    </mat-form-field> -->
+
+                    <label class="d-block mb-2">Hashtag</label>
+                    <select
+                      formControlName="hashTags"
+                      class="form-select"
+                      aria-label="Default select example"
+                    >
+                      <option
+                        *ngFor="let hashTag of hashTagLists"
+                        [value]="hashTag"
+                      >
+                        {{ hashTag }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="is_active"
+                        id="flexRadioDefault1"
+                        value="public"
+                        checked
+                        formControlName="is_active"
+                      />
+                      <label class="form-check-label" for="flexRadioDefault1">
+                        Public
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="is_active"
+                        id="flexRadioDefault2"
+                        value="private"
+                        formControlName="is_active"
+                      />
+                      <label class="form-check-label" for="flexRadioDefault2">
+                        Private
+                      </label>
+                    </div>
+
+                    <div
+                      *ngIf="
+                        postForm.get('status')?.invalid &&
+                        (postForm.get('status')?.dirty ||
+                          postForm.get('status')?.touched)
+                      "
+                      class="text-danger"
+                    >
+                      <div *ngIf="postForm.get('status')?.errors?.['required']">
+                        Status is required.
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="col-6">
+                  <mat-form-field class="form__field">
+                    <mat-label>Duyệt bài viết</mat-label>
+                    <mat-select formControlName="status">
+                      <mat-option value="pending">Pending</mat-option>
+                      <mat-option value="approved">Approved</mat-option>
+                      <mat-option value="rejected">Reject</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div> -->
+                </div>
+                <div class="row mt-3">
+                  <div class="col-12 mb-5">
+                    <input
+                      class="form-control"
+                      type="file"
+                      accept="image/*"
+                      id="formFileMultiple"
+                      formControlName="images"
+                      (change)="handleFileInput($event)"
+                    />
+                    <div
+                      *ngIf="
+                        postForm.get('images')?.invalid &&
+                        (postForm.get('images')?.dirty ||
+                          postForm.get('images')?.touched)
+                      "
+                      class="text-danger"
+                    >
+                      <div *ngIf="postForm.get('images')?.errors?.['required']">
+                        Image is required.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="image-preview" *ngIf="urlImage.length > 0">
+                    <div
+                      class="preview-container"
+                      *ngFor="let image of urlImage"
+                    >
+                      <div
+                        class="preview-remove"
+                        (click)="handleRemoveImage(image.public_id)"
+                      >
+                        <i class="fa-solid fa-circle-xmark"></i>
+                      </div>
+                      <img
+                        [src]="image.url"
+                        class="preview-image"
+                        alt="image"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group mb-1">
+                  <ckeditor
+                    [editor]="Editor"
+                    formControlName="content"
+                    (ready)="onEditorReady($event)"
+                  >
+                  </ckeditor>
+                  <div
+                    *ngIf="
+                      postForm.get('content')?.invalid &&
+                      (postForm.get('content')?.dirty ||
+                        postForm.get('content')?.touched)
+                    "
+                    class="text-danger"
+                  >
+                    <div *ngIf="postForm.get('content')?.errors?.['required']">
+                      Content is required.
+                    </div>
+                  </div>
+                </div>
+                <button
+                  data-bs-dismiss="modal"
+                  type="submit"
+                  [disabled]="!postForm.valid"
+                  class="btn btn-primary d-flex justify-content-center align-items-center w-100"
+                >
+                  <i class="fa-solid fa-plus mx-2"></i>
+                  <span>Xuất bản</span>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="modal-footer">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            name="addBtn"
+          >
+            Add
+          </button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -32,13 +32,11 @@
             <tr *ngFor="let user of dataTbody; let i = index" class="text-center">
               <td>{{ i + 1 }}</td>
               <td>
-                <a routerLink="/">
-                  <img [src]="
-                      user.avatar ||
-                      'https://api.multiavatar.com/' + user.username + '.png'
-                    " class="avatar" alt="Avatar" />
-                  <span class="text-truncate">{{ user.username }}</span>
-                </a>
+                <img [src]="
+                    user.avatar ||
+                    'https://api.multiavatar.com/' + user.username + '.png'
+                  " class="avatar" alt="Avatar" />
+                <span class="text-truncate">{{ user.username }}</span>
               </td>
               <td>{{ user.email }}</td>
               <td>
@@ -101,7 +99,7 @@
 
           <tbody *ngIf="posts.length > 0">
             <tr *ngFor="let post of posts; let i = index"
-              class="{{ post.status === 'pending' ? 'bg-danger' : 'bg-red'}} text-center">
+              class="{{ post.status === 'pending' ? 'bg-FFAF40' : 'bg-red' }}">
               <td>{{ i + 1 }}</td>
               <td>
                 <div class="post__image-group">
@@ -115,6 +113,10 @@
                 {{ post?.author?.username || "Người dùng không tồn tại" }}
               </td>
               <td>{{ post.category.name }}</td>
+              <!-- <td>
+                {{ post?.author?.username || "Người dùng không tồn tại" }}
+              </td> -->
+
               <td>
                 <span class="text-light p-1 rounded {{
                     post.is_active === true ? 'bg-success' : 'bg-danger'
@@ -132,7 +134,9 @@
               </td>
               <td>{{ post.likes.toLocaleString() }}</td>
               <td>
-                <button class="text-warning" (click)="getPostById(post._id!)" data-toggle="modal"
+                <!-- <button class="text-warning" (click)="getPostById(post._id!)" data-toggle="modal"
+                  data-target="#exampleModal"> -->
+                <button class="text-23BB86" (click)="getPostById(post._id!)" data-toggle="modal"
                   data-target="#exampleModal">
                   <i class="fa-solid fa-eye"></i>
                 </button>
@@ -304,7 +308,12 @@
               <div class="row align-items-center">
                 <div class="col-sm-12 col-md-4 mb-4">
                   <div class="img">
-                    <img src="{{ postInfo.author.avatar }}" alt="" class="mx-auto" />
+                    <img [width]="100" src="{{
+                        postInfo.author.avatar ||
+                          'https://api.multiavatar.com/' +
+                            postInfo.author.username +
+                            '.png'
+                      }}" alt="" class="mx-auto" />
                   </div>
                 </div>
                 <div class="col-sm-12 col-md-8">

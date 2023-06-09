@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ICategory } from 'src/app/interfaces/Category';
 import { IPosts } from 'src/app/interfaces/Posts';
 import { CategoryService } from 'src/app/services/category/category.service';
+import { PostsService } from 'src/app/services/posts/posts.service';
 
 @Component({
   selector: 'app-blog-page',
@@ -9,10 +10,15 @@ import { CategoryService } from 'src/app/services/category/category.service';
   styleUrls: ['./blog-page.component.scss'],
 })
 export class BlogPageComponent {
-  posts!: IPosts[];
+  isActive = false;
+  posts: IPosts[] = [];
   categories: ICategory[] = [];
-  constructor(private categoryService: CategoryService) {
+  constructor(
+    private categoryService: CategoryService,
+    private postService: PostsService
+  ) {
     this.getAllCategories();
+    this.getAllPosts();
   }
 
   getAllCategories() {
@@ -22,16 +28,20 @@ export class BlogPageComponent {
     });
   }
 
+  getAllPosts() {
+    this.postService.getAllPosts().subscribe((allPosts) => {
+      this.posts = allPosts.posts.docs;
+    });
+  }
+
   getPosts(id: string) {
     // console.log(id);
     this.categoryService.getCategoryPostId(id).subscribe((postList) => {
       console.log(postList);
       if (postList.data.posts) {
         this.posts = postList.data.posts;
-        
       }
-      
-      
+      this.isActive = !this.isActive;
       // posts
       // this.posts = posts.data.posts;
     });

@@ -42,4 +42,7 @@ interface IDocs {
   nextPage?: null | number;
 }
 
-
+export interface IPostAnalytics {
+  message: string;
+  count: number;
+}

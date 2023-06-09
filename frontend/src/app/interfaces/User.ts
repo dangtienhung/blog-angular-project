@@ -1,3 +1,5 @@
+import { IPosts } from './Posts';
+
 export interface IUser {
   _id?: string;
   username: string;
@@ -9,7 +11,7 @@ export interface IUser {
   created_at?: Date;
   updated_at?: Date;
   isVerified?: boolean;
-  postList?: any[];
+  postList?: IPosts[];
   address?: string;
   avatar?: string;
   phone?: string;
@@ -55,4 +57,14 @@ export interface IUserRequest {
   address?: string;
   avatar?: string;
   role?: string;
+}
+
+export interface IUserPosts {
+  message: string;
+  data: IUser;
+}
+
+export interface IUserAnalytics {
+  message: string;
+  count: number;
 }

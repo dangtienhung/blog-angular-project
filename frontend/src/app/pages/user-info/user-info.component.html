@@ -8,10 +8,23 @@
         <div class="card-header">Profile Picture</div>
         <div class="card-body text-center">
           <!-- Profile picture image-->
-          <img class="img-account-profile rounded-circle mb-2 m-auto" [src]="user.avatar" alt="" />
-          <input type="file" id="file" hidden>
+          <img
+            class="img-account-profile rounded-circle mb-2 m-auto"
+            *ngIf="user"
+            [src]="
+              user.avatar ||
+              'https://api.multiavatar.com/' + user.username + '.png'
+            "
+            alt=""
+          />
+          <input type="file" id="file" hidden />
           <!-- Profile picture upload button-->
-          <button appAvatar class="btn btn-upload-img text-light" type="button">
+          <button
+            *ngIf="user?._id === userLocal?._id"
+            appAvatar
+            class="btn btn-upload-img text-light"
+            type="button"
+          >
             Upload new image
           </button>
         </div>
@@ -20,17 +33,57 @@
     <div class="col-xl-8">
       <!-- Account details card-->
       <div class="card mb-4">
-        <div class="card-header">Account Details</div>
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h2 class="text-xl">Account Details</h2>
+          <button
+            *ngIf="user?._id === userLocal?._id"
+            class="btn btn-success d-flex gap-2 align-items-center"
+          >
+            <i class="fa-solid fa-plus"></i>
+            <a
+              href="#myModalAdd"
+              role="button"
+              class="d-block text-light text-decoration-none"
+              data-bs-toggle="modal"
+              >Write post</a
+            >
+          </button>
+        </div>
+
         <div class="card-body">
           <form [formGroup]="userInfo" (ngSubmit)="onEdit()">
             <!-- Form Group (username)-->
             <div class="mb-3">
               <label class="small mb-1" for="inputUsername">Username</label>
-              <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username"
-                value="username" formControlName="username" />
-              <div *ngIf="checkUsername.invalid && (checkUsername.touched || checkUsername.dirty)">
-                <span class="text-danger" *ngIf="checkUsername.errors?.['required']">Username is required</span>
-                <span class="text-danger" *ngIf="checkUsername.errors?.['minLength']">Username is min 3 character</span>
+              <input
+                class="form-control"
+                id="inputUsername"
+                type="text"
+                placeholder="Enter your username"
+                value="username"
+                formControlName="username"
+                [readOnly]="
+                  user && userLocal && user._id !== userLocal._id ? true : false
+                "
+              />
+              <div
+                *ngIf="
+                  checkUsername.invalid &&
+                  (checkUsername.touched || checkUsername.dirty)
+                "
+              >
+                <span
+                  class="text-danger"
+                  *ngIf="checkUsername.errors?.['required']"
+                  >Username is required</span
+                >
+                <span
+                  class="text-danger"
+                  *ngIf="checkUsername.errors?.['minLength']"
+                  >Username is min 3 character</span
+                >
               </div>
             </div>
             <!-- Form Row-->
@@ -46,15 +99,35 @@
                                 <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Luna">
                             </div>
                         </div> -->
-
             <!-- Form Group (email address)-->
             <div class="mb-3">
-              <label class="small mb-1" for="inputEmailAddress">Email address</label>
-              <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address"
-                value="name@example.com" formControlName="email" />
-              <div *ngIf="checkEmail.invalid && (checkEmail.touched || checkEmail.dirty)">
-                <span class="text-danger" *ngIf="checkEmail.errors?.['required']">Email is required</span>
-                <span class="text-danger" *ngIf="checkEmail.errors?.['email']">Email is not correct</span>
+              <label class="small mb-1" for="inputEmailAddress"
+                >Email address</label
+              >
+              <input
+                class="form-control"
+                id="inputEmailAddress"
+                type="email"
+                placeholder="Enter your email address"
+                value="name@example.com"
+                formControlName="email"
+                [readOnly]="
+                  user && userLocal && user._id !== userLocal._id ? true : false
+                "
+              />
+              <div
+                *ngIf="
+                  checkEmail.invalid && (checkEmail.touched || checkEmail.dirty)
+                "
+              >
+                <span
+                  class="text-danger"
+                  *ngIf="checkEmail.errors?.['required']"
+                  >Email is required</span
+                >
+                <span class="text-danger" *ngIf="checkEmail.errors?.['email']"
+                  >Email is not correct</span
+                >
               </div>
             </div>
             <!-- Form Row-->
@@ -62,85 +135,79 @@
               <!-- Form Group (phone number)-->
               <div class="col-md-6">
                 <label class="small mb-1" for="inputPhone">Address</label>
-                <input class="form-control" type="string" placeholder="Enter your address" formControlName="address" />
-                <div *ngIf="checkAddress.invalid && (checkAddress.touched || checkAddress.dirty)">
-                  <span class="text-danger" *ngIf="checkAddress.errors?.['required']">Address is required</span>
+                <input
+                  class="form-control"
+                  type="string"
+                  placeholder="Enter your address"
+                  formControlName="address"
+                  [readOnly]="
+                    user && userLocal && user._id !== userLocal._id
+                      ? true
+                      : false
+                  "
+                />
+                <div
+                  *ngIf="
+                    checkAddress.invalid &&
+                    (checkAddress.touched || checkAddress.dirty)
+                  "
+                >
+                  <span
+                    class="text-danger"
+                    *ngIf="checkAddress.errors?.['required']"
+                    >Address is required</span
+                  >
                 </div>
               </div>
               <!-- Form Group (birthday)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputBirthday">Phone number</label>
-                <input class="form-control" id="inputBirthday" type="text" placeholder="Enter your phone number"
-                  formControlName="phone" />
-                <div *ngIf="checkPhone.invalid && (checkPhone.touched || checkPhone.dirty)">
-                  <span class="text-danger" *ngIf="checkPhone.errors?.['required']">Phone is required</span>
+                <label class="small mb-1" for="inputBirthday"
+                  >Phone number</label
+                >
+                <input
+                  class="form-control"
+                  id="inputBirthday"
+                  type="text"
+                  [readOnly]="
+                    user && userLocal && user._id !== userLocal._id
+                      ? true
+                      : false
+                  "
+                  placeholder="Enter your phone number"
+                  formControlName="phone"
+                />
+                <div
+                  *ngIf="
+                    checkPhone.invalid &&
+                    (checkPhone.touched || checkPhone.dirty)
+                  "
+                >
+                  <span
+                    class="text-danger"
+                    *ngIf="checkPhone.errors?.['required']"
+                    >Phone is required</span
+                  >
                 </div>
               </div>
             </div>
             <!-- Save changes button-->
-            <button class="btn btn-upload-img text-light" type="submit">
+            <button
+              *ngIf="user?._id === userLocal?._id"
+              class="btn btn-upload-img text-light"
+              type="submit"
+            >
               Save changes
             </button>
           </form>
         </div>
       </div>
+      <app-list-user-posts
+        [user]="user"
+        [userLocal]="userLocal"
+        [listUserPosts]="listUserPosts"
+      ></app-list-user-posts>
     </div>
   </div>
 </div>
-<!-- <div class="col-xl-8">
-  Account details card
-  <div class="card mb-4">
-    <div class="card-header">Account Details</div>
-    <div class="card-body">
-      <form>
-        Form Group (username)
-        <div class="mb-3">
-          <label class="small mb-1" for="inputUsername">Username</label>
-          <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username"
-            [value]="user.username" [readOnly]="true" />
-        </div>
-        Form Row
-        <div class="row gx-3 mb-3">
-          Form Group (first name)
-          <div class="col-md-6">
-            <label class="small mb-1" for="inputFirstName">First name</label>
-            <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name"
-              value="Valerie" />
-          </div>
-          Form Group (last name)
-          <div class="col-md-6">
-            <label class="small mb-1" for="inputLastName">Last name</label>
-            <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name"
-              value="Luna" />
-          </div>
-        </div>
-
-        Form Group (email address)
-        <div class="mb-3">
-          <label class="small mb-1" for="inputEmailAddress">Email address</label>
-          <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address"
-            [value]="user.email" [readOnly]="true" />
-        </div>
-        Form Row
-        <div class="row gx-3 mb-3">
-          Form Group (phone number)
-          <div class="col-md-6">
-            <label class="small mb-1" for="inputPhone">Phone number</label>
-            <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number"
-              value="555-123-4567" />
-          </div>
-          Form Group (birthday)
-          <div class="col-md-6">
-            <label class="small mb-1" for="inputBirthday">Birthday</label>
-            <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday"
-              value="06/10/1988" />
-          </div>
-        </div>
-        Save changes button
-        <button class="btn btn-upload-img text-light" type="button">
-          Save changes
-        </button>
-      </form>
-    </div>
-  </div>
-</div> -->
+<!-- <app-preview></app-preview> -->
+<app-modal-add-post [listUserPosts]="listUserPosts"></app-modal-add-post>

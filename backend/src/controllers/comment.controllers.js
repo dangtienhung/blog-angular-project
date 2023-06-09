@@ -137,4 +137,55 @@ export const commentController = {
       return res.status(500).json({ message: 'Server error' });
     }
   },
+  /* add comment witch socketio */
+  addComment: async (commentData) => {
+    try {
+      const { postId, userId, content } = commentData;
+      const post = await Post.findById(postId);
+
+      //Validate
+      if (!post) {
+        return res.status(404).send({ message: 'Fail', err: 'Some thing wrong' });
+      }
+
+      const user = await User.findById({ _id: userId });
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+
+      //send Comment && validate
+      const { error } = CommentValidate.validate(commentData, { abortEarly: false });
+      if (error) {
+        return res.status(400).send({ message: 'Fail', err: error.details.map((err) => err.message) });
+      }
+      const comment = await Comment.create(commentData);
+      console.log('🚀 ~ file: comment.controllers.js:162 ~ addComment: ~ comment:', comment);
+      if (!comment) {
+        return res.status(400).send({ message: 'Fail', err: "Can't to send comment!" });
+      }
+
+      // update Post
+      await Post.findByIdAndUpdate(postId, {
+        $addToSet: { comments: comment._id },
+      });
+      return comment;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
+  /* get all comments */
+  getCommentByIdBlog: async (postId) => {
+    try {
+      //get comment by id
+      const comment = await Comment.find({ postId: postId })
+        .populate('userId', 'username avatar')
+        .sort({ createdAt: -1 });
+      if (!comment) {
+        return res.status(400).send({ message: 'Fail', err: "Can't to find comment!" });
+      }
+      return comment;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
 };

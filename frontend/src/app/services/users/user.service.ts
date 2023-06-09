@@ -1,6 +1,8 @@
 import {
   IUser,
+  IUserAnalytics,
   IUserDocs,
+  IUserPosts,
   IUserRequest,
   IUserResponse,
 } from 'src/app/interfaces/User';
@@ -57,5 +59,26 @@ export class UserService {
   /* delete real */
   deleteUserReal(id: string) {
     return this.http.delete(`${this.baseURL}/delete/${id}`);
+  }
+  /* update user */
+  updateUserInfo(
+    id: string,
+    user: {
+      username: string;
+      email: string;
+      password?: string;
+      address: string;
+      phone: string;
+    }
+  ): Observable<IUser> {
+    return this.http.put<IUser>(`${this.baseURL}/${id}`, user);
+  }
+  /*get list user posts */
+  getUserPosts(id: string) {
+    return this.http.get<IUserPosts>(`${this.baseURL}/posts/all/${id}`);
+  }
+  /* get count user */
+  getCountUser(): Observable<IUserAnalytics[]> {
+    return this.http.get<IUserAnalytics[]>(`${this.baseURL}/counter/user-new`);
   }
 }

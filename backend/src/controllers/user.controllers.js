@@ -106,18 +106,29 @@ export const userController = {
     try {
       const { id } = req.params;
       const body = req.body;
-
-      /*get old password*/
-      const dataUser = await User.findById({ _id: id });
-      body.password = dataUser.password;
       /* validate */
       const { error } = userValidate.validate(body);
       if (error) {
         const errors = error.details.map((err) => err.message);
+        console.log('🚀 ~ file: user.controllers.js:114 ~ updateUser: ~ errors:', errors);
         return res.status(400).json({ msg: errors });
       }
+      /*get old password*/
+      const dataUser = await User.findById({ _id: id });
+      /* check có password mới không thì mới được thay mới password */
+      if (body.password) {
+        /* hash password */
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(body.password, salt);
+        body.password = hashedPassword;
+      }
+      body.password = dataUser.password;
+      /* check email đẩy lên có trùng mới email khác có trong db không */
+      if (body.email !== dataUser.email) {
+        const users = userController.getAllUser(req, res);
+        console.log('🚀 ~ file: user.controllers.js:128 ~ updateUser: ~ users:', users);
+      }
       /* check user */
-
       const user = await User.findByIdAndUpdate({ _id: id }, body, { new: true });
       if (!user) {
         return res.status(404).json({ msg: 'User not found' });
@@ -186,6 +197,7 @@ export const userController = {
       return res.status(500).json({ msg: error.message });
     }
   },
+
   /* get users deleted */
   getUserDeleted: async (req, res) => {
     try {

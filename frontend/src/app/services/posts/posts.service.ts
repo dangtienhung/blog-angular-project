@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { IDocPosts, IPosts } from 'src/app/interfaces/Posts';
+import { IDocPosts, IPostAnalytics, IPosts } from 'src/app/interfaces/Posts';
 
+import { IUser } from 'src/app/interfaces/User';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
@@ -32,6 +33,9 @@ export class PostsService {
   getAllPosts(): Observable<IDocPosts> {
     return this.http.get<IDocPosts>(`${baseURL}/posts`);
   }
+  getPostsApporved(): Observable<IDocPosts> {
+    return this.http.get<IDocPosts>(`${baseURL}/posts/approved`);
+  }
   getPost(id: number | string): Observable<any> {
     return this.http.get<any>(`${baseURL}/posts/${id}`);
   }
@@ -49,6 +53,7 @@ export class PostsService {
     // const options = this.getAccessToken();
     return this.http.put(`${baseURL}/posts/${id}`, post);
   }
+
   /* get post by id */
   getPostById(id: string): Observable<{ message: string; post: IPosts }> {
     return this.http.get<{ message: string; post: IPosts }>(
@@ -56,9 +61,16 @@ export class PostsService {
     );
   }
 
+  /* get posts by id user */
+  getPostByIdUser(id: string): Observable<{ message: string; data: IUser }> {
+    return this.http.get<{ message: string; data: IUser }>(
+      `${this.baseURL}/users/posts/all/${id}`
+    );
+  }
+
   /*Search posts by title */
-  searchPost(keyword: string): Observable<IPosts[]> {
-    return this.http.get<IPosts[]>(`${baseURL}/posts?q=${keyword}`);
+  searchPost(keyword: string): Observable<IDocPosts> {
+    return this.http.get<IDocPosts>(`${baseURL}/posts/approved?q=${keyword}`);
   }
   /* get post with delete: true */
   getPostDeleted(): Observable<IDocPosts> {
@@ -73,5 +85,23 @@ export class PostsService {
   /* delete post */
   deletePost(id: string): Observable<IPosts> {
     return this.http.delete<IPosts>(`${this.baseURL}/posts/${id}`);
+  }
+  /* lấy số liệu người dùng được tạo ra trong 1 ngày/ 1 tuần */
+  getPostByDate(): Observable<IPostAnalytics[]> {
+    return this.http.get<IPostAnalytics[]>(
+      `${this.baseURL}/posts/counter/post-new`
+    );
+  }
+  /* lấy ra các bài viết trạng thái pending */
+  getPostPending(): Observable<IDocPosts> {
+    return this.http.get<IDocPosts>(`${this.baseURL}/posts/pending/all`);
+  }
+  /* update status approved */
+  updateApprovedPost(id: string): Observable<IPosts> {
+    return this.http.put<IPosts>(`${this.baseURL}/posts/approved/${id}`, {});
+  }
+  /* update status pending */
+  updatePendingPost(id: string): Observable<IPosts> {
+    return this.http.put<IPosts>(`${this.baseURL}/posts/pending/${id}`, {});
   }
 }
