@@ -27,6 +27,9 @@ router.get('/counter/post-new', postController.getCountPostNew);
 router.get('/pending/all', postController.getAllPostWithStatusPending);
 router.get('/deleted/all', postController.getAllPostDeleted);
 // router.get('/counter/post-new', postController.getCountPostNew);
+router.put('/approved/:id', postController.updateStatusApproved);
+router.put('/pending/:id', postController.updateStatusPending);
+router.put('/rejected/:id', postController.updateStatusRejected);
 
 export default router;
 

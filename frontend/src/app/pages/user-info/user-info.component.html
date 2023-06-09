@@ -10,6 +10,7 @@
           <!-- Profile picture image-->
           <img
             class="img-account-profile rounded-circle mb-2 m-auto"
+            *ngIf="user"
             [src]="
               user.avatar ||
               'https://api.multiavatar.com/' + user.username + '.png'
@@ -18,7 +19,12 @@
           />
           <input type="file" id="file" hidden />
           <!-- Profile picture upload button-->
-          <button appAvatar class="btn btn-upload-img text-light" type="button">
+          <button
+            *ngIf="user?._id === userLocal?._id"
+            appAvatar
+            class="btn btn-upload-img text-light"
+            type="button"
+          >
             Upload new image
           </button>
         </div>
@@ -27,7 +33,25 @@
     <div class="col-xl-8">
       <!-- Account details card-->
       <div class="card mb-4">
-        <div class="card-header">Account Details</div>
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h2 class="text-xl">Account Details</h2>
+          <button
+            *ngIf="user?._id === userLocal?._id"
+            class="btn btn-success d-flex gap-2 align-items-center"
+          >
+            <i class="fa-solid fa-plus"></i>
+            <a
+              href="#myModalAdd"
+              role="button"
+              class="d-block text-light text-decoration-none"
+              data-bs-toggle="modal"
+              >Write post</a
+            >
+          </button>
+        </div>
+
         <div class="card-body">
           <form [formGroup]="userInfo" (ngSubmit)="onEdit()">
             <!-- Form Group (username)-->
@@ -40,6 +64,9 @@
                 placeholder="Enter your username"
                 value="username"
                 formControlName="username"
+                [readOnly]="
+                  user && userLocal && user._id !== userLocal._id ? true : false
+                "
               />
               <div
                 *ngIf="
@@ -72,7 +99,6 @@
                                 <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Luna">
                             </div>
                         </div> -->
-
             <!-- Form Group (email address)-->
             <div class="mb-3">
               <label class="small mb-1" for="inputEmailAddress"
@@ -85,6 +111,9 @@
                 placeholder="Enter your email address"
                 value="name@example.com"
                 formControlName="email"
+                [readOnly]="
+                  user && userLocal && user._id !== userLocal._id ? true : false
+                "
               />
               <div
                 *ngIf="
@@ -111,6 +140,11 @@
                   type="string"
                   placeholder="Enter your address"
                   formControlName="address"
+                  [readOnly]="
+                    user && userLocal && user._id !== userLocal._id
+                      ? true
+                      : false
+                  "
                 />
                 <div
                   *ngIf="
@@ -134,6 +168,11 @@
                   class="form-control"
                   id="inputBirthday"
                   type="text"
+                  [readOnly]="
+                    user && userLocal && user._id !== userLocal._id
+                      ? true
+                      : false
+                  "
                   placeholder="Enter your phone number"
                   formControlName="phone"
                 />
@@ -152,16 +191,23 @@
               </div>
             </div>
             <!-- Save changes button-->
-            <button class="btn btn-upload-img text-light" type="submit">
+            <button
+              *ngIf="user?._id === userLocal?._id"
+              class="btn btn-upload-img text-light"
+              type="submit"
+            >
               Save changes
             </button>
           </form>
         </div>
       </div>
       <app-list-user-posts
+        [user]="user"
+        [userLocal]="userLocal"
         [listUserPosts]="listUserPosts"
       ></app-list-user-posts>
     </div>
   </div>
 </div>
-<app-preview></app-preview>
+<!-- <app-preview></app-preview> -->
+<app-modal-add-post [listUserPosts]="listUserPosts"></app-modal-add-post>

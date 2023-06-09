@@ -1,11 +1,16 @@
+import * as io from 'socket.io-client';
+
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { IUserRequest } from 'src/app/interfaces/User';
 import { IComment, IResViewComment } from 'src/app/interfaces/comment';
+
 import { CommentService } from 'src/app/services/comment/comment.service';
-import { ToastrService } from 'ngx-toastr';
+import { IUserRequest } from 'src/app/interfaces/User';
+import { Socket } from 'ngx-socket-io';
 import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-comments-post',
@@ -22,7 +27,8 @@ export class CommentsPostComponent {
     private commentService: CommentService,
     private commentForm: FormBuilder,
     private Toast: ToastrService,
-    private router: Router
+    private router: Router,
+    private socket: Socket
   ) {
     this.user = JSON.parse(localStorage.getItem('user') || '{}');
     this.userId = this.user._id || '';
@@ -56,10 +62,12 @@ export class CommentsPostComponent {
     }
 
     if (this.formAddComment.valid && this.userId) {
-      this.commentService.sendComment(comment).subscribe((comment) => {
-        console.log(comment);
-      });
-      window.location.reload();
+      // this.commentService.sendComment(comment).subscribe((comment) => {
+      //   console.log(comment);
+      // });
+      // window.location.reload();
+      this.socket.emit('addDoc', comment);
+      this.formAddComment.reset();
     }
   }
 
@@ -80,7 +88,7 @@ export class CommentsPostComponent {
   }
 
   getDetailComment(id: string) {
-    this.idComment = id
+    this.idComment = id;
     console.log(id);
     this.commentService.getDetailComment(id).subscribe((comment) => {
       // console.log(comment.data);
@@ -105,7 +113,6 @@ export class CommentsPostComponent {
   }
 
   handleEdit(id: string) {
-    
     const comment: IComment = {
       userId: this.userId || '',
       postId: this.idPost || '',
@@ -116,10 +123,10 @@ export class CommentsPostComponent {
 
     // console.log(comment);
 
-    if (this.formEditComment.valid ) {
-      this.commentService.updateComment(id, comment).subscribe((data)=> {
+    if (this.formEditComment.valid) {
+      this.commentService.updateComment(id, comment).subscribe((data) => {
         console.log(data);
-      })
+      });
       window.location.reload();
     }
   }
