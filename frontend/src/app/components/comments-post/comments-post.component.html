@@ -39,7 +39,7 @@
                       <form [formGroup]="formEditComment" (ngSubmit)="handleEdit(idComment)">
                         <textarea formControlName="content" class="form-control" id="textAreaExample" rows="4"
                           style="background: #fff;">
-                                                </textarea>
+                                                  </textarea>
                         <div *ngIf="checkEditContent.invalid && (checkEditContent.touched || checkEditContent.dirty)">
                           <span class="text-danger" *ngIf="checkEditContent.errors?.['required']">Content is
                             required</span>
@@ -70,7 +70,7 @@
                 <form [formGroup]="formAddComment" (ngSubmit)="addComment()">
                   <textarea formControlName="content" class="form-control" id="textAreaExample" rows="4"
                     style="background: #fff;">
-                                    </textarea>
+                                      </textarea>
                   <div *ngIf="checkAddContent.invalid && (checkAddContent.touched || checkAddContent.dirty)">
                     <span class="text-danger" *ngIf="checkAddContent.errors?.['required']">Content
                       is
