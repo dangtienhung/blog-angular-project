@@ -153,7 +153,6 @@ export class ListUserPostsComponent {
     });
   }
   onHandleSubmit() {
-    console.log('submited');
     if (this.postForm.invalid) return;
     /* lấy ra thông tin người dùng */
     const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -171,11 +170,11 @@ export class ListUserPostsComponent {
       status: this.postForm.value.status,
     };
 
-    console.log(this.idPost);
+    // console.log(this.idPost);
 
     this.postsService.updatePost(post, this.idPost).subscribe(
       (data) => {
-        console.log(data);
+        // console.log(data);
         this.postsService.getPostByIdUser(user._id).subscribe(({ data }) => {
           if (data.postList) {
             this.listUserPosts = data.postList;

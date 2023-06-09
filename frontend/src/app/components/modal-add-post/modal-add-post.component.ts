@@ -127,9 +127,9 @@ export class ModalAddPostComponent {
     this.postService.createPost(post).subscribe(
       ({ post }) => {
         post.author = user;
-        console.log(post);
+        // console.log(post);
         this.listUserPosts.push(post);
-        console.log(this.listUserPosts);
+        // console.log(this.listUserPosts);
 
         user.role === 'admin'
           ? this.toastr.success('Đăng bài thành công.')
