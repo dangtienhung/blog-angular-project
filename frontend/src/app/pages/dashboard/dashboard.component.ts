@@ -26,9 +26,9 @@ export class DashboardComponent {
   }
   /* get count post */
   getCountPost() {
-    this.postsService.getPostByDate().subscribe((res) => {
-      this.countPost = res;
-    });
+    this.postsService
+      .getPostByDate()
+      .subscribe((res) => (this.countPost = res));
   }
   /* get count user */
   getCountUser() {
