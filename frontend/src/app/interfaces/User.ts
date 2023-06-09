@@ -63,3 +63,8 @@ export interface IUserPosts {
   message: string;
   data: IUser;
 }
+
+export interface IUserAnalytics {
+  message: string;
+  count: number;
+}

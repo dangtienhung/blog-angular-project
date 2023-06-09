@@ -5,19 +5,20 @@ import UploadFileRouter from './routes/uploadfile.routes.js';
 import YAML from 'yamljs';
 import authRouter from './routes/auth.routes.js';
 import { authors } from './middleware/author.js';
+import commentRouter from './routes/comment.route.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import hashTagRouter from './routes/hashtag.route.js';
 import morgan from 'morgan';
 import postRouter from './routes/posts.routes.js';
+import { realTimeSocketIo } from './config/socketio.js';
 import swaggerJsdoc from 'swagger-jsdoc';
 import { swaggerOptions } from './config/swagger.js';
 import swaggerUi from 'swagger-ui-express';
 import tagRouter from './routes/tag.route.js';
 import uploadRouter from './routes/upload.routes.js';
 import userRouter from './routes/users.routes.js';
-import commentRouter from './routes/comment.route.js';
 
 // import commentRoute from './routes/comments.routes.js';
 
@@ -72,21 +73,4 @@ const server = app.listen(port, () => {
 // export const viteNodeApp = app;
 
 /* socket */
-const io = new Server(server, {
-  cors: {
-    origin: `http://localhost:${port}`,
-    methods: ['GET', 'POST'],
-    creadentials: true,
-  },
-});
-
-io.on('connection', (socket) => {
-  console.log('Made socket connection');
-  socket.on('comment', (data) => {
-    console.log('🚀 ~ file: server.js:83 ~ socket.on ~ data:', data);
-    io.emit('comment', data);
-  });
-  socket.on('disconnect', () => {
-    console.log('User disconnected');
-  });
-});
+realTimeSocketIo(server);

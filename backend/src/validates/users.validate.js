@@ -3,7 +3,7 @@ import joi from 'joi';
 export const userValidate = joi.object({
   username: joi.string().required(),
   email: joi.string().email().required(),
-  password: joi.string().required(),
+  password: joi.string(),
   avatar: joi.string(),
   role: joi.string().valid('user', 'admin', 'superadmin'),
   is_active: joi.boolean(),
