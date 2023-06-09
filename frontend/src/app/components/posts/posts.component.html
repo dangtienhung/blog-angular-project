@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mb-4">
   <section class="row g-2">
     <ngx-slick-carousel
       class="carousel"
@@ -52,7 +52,7 @@
                 <span
                   class="text-6B6B6B text-sm font-600"
                   *ngIf="post && post.createdAt"
-                  >{{ post.createdAt }}</span
+                  >{{ handleFomatDate(post.createdAt) }}</span
                 >
                 <span
                   class="d-inline-block rounded-circle"

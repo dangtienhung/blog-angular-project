@@ -11,6 +11,7 @@ import { Socket } from 'ngx-socket-io';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import { map } from 'rxjs/operators';
+import { bootstrapApplication } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-comments-post',
@@ -28,6 +29,7 @@ export class CommentsPostComponent {
     private commentForm: FormBuilder,
     private Toast: ToastrService,
     private router: Router,
+    private params: ActivatedRoute,
     private socket: Socket
   ) {
     this.user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -62,17 +64,19 @@ export class CommentsPostComponent {
     }
 
     if (this.formAddComment.valid && this.userId) {
-      // this.commentService.sendComment(comment).subscribe((comment) => {
-      //   console.log(comment);
-      // });
-      // window.location.reload();
       this.socket.emit('addDoc', comment);
       this.formAddComment.reset();
     }
   }
 
+  getCommentRefPost() {
+    const id = this.params.snapshot.params['id'];
+    this.commentService.getViewComment(id).subscribe(({ data }) => {
+      this.comments = data;
+    });
+  }
+
   handleDelete(id: string) {
-    // console.log(id);
     Swal.fire({
       title: 'Do you want to delete this comment?',
       showCancelButton: true,
@@ -81,7 +85,7 @@ export class CommentsPostComponent {
     }).then((result) => {
       if (result.value) {
         this.commentService.deleteComment(id).subscribe(() => {
-          window.location.reload();
+          this.getCommentRefPost();
         });
       }
     });
@@ -89,9 +93,7 @@ export class CommentsPostComponent {
 
   getDetailComment(id: string) {
     this.idComment = id;
-    console.log(id);
     this.commentService.getDetailComment(id).subscribe((comment) => {
-      // console.log(comment.data);
       this.formEditComment.patchValue({
         content: comment.data.content,
       });
@@ -119,15 +121,11 @@ export class CommentsPostComponent {
       content: this.formEditComment.value.content || '',
     };
 
-    console.log(id);
-
-    // console.log(comment);
-
     if (this.formEditComment.valid) {
-      this.commentService.updateComment(id, comment).subscribe((data) => {
-        console.log(data);
+      this.commentService.updateComment(id, comment).subscribe(() => {
+        // this.modal.nativeElement.style.display = 'none';
+        this.getCommentRefPost();
       });
-      window.location.reload();
     }
   }
 }

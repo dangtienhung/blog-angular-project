@@ -4,7 +4,7 @@
   </div>
   <div class="row justify-content-center gx-5" style="height: 600px">
     <div class="post-left col-sm-12 col-lg-6 mb-5 h-100">
-      <div class="img mb-4" style="width: 600px">
+      <div class="img mb-4">
         <a
           *ngIf="newPost && newPost._id"
           routerLink="/posts/{{ newPost._id }}"
@@ -38,7 +38,7 @@
             <span
               class="text-6B6B6B text-sm font-600"
               *ngIf="newPost && newPost.createdAt"
-              >{{ newPost.createdAt }}</span
+              >{{ handleFomatDate(newPost.createdAt) }}</span
             >
             <span
               class="d-inline-block rounded-circle"
