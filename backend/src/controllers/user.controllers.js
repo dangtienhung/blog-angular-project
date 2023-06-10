@@ -189,9 +189,11 @@ export const userController = {
       const oneWeekAgo = new Date(today);
       oneWeekAgo.setDate(today.getDate() - 7); // Giảm ngày đi 7 để lấy từ ngày trước đó
       const countUserWeek = await User.countDocuments({ createdAt: { $gte: oneWeekAgo, $lt: today } });
+      const countUserAll = await User.countDocuments();
       return res.status(200).json([
         { message: 'Số lượng người dùng được tạo trong ngày', count: countUserDay },
         { message: 'Số lượng người dùng được tạo mới trong tuần', count: countUserWeek },
+        { message: 'Tổng số lượng người dùng', count: countUserAll },
       ]);
     } catch (error) {
       return res.status(500).json({ msg: error.message });
