@@ -73,7 +73,7 @@ export class PostEditComponent implements AfterViewInit {
       this.imagePreviews = data.post.images;
       this.tempFile = data.post.images;
 
-      console.log(data);
+      // console.log(data);
 
       this.EditForm.patchValue({
         title: data.post.title,

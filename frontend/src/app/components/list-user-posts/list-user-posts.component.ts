@@ -38,7 +38,7 @@ export class ListUserPostsComponent {
     title: ['', [Validators.required, Validators.minLength(4)]],
     content: ['', [Validators.required]],
     hashTags: [''],
-    images: [[''], [Validators.required]],
+    images: [['']],
     author: [''],
     category: ['', [Validators.required]],
     is_active: ['public', [Validators.required]],

@@ -22,7 +22,7 @@ export class NewPostComponent {
 
   constructor(private postService: PostsService) {
     this.postService.getPostsApporved().subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       this.posts = data.posts.docs;
       this.newPost = this.posts[0];
       // console.log(this.posts);
