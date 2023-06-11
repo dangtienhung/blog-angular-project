@@ -81,7 +81,7 @@ export class UserInfoComponent {
     };
 
     this.profile.updateUser(this.user._id, editProfile).subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       localStorage.setItem(this.auth.TOKEN_USER, JSON.stringify(data.user));
     });
   }
