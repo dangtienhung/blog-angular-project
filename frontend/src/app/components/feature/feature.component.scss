@@ -12,9 +12,17 @@
   width: 361px;
   height: 272px;
   border-radius: 15px;
-  background-image: url("../../../assets/images/bg.png");
+  // background-image: url("../../../assets/images/bg.png");
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+  .modal-item {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
 }
 
 @media (min-width: 576px) and (max-width: 1200px) {
