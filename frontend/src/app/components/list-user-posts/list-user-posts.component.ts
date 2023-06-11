@@ -25,6 +25,7 @@ export class ListUserPostsComponent {
   @Input() user!: IUserRequest;
   @Input() userLocal!: IUser;
   tempFile!: any;
+  isUpload: boolean = false;
   // postData!: IPosts;
   public Editor = ClassicEditor;
   public editorContent = '';
@@ -38,7 +39,7 @@ export class ListUserPostsComponent {
     title: ['', [Validators.required, Validators.minLength(4)]],
     content: ['', [Validators.required]],
     hashTags: [''],
-    images: [[''], [Validators.required]],
+    images: [['']],
     author: [''],
     category: ['', [Validators.required]],
     is_active: ['public', [Validators.required]],
@@ -100,10 +101,12 @@ export class ListUserPostsComponent {
 
   handleFileInput(event: any) {
     const files = event.target.files;
+    this.isUpload = true;
     this.imageService.uploadImage(files).subscribe((res) => {
       this.urlImage = res.urls;
-      console.log(this.urlImage);
+      // console.log(this.urlImage);
       this.toastr.success('Uploaded');
+      this.isUpload = false;
     });
   }
   handleRemoveImage(public_id: string) {
@@ -113,6 +116,7 @@ export class ListUserPostsComponent {
       this.urlImage = this.urlImage.filter(
         (image) => image.public_id !== public_id
       );
+      this.toastr.success('Xóa thành công.Hãy chọn 1 ảnh nền mới.');
     });
   }
 
@@ -153,7 +157,6 @@ export class ListUserPostsComponent {
     });
   }
   onHandleSubmit() {
-    console.log('submited');
     if (this.postForm.invalid) return;
     /* lấy ra thông tin người dùng */
     const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -161,6 +164,11 @@ export class ListUserPostsComponent {
       this.toastr.error('Bạn chưa đăng nhập');
       return;
     }
+    if (this.urlImage.length === 0) {
+      this.toastr.warning('Bài post cần có ảnh nền!');
+      return;
+    }
+
     const post = {
       title: this.postForm.value.title,
       content: this.postForm.value.content,
@@ -171,11 +179,11 @@ export class ListUserPostsComponent {
       status: this.postForm.value.status,
     };
 
-    console.log(this.idPost);
+    // console.log(this.idPost);
 
     this.postsService.updatePost(post, this.idPost).subscribe(
       (data) => {
-        console.log(data);
+        // console.log(data);
         this.postsService.getPostByIdUser(user._id).subscribe(({ data }) => {
           if (data.postList) {
             this.listUserPosts = data.postList;

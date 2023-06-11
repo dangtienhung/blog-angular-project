@@ -55,12 +55,16 @@
           </div>
           <div class="card-body col-sm-8 m-3">
             <div class="card-flex-content">
-              <h4>
+              <h4 [title]="post.title">
                 <a
-                  class="card-title lh-base {{
+                  class="card-title lh-base  {{
                     post.status == 'rejected' ? 'text-light' : ''
                   }}"
-                  routerLink="/posts/{{ post._id }}"
+                  [routerLink]="
+                    post.status === 'rejected' || post.status === 'pending'
+                      ? '/user-info/' + post.author._id
+                      : '/posts/' + post._id
+                  "
                   >{{ post.title }}</a
                 >
               </h4>
@@ -366,7 +370,9 @@
                 <button
                   data-bs-dismiss="modal"
                   type="submit"
-                  [disabled]="!postForm.valid"
+                  [disabled]="
+                    !postForm.valid || isUpload || urlImage.length === 0
+                  "
                   class="btn btn-primary d-flex justify-content-center align-items-center w-100"
                 >
                   <i class="fa-solid fa-plus mx-2"></i>

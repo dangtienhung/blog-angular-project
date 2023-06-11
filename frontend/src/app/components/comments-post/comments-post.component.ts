@@ -71,6 +71,7 @@ export class CommentsPostComponent {
 
   getCommentRefPost() {
     const id = this.params.snapshot.params['id'];
+
     this.commentService.getViewComment(id).subscribe(({ data }) => {
       this.comments = data;
     });

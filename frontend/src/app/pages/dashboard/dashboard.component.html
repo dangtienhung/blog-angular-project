@@ -11,8 +11,8 @@
                   <div class="align-self-center">
                     <i class="fas fa-pencil-alt text-info fa-3x"></i>
                   </div>
-                  <div class="text-end">
-                    <h3>{{countPost[0]?.count}}</h3>
+                  <div class="text-end" *ngIf="countPost[0]">
+                    <h3>{{ countPost[0].count }}</h3>
                     <p class="mb-0">New Posts A Day</p>
                   </div>
                 </div>
@@ -24,7 +24,9 @@
               <div class="card-body">
                 <div class="d-flex justify-content-between px-md-1">
                   <div>
-                    <h3 class="text-info">{{countPost[1]?.count}}</h3>
+                    <h3 class="text-info" *ngIf="countPost[1]">
+                      {{ countPost[1].count }}
+                    </h3>
                     <p class="mb-0">New Posts A Week</p>
                   </div>
                   <div class="align-self-center">
@@ -39,7 +41,9 @@
               <div class="card-body">
                 <div class="d-flex justify-content-between px-md-1">
                   <div>
-                    <h3 class="text-info">{{countPost[3]?.count}}</h3>
+                    <h3 class="text-info" *ngIf="countPost[3]">
+                      {{ countPost[3].count }}
+                    </h3>
                     <p class="mb-0">Number of posts that have been approved</p>
                   </div>
                   <div class="align-self-center">
@@ -54,7 +58,9 @@
               <div class="card-body">
                 <div class="d-flex justify-content-between px-md-1">
                   <div>
-                    <h3 class="text-info">{{countPost[4]?.count}}</h3>
+                    <h3 class="text-info" *ngIf="countPost[4]">
+                      {{ countPost[4].count }}
+                    </h3>
                     <p class="mb-0">Number of posts pending approval</p>
                   </div>
                   <div class="align-self-center">
@@ -78,7 +84,9 @@
                     </div>
                   </div>
                   <div class="align-self-center">
-                    <h2 class="h1 mb-0">{{countPost[2]?.count}}</h2>
+                    <h2 class="h1 mb-0" *ngIf="countPost[2]">
+                      {{ countPost[2].count }}
+                    </h2>
                   </div>
                 </div>
               </div>
@@ -96,8 +104,8 @@
                   <div class="align-self-center">
                     <i class="far fa-user text-success fa-3x"></i>
                   </div>
-                  <div class="text-end">
-                    <h3>{{countUser[0]?.count}}</h3>
+                  <div class="text-end" *ngIf="countUser[0]">
+                    <h3>{{ countUser[0].count }}</h3>
                     <p class="mb-0">New Users A Day</p>
                   </div>
                 </div>
@@ -109,7 +117,9 @@
               <div class="card-body">
                 <div class="d-flex justify-content-between px-md-1">
                   <div>
-                    <h3 class="text-success">{{countUser[1]?.count}}</h3>
+                    <h3 class="text-success" *ngIf="countUser[1]">
+                      {{ countUser[1].count }}
+                    </h3>
                     <p class="mb-0">New Users A Week</p>
                   </div>
                   <div class="align-self-center">
@@ -146,7 +156,6 @@
   <section class="py-2">
     <div class="row">
       <div class="col-xl-12 col-md-12 col-12">
-
         <div>
           <h4 class="my-2">Pending posts</h4>
           <table class="table">
@@ -160,19 +169,39 @@
             </thead>
             <tbody *ngIf="pendingPosts && pendingPosts.length > 0">
               <tr *ngFor="let pendingPost of pendingPosts; let i = index">
-                <th scope="row">{{i + 1}}</th>
-                <td>{{pendingPost.title}}</td>
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ pendingPost.title }}</td>
                 <td>
-                  <span class="text-light p-1 rounded
-                    {{ pendingPost.status === 'pending' ? 'bg-warning' : 'bg-primary' }}
-                    {{ pendingPost.status === 'rejected' ? 'bg-dark text-white' : '' }}">
+                  <span
+                    class="text-light p-1 rounded
+                    {{
+                      pendingPost.status === 'pending'
+                        ? 'bg-warning'
+                        : 'bg-primary'
+                    }}
+                    {{
+                      pendingPost.status === 'rejected'
+                        ? 'bg-dark text-white'
+                        : ''
+                    }}"
+                  >
                     {{ pendingPost.status }}
                   </span>
                 </td>
                 <td>
                   <div>
-                    <button class="btn btn-success btn-sm" (click)="approvePost(pendingPost._id)">Duyệt</button>
-                    <button class="btn btn-danger btn-sm" (click)="rejectedPost(pendingPost._id)">Xóa</button>
+                    <button
+                      class="btn btn-success btn-sm"
+                      (click)="approvePost(pendingPost._id)"
+                    >
+                      Duyệt
+                    </button>
+                    <button
+                      class="btn btn-danger btn-sm"
+                      (click)="rejectedPost(pendingPost._id)"
+                    >
+                      Xóa
+                    </button>
                   </div>
                 </td>
               </tr>
