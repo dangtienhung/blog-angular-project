@@ -25,6 +25,7 @@ export class ListUserPostsComponent {
   @Input() user!: IUserRequest;
   @Input() userLocal!: IUser;
   tempFile!: any;
+  isUpload: boolean = false;
   // postData!: IPosts;
   public Editor = ClassicEditor;
   public editorContent = '';
@@ -100,10 +101,12 @@ export class ListUserPostsComponent {
 
   handleFileInput(event: any) {
     const files = event.target.files;
+    this.isUpload = true;
     this.imageService.uploadImage(files).subscribe((res) => {
       this.urlImage = res.urls;
-      console.log(this.urlImage);
+      // console.log(this.urlImage);
       this.toastr.success('Uploaded');
+      this.isUpload = false;
     });
   }
   handleRemoveImage(public_id: string) {
@@ -113,6 +116,7 @@ export class ListUserPostsComponent {
       this.urlImage = this.urlImage.filter(
         (image) => image.public_id !== public_id
       );
+      this.toastr.success('Xóa thành công.Hãy chọn 1 ảnh nền mới.');
     });
   }
 
@@ -160,6 +164,11 @@ export class ListUserPostsComponent {
       this.toastr.error('Bạn chưa đăng nhập');
       return;
     }
+    if (this.urlImage.length === 0) {
+      this.toastr.warning('Bài post cần có ảnh nền!');
+      return;
+    }
+
     const post = {
       title: this.postForm.value.title,
       content: this.postForm.value.content,
