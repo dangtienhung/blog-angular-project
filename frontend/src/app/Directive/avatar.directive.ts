@@ -22,6 +22,7 @@ export class AvatarDirective implements OnInit {
     const user = this.auth.getUserLogin();
 
     const avatar = this.document.querySelector('.img-account-profile') as any;
+    const avatarHeader = this.document.querySelector('.avatarHeader') as any;
     const btnUpload = this.document.querySelector('.btn-upload-img') as any;
     const file = this.document.querySelector('#file') as HTMLInputElement;
 
@@ -54,6 +55,7 @@ export class AvatarDirective implements OnInit {
               });
             });
           avatar.src = fileReader.result;
+          avatarHeader.src = fileReader.result;
           resolve(fileReader.result);
         };
         fileReader.onerror = (error) => {
