@@ -49,9 +49,14 @@
     .post-lists {
       height: 100%;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       .post-item {
         padding: 16px 0;
-        border-bottom: 1px solid #000;
+        &:not(:last-child) {
+          border-bottom: 1px solid #000;
+        }
         .post-item-title h4 {
           overflow: hidden;
           display: -webkit-box;
