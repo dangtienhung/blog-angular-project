@@ -6,4 +6,8 @@
   (exportToExcel)="exportToExcel()"
   [linkActive]="linkActive"
   [titleModal]="titleModal"
+  [paginationObj]="paginationObj"
+  (gotoPage)="gotoPage($event)"
+  (prevPage)="prevPage($event)"
+  (nextPage)="nextPage($event)"
 />

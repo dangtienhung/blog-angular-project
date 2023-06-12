@@ -122,6 +122,47 @@
           </article>
         </div>
       </div>
+      <div class="pagination py-3 d-flex justify-content-center">
+        <nav *ngIf="!ishiddenPagination">
+          <ul class="pagination">
+            <li
+              class="page-item {{
+                hasPrevPage ? '' : 'disabled user-select-none'
+              }}"
+            >
+              <button (click)="prevPage()" class="page-link" tabindex="-1">
+                Previous
+              </button>
+            </li>
+            <li *ngFor="let item of totalPagesArray" class="page-item">
+              <button
+                class="page-link  {{ currentPage === item ? 'active' : '' }}"
+                (click)="goToPage(item)"
+              >
+                {{ item }}
+              </button>
+            </li>
+            <!-- <li class="page-item active">
+              <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+            <li
+              class="page-item {{
+                hasNextPage ? '' : 'disabled user-select-none'
+              }}"
+            >
+              <button class="page-link" (click)="nextPage()">Next</button>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
+
+    <!-- <mat-paginator
+      [length]="totalDocs"
+      [pageSize]="10"
+      aria-label="Select page"
+    >
+    </mat-paginator> -->
   </div>
 </div>

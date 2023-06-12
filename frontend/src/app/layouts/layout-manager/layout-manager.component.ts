@@ -30,9 +30,14 @@ export class LayoutManagerComponent {
   @Input() viewComments: IResViewComment[] = [];
   @Input() handleAddNewUser: any;
   @Input() userForm: any;
+  @Input() paginationObj: any;
   @Output() exportToExcel = new EventEmitter<void>();
   @Output() delete = new EventEmitter<string>();
   @Output() edit = new EventEmitter<any>();
+  @Output() gotoPage = new EventEmitter<number | string>();
+  @Output() prevPage = new EventEmitter<boolean>();
+  @Output() nextPage = new EventEmitter<boolean>();
+
   slideConfig = {
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -92,5 +97,16 @@ export class LayoutManagerComponent {
     // Định dạng lại chuỗi ngày, tháng, năm
     const formattedDate = `${day}/${month}/${year}`;
     return formattedDate;
+  }
+  handleGotoPage(page: number | string) {
+    this.gotoPage.emit(page);
+  }
+  handlePrevPage() {
+    // console.log(this.paginationObj.hasPrevPage);
+    this.prevPage.emit(this.paginationObj.hasPrevPage);
+  }
+  handleNextPage() {
+    // console.log(this.paginationObj.hasNextPage);
+    this.nextPage.emit(this.paginationObj.hasNextPage);
   }
 }

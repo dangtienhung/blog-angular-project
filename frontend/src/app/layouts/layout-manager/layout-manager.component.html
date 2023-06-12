@@ -29,29 +29,41 @@
           </thead>
           <!-- users -->
           <tbody *ngIf="dataTbody">
-            <tr *ngFor="let user of dataTbody; let i = index" class="text-center">
+            <tr
+              *ngFor="let user of dataTbody; let i = index"
+              class="text-center"
+            >
               <td>{{ i + 1 }}</td>
               <td>
-                <img [src]="
+                <img
+                  [src]="
                     user.avatar ||
                     'https://api.multiavatar.com/' + user.username + '.png'
-                  " class="avatar" alt="Avatar" />
+                  "
+                  class="avatar"
+                  alt="Avatar"
+                />
                 <span class="text-truncate">{{ user.username }}</span>
               </td>
               <td>{{ user.email }}</td>
               <td>
-                <span class="status {{
+                <span
+                  class="status {{
                     user.role === 'user'
                       ? 'text-success'
                       : 'bg-danger text-white'
-                  }}">{{ user.role === "user" ? "người dùng" : "admin" }}</span>
+                  }}"
+                  >{{ user.role === "user" ? "người dùng" : "admin" }}</span
+                >
               </td>
               <td>
-                <span [class]="
+                <span
+                  [class]="
                     user.is_active
                       ? 'status text-success'
                       : 'status text-white bg-danger'
-                  ">{{ user.is_active ? "Active" : "InActive" }}
+                  "
+                  >{{ user.is_active ? "Active" : "InActive" }}
                 </span>
               </td>
               <td>
@@ -71,7 +83,10 @@
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
                 </a>
-                <button class="delete text-danger" (click)="handleDelete(user._id!)">
+                <button
+                  class="delete text-danger"
+                  (click)="handleDelete(user._id!)"
+                >
                   <i class="fa-sharp fa-solid fa-trash"></i>
                 </button>
               </td>
@@ -79,7 +94,10 @@
           </tbody>
           <!-- categories -->
           <tbody *ngIf="categories.length > 0">
-            <tr *ngFor="let category of categories; let i = index" class="text-center">
+            <tr
+              *ngFor="let category of categories; let i = index"
+              class="text-center"
+            >
               <td>{{ i + 1 }}</td>
               <td>{{ category.name }}</td>
               <td>{{ category.slug }}</td>
@@ -89,7 +107,10 @@
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
                 </a>
-                <button class="delete text-danger" (click)="handleDelete(category._id!)">
+                <button
+                  class="delete text-danger"
+                  (click)="handleDelete(category._id!)"
+                >
                   <i class="fa-sharp fa-solid fa-trash"></i>
                 </button>
               </td>
@@ -98,13 +119,19 @@
           <!-- Posts -->
 
           <tbody *ngIf="posts.length > 0">
-            <tr *ngFor="let post of posts; let i = index"
-              class="{{ post.status === 'pending' ? 'bg-FFAF40' : 'bg-red' }}">
+            <tr
+              *ngFor="let post of posts; let i = index"
+              class="{{ post.status === 'pending' ? 'bg-FFAF40' : 'bg-red' }}"
+            >
               <td>{{ i + 1 }}</td>
               <td>
                 <div class="post__image-group">
                   <div class="post__image-wrapper">
-                    <img [src]="post.images[0].url" alt="" class="mb-1 post__image" />
+                    <img
+                      [src]="post.images[0].url"
+                      alt=""
+                      class="mb-1 post__image"
+                    />
                   </div>
                   {{ post.title }}
                 </div>
@@ -118,17 +145,21 @@
               </td> -->
 
               <td>
-                <span class="text-light p-1 rounded {{
+                <span
+                  class="text-light p-1 rounded {{
                     post.is_active === true ? 'bg-success' : 'bg-danger'
-                  }}">
+                  }}"
+                >
                   {{ post.is_active ? "public" : "private" }}
                 </span>
               </td>
               <td>
                 <!-- <span *ngFor="let tag of post.tags">{{ tag }}</span> -->
-                <span class="text-light p-1 rounded
+                <span
+                  class="text-light p-1 rounded
                   {{ post.status === 'pending' ? 'bg-warning' : 'bg-primary' }}
-                  {{ post.status === 'rejected' ? 'bg-dark text-white' : '' }}">
+                  {{ post.status === 'rejected' ? 'bg-dark text-white' : '' }}"
+                >
                   {{ post.status }}
                 </span>
               </td>
@@ -136,8 +167,12 @@
               <td>
                 <!-- <button class="text-warning" (click)="getPostById(post._id!)" data-toggle="modal"
                   data-target="#exampleModal"> -->
-                <button class="text-23BB86" (click)="getPostById(post._id!)" data-toggle="modal"
-                  data-target="#exampleModal">
+                <button
+                  class="text-23BB86"
+                  (click)="getPostById(post._id!)"
+                  data-toggle="modal"
+                  data-target="#exampleModal"
+                >
                   <i class="fa-solid fa-eye"></i>
                 </button>
                 <a routerLink="/admin/post-edit/{{ post._id }}">
@@ -145,7 +180,10 @@
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
                 </a>
-                <button class="delete text-danger" (click)="handleDelete(post._id!)">
+                <button
+                  class="delete text-danger"
+                  (click)="handleDelete(post._id!)"
+                >
                   <i class="fa-sharp fa-solid fa-trash"></i>
                 </button>
               </td>
@@ -165,7 +203,10 @@
                   </button>
                 </a>
                 <button class="delete text-danger">
-                  <i class="fa-sharp fa-solid fa-trash" (click)="handleDelete(tag._id!)"></i>
+                  <i
+                    class="fa-sharp fa-solid fa-trash"
+                    (click)="handleDelete(tag._id!)"
+                  ></i>
                 </button>
               </td>
             </tr>
@@ -173,20 +214,27 @@
 
           <!-- Comment -->
           <tbody *ngIf="comments.length > 0">
-            <tr *ngFor="let comment of comments; let i = index" class="text-center">
+            <tr
+              *ngFor="let comment of comments; let i = index"
+              class="text-center"
+            >
               <td>{{ i + 1 }}</td>
               <td>{{ comment.Post.title }}</td>
               <td>
                 <a href="">
-                  <img [src]="
+                  <img
+                    [src]="
                       comment.Author.avatar ||
                       'https://api.multiavatar.com/' +
                         comment.Author.username +
                         '.png'
-                    " class="avatar" alt="Avatar" />
+                    "
+                    class="avatar"
+                    alt="Avatar"
+                  />
                   <span class="text-truncate">{{
                     comment.Author.username
-                    }}</span>
+                  }}</span>
                 </a>
               </td>
               <td>{{ comment.count }}</td>
@@ -201,25 +249,35 @@
           </tbody>
           <!-- Comment Detail-->
           <tbody *ngIf="viewComments.length > 0">
-            <tr *ngFor="let viewComment of viewComments; let i = index" class="text-center">
+            <tr
+              *ngFor="let viewComment of viewComments; let i = index"
+              class="text-center"
+            >
               <td>{{ i + 1 }}</td>
               <td>
                 <a href="">
-                  <img [src]="
+                  <img
+                    [src]="
                       viewComment.userId.avatar ||
                       'https://api.multiavatar.com/' +
                         viewComment.userId.username +
                         '.png'
-                    " class="avatar" alt="Avatar" />
+                    "
+                    class="avatar"
+                    alt="Avatar"
+                  />
                   <span class="text-truncate">{{
                     viewComment.userId.username
-                    }}</span>
+                  }}</span>
                 </a>
               </td>
-              <td>{{viewComment.content}}</td>
-              <td>{{viewComment.createdAt}}</td>
+              <td>{{ viewComment.content }}</td>
+              <td>{{ viewComment.createdAt }}</td>
               <td>
-                <button class="delete text-danger" (click)="handleDelete(viewComment._id!)">
+                <button
+                  class="delete text-danger"
+                  (click)="handleDelete(viewComment._id!)"
+                >
                   <i class="fa-sharp fa-solid fa-trash"></i>
                 </button>
               </td>
@@ -227,19 +285,43 @@
           </tbody>
         </table>
       </div>
-      <div class="clearfix mt-4">
-        <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-        <ul class="pagination">
-          <li class="page-item disabled"><a routerLink="#">Previous</a></li>
-          <li class="page-item"><a routerLink="#" class="page-link">1</a></li>
-          <li class="page-item"><a routerLink="#" class="page-link">2</a></li>
+      <div class="clearfix mt-4" *ngIf="paginationObj">
+        <div class="hint-text">
+          Showing <b>{{ paginationObj?.limit }}</b> out of
+          <b>{{ paginationObj?.totalDocs }}</b> entries
+        </div>
+        <ul class="pagination d-flex align-items-center gap-2">
+          <li class="page-item">
+            <button
+              [disabled]="!paginationObj?.hasPrevPage"
+              (click)="handlePrevPage()"
+            >
+              Previous
+            </button>
+          </li>
+          <li
+            *ngFor="let item of paginationObj?.totalPagesArray"
+            class="page-item {{
+              paginationObj?.currentPage === item ? 'active' : ''
+            }}"
+          >
+            <button class="page-link" (click)="handleGotoPage(item)">
+              {{ item }}
+            </button>
+          </li>
+          <!-- <li class="page-item"><a routerLink="#" class="page-link">2</a></li>
           <li class="page-item active">
             <a routerLink="#" class="page-link">3</a>
           </li>
           <li class="page-item"><a routerLink="#" class="page-link">4</a></li>
-          <li class="page-item"><a routerLink="#" class="page-link">5</a></li>
+          <li class="page-item"><a routerLink="#" class="page-link">5</a></li> -->
           <li class="page-item">
-            <a routerLink="#" class="page-link">Next</a>
+            <button
+              [disabled]="!paginationObj?.hasNextPage"
+              (click)="handleNextPage()"
+            >
+              Next
+            </button>
           </li>
         </ul>
       </div>
@@ -252,13 +334,24 @@
   [postInfo]="postInfo"></app-layout-modal-admin> -->
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Thông tin bài viết</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -267,14 +360,20 @@
           <div class="row align-items-center mb-5">
             <div class="col-sm-12 col-lg-6">
               <div class="main-img">
-                <img [src]="postInfo.images[0].url" alt="{{ postInfo.title }}" class="w-100 post__image-preview" />
+                <img
+                  [src]="postInfo.images[0].url"
+                  alt="{{ postInfo.title }}"
+                  class="w-100 post__image-preview"
+                />
               </div>
             </div>
             <div class="col-sm-12 col-lg-6">
               <div class="info">
                 <div class="tag mb-2">
-                  <span class="d-inline-block font-600 bg-F3EDFF text-6B6B6B rounded-4 text-sm px-3">{{
-                    postInfo.category.name }}</span>
+                  <span
+                    class="d-inline-block font-600 bg-F3EDFF text-6B6B6B rounded-4 text-sm px-3"
+                    >{{ postInfo.category.name }}</span
+                  >
                 </div>
                 <div class="title mb-3">
                   <h1 class="text-23BB86 font-600">
@@ -284,12 +383,14 @@
                 <div class="d-flex align-items-center gap-3">
                   <span class="text-6B6B6B text-sm font-600">{{
                     handleFomatDate(postInfo.createdAt)
-                    }}</span>
-                  <span class="d-inline-block rounded-circle"
-                    style="width: 6px; height: 6px; background: #b1b5c3"></span>
+                  }}</span>
+                  <span
+                    class="d-inline-block rounded-circle"
+                    style="width: 6px; height: 6px; background: #b1b5c3"
+                  ></span>
                   <span class="text-6B6B6B text-sm font-600">{{
                     postInfo.author.username
-                    }}</span>
+                  }}</span>
                 </div>
               </div>
             </div>
@@ -303,12 +404,17 @@
               <div class="row align-items-center">
                 <div class="col-sm-12 col-md-4 mb-4">
                   <div class="img">
-                    <img [width]="100" src="{{
+                    <img
+                      [width]="100"
+                      src="{{
                         postInfo.author.avatar ||
                           'https://api.multiavatar.com/' +
                             postInfo.author.username +
                             '.png'
-                      }}" alt="" class="mx-auto" />
+                      }}"
+                      alt=""
+                      class="mx-auto"
+                    />
                   </div>
                 </div>
                 <div class="col-sm-12 col-md-8">

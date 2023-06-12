@@ -11,6 +11,14 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./manage-user.component.scss'],
 })
 export class ManageUserComponent {
+  paginationObj: any = {
+    currentPage: 1,
+    totalDocs: 0,
+    limt: 10,
+    totalPages: 0,
+    hasNextPage: false,
+    hasPrevPage: false,
+  };
   title: string = 'Quản lý người dùng';
   titleModal: string = 'Thêm người dùng';
   linkActive: string = '/admin/add-user';
@@ -52,14 +60,47 @@ export class ManageUserComponent {
   }
   /* get All users */
   getAllUsers() {
-    this.userService.getAllUsers().subscribe((users) => {
-      // console.log(users);
+    this.userService
+      .getAllUsers(this.paginationObj.currentPage)
+      .subscribe((users) => {
+        // console.log(users);
+        this.usersList = users.docs;
 
-      this.usersList = users.docs;
-    });
+        this.paginationObj.currentPage = users.page;
+        this.paginationObj.totalPage = users.totalPages;
+        this.paginationObj.totalDocs = users.totalDocs;
+        this.paginationObj.limit = users.limit;
+        this.paginationObj.hasNextPage = users.hasNextPage;
+        this.paginationObj.hasPrevPage = users.hasPrevPage;
+        this.paginationObj.totalPagesArray = Array(this.paginationObj.totalPage)
+          .fill(0)
+          .map((_, index) => index + 1);
+      });
   }
   /* handle add new user */
   handleAddNewUser() {
     console.log(this.userForm.value);
+  }
+  gotoPage(page: number | string) {
+    this.paginationObj.currentPage = page;
+    this.getAllUsers();
+    // this.getAllPost();
+  }
+
+  prevPage(hasPrev: boolean) {
+    this.paginationObj.hasPrevPage = hasPrev;
+    if (this.paginationObj.hasPrevPage) {
+      this.paginationObj.currentPage--;
+      this.getAllUsers();
+    }
+  }
+
+  nextPage(hasNext: boolean) {
+    this.paginationObj.hasNextPage = hasNext;
+
+    if (this.paginationObj.hasNextPage) {
+      this.paginationObj.currentPage++;
+      this.getAllUsers();
+    }
   }
 }

@@ -22,8 +22,8 @@ export class UserService {
   }
 
   /* getAllUsers */
-  getAllUsers(): Observable<IUserDocs> {
-    return this.http.get<IUserDocs>(`${this.baseURL}?_page=1&&_limit=10`);
+  getAllUsers(page: number | string = 1): Observable<IUserDocs> {
+    return this.http.get<IUserDocs>(`${this.baseURL}?_page=${page}&&_limit=10`);
   }
 
   /* getAllUserDeleted */
