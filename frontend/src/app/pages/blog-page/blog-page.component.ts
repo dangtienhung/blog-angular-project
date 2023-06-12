@@ -1,8 +1,8 @@
+import { CategoryService } from 'src/app/services/category/category.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ICategory } from 'src/app/interfaces/Category';
 import { IPosts } from 'src/app/interfaces/Posts';
-import { CategoryService } from 'src/app/services/category/category.service';
 import { PostsService } from 'src/app/services/posts/posts.service';
 
 @Component({

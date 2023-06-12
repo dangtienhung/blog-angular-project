@@ -23,8 +23,7 @@ import { debounceTime } from 'rxjs/operators';
 export class HeaderComponent {
   isLogin: boolean = localStorage.getItem('accessToken') ? true : false;
   isHidden: boolean = true;
-  userInfo: IUser = JSON.parse(localStorage.getItem('user')!);
-
+  userInfo: IUser = JSON.parse(localStorage.getItem(this.auth.TOKEN_USER)!);
   searchValue: string = '';
   searchResult: IPosts[] = [];
   isShowSearch: boolean = false;

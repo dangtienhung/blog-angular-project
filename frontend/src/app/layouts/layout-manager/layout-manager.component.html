@@ -260,19 +260,19 @@
                     [src]="
                       viewComment.userId.avatar ||
                       'https://api.multiavatar.com/' +
-                        viewComment.userId.username +
+                        viewComment?.userId?.username +
                         '.png'
                     "
                     class="avatar"
                     alt="Avatar"
                   />
                   <span class="text-truncate">{{
-                    viewComment.userId.username
+                    viewComment?.userId?.username
                   }}</span>
                 </a>
               </td>
               <td>{{ viewComment.content }}</td>
-              <td>{{ viewComment.createdAt }}</td>
+              <td>{{ handleFomatDate(viewComment.createdAt) }}</td>
               <td>
                 <button
                   class="delete text-danger"
