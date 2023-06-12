@@ -14,7 +14,9 @@ import { UserService } from 'src/app/services/users/user.service';
 })
 export class UserInfoComponent {
   user!: IUserRequest;
-  userLocal: IUser = JSON.parse(localStorage.getItem('user') || '{}');
+  userLocal: IUser = JSON.parse(
+    localStorage.getItem(this.auth.TOKEN_USER) || '{}'
+  );
   listUserPosts!: IPosts[];
   userInfo = this.formUserInfo.group({
     username: ['', [Validators.required, Validators.minLength(3)]],
@@ -81,7 +83,6 @@ export class UserInfoComponent {
     };
 
     this.profile.updateUser(this.user._id, editProfile).subscribe((data) => {
-      console.log(data);
       localStorage.setItem(this.auth.TOKEN_USER, JSON.stringify(data.user));
     });
   }
