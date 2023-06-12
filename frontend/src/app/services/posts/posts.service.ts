@@ -30,11 +30,11 @@ export class PostsService {
     const options = { headers: headers };
     return options;
   }
-  getAllPosts(): Observable<IDocPosts> {
-    return this.http.get<IDocPosts>(`${baseURL}/posts`);
+  getAllPosts(page: number | string = 1): Observable<IDocPosts> {
+    return this.http.get<IDocPosts>(`${baseURL}/posts?_page=${page}`);
   }
-  getPostsApporved(): Observable<IDocPosts> {
-    return this.http.get<IDocPosts>(`${baseURL}/posts/approved`);
+  getPostsApporved(page: number | string = 1): Observable<IDocPosts> {
+    return this.http.get<IDocPosts>(`${baseURL}/posts/approved?_page=${page}`);
   }
   getPost(id: number | string): Observable<any> {
     return this.http.get<any>(`${baseURL}/posts/${id}`);

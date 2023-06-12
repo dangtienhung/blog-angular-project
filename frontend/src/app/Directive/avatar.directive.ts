@@ -52,6 +52,7 @@ export class AvatarDirective implements OnInit {
                   this.auth.TOKEN_USER,
                   JSON.stringify(data.user)
                 );
+                // window.location.reload();
               });
             });
           avatar.src = fileReader.result;
