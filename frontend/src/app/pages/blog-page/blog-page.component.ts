@@ -1,7 +1,7 @@
+import { CategoryService } from 'src/app/services/category/category.service';
 import { Component } from '@angular/core';
 import { ICategory } from 'src/app/interfaces/Category';
 import { IPosts } from 'src/app/interfaces/Posts';
-import { CategoryService } from 'src/app/services/category/category.service';
 import { PostsService } from 'src/app/services/posts/posts.service';
 
 @Component({
@@ -29,7 +29,7 @@ export class BlogPageComponent {
   }
 
   getAllPosts() {
-    this.postService.getAllPosts().subscribe((allPosts) => {
+    this.postService.getPostsApporved().subscribe((allPosts) => {
       this.posts = allPosts.posts.docs;
     });
   }
